@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AnimatedTestimonials } from "../components/AnimatedTestimonials";
 import { testimonials } from "../lib/testimonials";
 import { ThreeDCardDemo } from "../components/ThreeDCardDemo";
+import { GlobeDemo } from "../components/GlobeDemo";
 
 const Home = () => {
   const [gender, setGender] = useState(true);
@@ -20,7 +21,7 @@ const Home = () => {
               : 'url("https://i.pinimg.com/1200x/e9/3a/cc/e93accfca67cb616635147f584c2bff9.jpg")',
           }}
         ></div>
-        <div className="flex items-center gap-2 absolute top-[85%] md:top-[90%] left-[45%]">
+        <div className="flex items-center gap-2 absolute top-[85%] md:top-[90%] left-1/2 transform -translate-x-1/2">
           <input
             onClick={toggle}
             type="checkbox"
@@ -29,16 +30,16 @@ const Home = () => {
           />
         </div>
         <div className="relative z-10 mx-auto flex flex-col items-center text-white md:w-[60%]">
-          <h1 className="md:text-6xl md:p-0 pl-10 text-3xl text-[#be9d9d] font-semibold tracking-tighter">
+          <h1 className="md:text-6xl md:p-0 pl-10 text-3xl text-white font-semibold tracking-tighter">
             {gender ? "Find the perfect " : ""}
             {gender ? (
               ""
             ) : (
-              <span className="text-[#f3517a] font-bold">Elevate</span>
+              <span className="text-[#fa4773] font-bold">Elevate</span>
             )}
             {gender ? "" : " your rank 🚀"}
             {gender ? (
-              <span className="text-[#f3517a] font-bold">VALORANT</span>
+              <span className="text-[#fa4773] font-bold">VALORANT</span>
             ) : (
               ""
             )}
@@ -64,6 +65,12 @@ const Home = () => {
             See what our users have to say about us
           </p>
           <AnimatedTestimonials testimonials={testimonials} />
+        </div>
+      </div>
+
+      <div className="h-screen relative">
+        <div className="bg-black">
+          <GlobeDemo />
         </div>
       </div>
     </div>
