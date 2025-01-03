@@ -44,7 +44,7 @@ export function ThreeDCardDemo({gender}) {
           <CardItem
             translateZ={20}
             as={Link}
-            to="/signup"
+            to="/signin"
             className="px-4 py-2 rounded-xl bg-black text-white text-sm">
             Sign up
           </CardItem>

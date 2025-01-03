@@ -6,13 +6,15 @@ import {
   IconBrandTabler,
   IconLogin,
   IconUserBolt,
+  IconWritingSign,
 } from "@tabler/icons-react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "../lib/utils";
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
+import Blog from "../pages/Blog";
 import Coaches from "../pages/Coaches";
 import Signin from "../pages/Signin";
 
@@ -33,6 +35,13 @@ export function SidebarDemo() {
       ),
     },
     {
+      label: "Blogs",
+      to: "/blog",
+      icon: (
+        <IconWritingSign className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
       label: "Sign in",
       to: "/signin",
       icon: (
@@ -49,15 +58,16 @@ export function SidebarDemo() {
   ];
   const [open, setOpen] = useState(false);
   return (
-    (<div
+    <div
       className={cn(
-        "flex flex-col h-screen md:flex-row bg-gray-100 dark:bg-neutral-800 w-full overflow-x-hidden",
+        "flex flex-col h-screen md:flex-row dark:bg-neutral-800 w-full overflow-x-hidden",
         "min-h-screen"
-      )}>
+      )}
+    >
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
           <div className="fixed flex flex-col flex-1 overflow-x-hidden">
-            {open ? <Logo /> : <LogoIcon />}  
+            {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
@@ -75,40 +85,43 @@ export function SidebarDemo() {
                     className="h-7 w-7 flex-shrink-0 rounded-full"
                     width={50}
                     height={50}
-                    alt="Avatar" />
+                    alt="Avatar"
+                  />
                 ),
-              }} />
+              }}
+            />
           </div>
-        </SidebarBody> 
+        </SidebarBody>
       </Sidebar>
       <Dashboard />
-    </div>)
+    </div>
   );
 }
 export const Logo = () => {
   return (
-    (<Link
+    <Link
       to="/"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20">
-      <div
-        className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+    >
+      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="font-medium text-black dark:text-white whitespace-pre">
+        className="font-medium text-black dark:text-white whitespace-pre"
+      >
         Elevate
       </motion.span>
-    </Link>)
+    </Link>
   );
 };
 export const LogoIcon = () => {
   return (
-    (<Link
+    <Link
       to="/"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20">
-      <div
-        className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-    </Link>)
+      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+    >
+      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+    </Link>
   );
 };
 
@@ -119,8 +132,9 @@ const Dashboard = () => {
         <Route path="/" element={<Home />} />
         <Route path="/coaches" element={<Coaches />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/signin" element={<Signin />} />
-      </Routes> 
+      </Routes>
     </div>
   );
 };
