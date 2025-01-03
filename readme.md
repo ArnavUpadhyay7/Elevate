@@ -1,3 +1,2 @@
-i react-router-dom
-do the routing
-aceternity UI
+Complete the home page
+adjust the sidebar, shouldn't move while scrolling
