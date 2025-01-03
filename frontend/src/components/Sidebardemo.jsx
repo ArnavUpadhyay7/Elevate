@@ -51,12 +51,12 @@ export function SidebarDemo() {
   return (
     (<div
       className={cn(
-        "rounded-md flex flex-col h-screen md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 mx-auto border border-neutral-200 dark:border-neutral-700 overflow-x-hidden",
+        "flex flex-col h-screen md:flex-row bg-gray-100 dark:bg-neutral-800 w-full overflow-x-hidden",
         "min-h-screen"
       )}>
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
-          <div className="flex flex-col flex-1 overflow-x-hidden">
+          <div className="fixed flex flex-col flex-1 overflow-x-hidden">
             {open ? <Logo /> : <LogoIcon />}  
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
@@ -64,10 +64,10 @@ export function SidebarDemo() {
               ))}
             </div>
           </div>
-          <div>
+          <div className="fixed bottom-10 flex flex-col flex-1 overflow-x-hidden">
             <SidebarLink
               link={{
-                label: "Manu Arora",
+                label: "Arnav Upadhyay",
                 to: "/profile",
                 icon: (
                   <img
