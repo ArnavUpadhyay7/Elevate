@@ -127,7 +127,7 @@ export const LogoIcon = () => {
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="h-screen w-full">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/coaches" element={<Coaches />} />
