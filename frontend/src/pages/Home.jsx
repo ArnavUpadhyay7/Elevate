@@ -31,24 +31,18 @@ const Home = () => {
         </div>
         <div className="relative z-10 mx-auto flex flex-col items-center text-white md:w-[60%]">
           <h1 className="md:text-6xl md:p-0 pl-10 text-3xl text-center text-white font-semibold tracking-tighter">
-            {gender ? "Find the perfect " : ""}
-            {gender ? (
-              ""
-            ) : (
-              <span className="text-[#fa4773] font-bold">Elevate</span>
-            )}
-            {gender ? "" : " your rank 🚀"}
+            {gender ? "Find the perfect " : "Become a"}
             {gender ? (
               <span className="text-[#fa4773] font-bold">VALORANT</span>
             ) : (
-              ""
+              <span className="text-[#fa4773] font-bold"> Coach 🚀</span>
             )}
             {gender ? " coach" : ""}
           </h1>
           <p className="md:flex hidden text-gray pt-4 text-2xl tracking-tighter">
             {gender
               ? "Elevate is a platform to get reviewed by top coaches."
-              : "Get expert advice from the world's best coaches and elevate your rank."}
+              : "Transform players into top-tier competitors."}
           </p>
         </div>
 

@@ -13,16 +13,18 @@ export function ThreeDCardDemo({gender}) {
         <CardItem
           translateZ="50"
           className="md:text-3xl text-2xl text-center font-bold text-white">
-          
           {gender ? 
-          "Elevate Your Game":"Rank up faster than ever"
+          "Elevate Your Game":"Help others elevate their game."
           }
         </CardItem>
         
         <CardItem
           translateZ="60"
           className="text-gray-300 text-center text-sm mt-2">
-          Get coached by pro players and reach your gaming goals
+            {gender ? 
+          "Get coached by pro players and reach your gaming goals":"Guide players to unlock their full potential."
+          }
+          
         </CardItem>
 
         <CardItem translateZ="100" className="w-full mt-4">
@@ -36,15 +38,15 @@ export function ThreeDCardDemo({gender}) {
           <CardItem
             translateZ={20}
             as={Link}
-            to="/coaches"
+            to={gender ? "/coaches" : ""}
             className="px-4 py-2 text-black rounded-xl bg-neutral-100 text-sm">
-            Find Coaches →
+            {gender ? "Find Coaches → " : "Be a coach → "}
           </CardItem>
           
           <CardItem
             translateZ={20}
             as={Link}
-            to="/signin"
+            to={gender ? "/signin" : ""}
             className="px-4 py-2 rounded-xl bg-black text-white text-sm">
             Sign up
           </CardItem>
