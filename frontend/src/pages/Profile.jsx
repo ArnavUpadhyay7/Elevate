@@ -1,9 +1,11 @@
 import React from 'react'
+import ProfileCard from '../components/ProfileCard'
 
 const Profile = () => {
   return (
-    <div>
-      Profile
+    <div className='h-screen w-full flex justify-center pt-20'>
+      <ProfileCard />
+      
     </div>
   )
 }

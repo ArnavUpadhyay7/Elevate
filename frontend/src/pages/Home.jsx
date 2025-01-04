@@ -30,7 +30,7 @@ const Home = () => {
           />
         </div>
         <div className="relative z-10 mx-auto flex flex-col items-center text-white md:w-[60%]">
-          <h1 className="md:text-6xl md:p-0 pl-10 text-3xl text-white font-semibold tracking-tighter">
+          <h1 className="md:text-6xl md:p-0 pl-10 text-3xl text-center text-white font-semibold tracking-tighter">
             {gender ? "Find the perfect " : ""}
             {gender ? (
               ""

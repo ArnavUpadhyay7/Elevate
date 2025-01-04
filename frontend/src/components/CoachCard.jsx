@@ -2,7 +2,7 @@ import React from "react";
 
 const CoachCard = () => {
   return (
-    <div className="bg-[#1D1D27] h-[60vh] md:h-[55vh] w-[80vw] md:w-[22vw] rounded-2xl">
+    <div className="hover:cursor-pointer bg-[#1D1D27] h-[60vh] md:h-[55vh] w-[80vw] md:w-[22vw] rounded-2xl">
       <div className="h-[26vh]">
         <img
           className="h-full w-full rounded-2xl"
