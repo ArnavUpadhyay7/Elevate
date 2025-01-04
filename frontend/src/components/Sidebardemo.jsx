@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import {
@@ -17,6 +16,7 @@ import Profile from "../pages/Profile";
 import Blog from "../pages/Blog";
 import Coaches from "../pages/Coaches";
 import Signin from "../pages/Signin";
+import CoachProfile from "../pages/CoachProfile";
 
 export function SidebarDemo() {
   const links = [
@@ -132,6 +132,7 @@ const Dashboard = () => {
         <Route path="/" element={<Home />} />
         <Route path="/coaches" element={<Coaches />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/coach-profile/:id" element={<CoachProfile />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/signin" element={<Signin />} />
       </Routes>
