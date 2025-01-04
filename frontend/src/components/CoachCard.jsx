@@ -15,7 +15,7 @@ const CoachCard = ({link}) => {
         <div className="py-3 flex justify-between px-5">
           <div className="flex items-center gap-2">
             <p className="-mt-[5px] font-bold text-2xl text-white">Anna</p>
-            <div class="bg-cyan-500 flex justify-center items-center rounded-full w-5 h-5 shadow-[0_0_12px_rgba(89,235,255,1)]">
+            <div className="bg-cyan-500 flex justify-center items-center rounded-full w-5 h-5 shadow-[0_0_12px_rgba(89,235,255,1)]">
               <svg
                 stroke="black"
                 fill="none"
@@ -26,8 +26,8 @@ const CoachCard = ({link}) => {
               >
                 <path
                   d="M416 128 192 384l-96-96"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
               </svg>
             </div>
