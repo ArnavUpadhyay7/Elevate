@@ -5,8 +5,8 @@ const CoachProfile = () => {
     const {id} = useParams();
   return (
     <div className='bg-[#13131A] min-h-screen w-full'>
-      <div className='rounded md:h-[30vh]'>
-        <img className='h-full w-full' src="https://i.pinimg.com/1200x/8a/a6/14/8aa61454976eb18a034fa52f16c1ed70.jpg" alt="Coach Profile Banner" />
+      <div className='md:h-[30vh]'>
+        <img className='h-full w-full rounded-xl' src="https://i.pinimg.com/1200x/8a/a6/14/8aa61454976eb18a034fa52f16c1ed70.jpg" alt="Coach Profile Banner" />
         <div className='md:px-24 px-10 -mt-[30px] flex items-center gap-5'>
           <img className='md:size-32 size-24 rounded-full' src="https://vodify-gg.vercel.app/_next/image?url=%2Fegirl1.png&w=640&q=75" alt="Coach Profile" />
           <div className='flex flex-col pt-10 md:pt-5'>
