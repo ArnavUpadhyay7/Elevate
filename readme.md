@@ -1,2 +1,2 @@
-Complete User profile
-Start making coach profile
+Sign in and sign up of both players and coach.
+Start backend (auth).
