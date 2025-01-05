@@ -3,7 +3,9 @@ import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import {
   IconArrowLeft,
   IconBrandTabler,
+  IconDashboard,
   IconLogin,
+  IconMessage,
   IconUserBolt,
   IconWritingSign,
 } from "@tabler/icons-react";
@@ -20,17 +22,36 @@ import Signup from "../pages/Signup";
 import CoachProfile from "../pages/CoachProfile";
 import CoachSignup from "../pages/CoachSignup";
 import CoachLogin from "../pages/CoachLogin";
+import CoachMessages from "../pages/CoachMessages"
 
 export function SidebarDemo() {
+  const [coach, setCoach] = useState(true);
+  const [user, setUser] = useState(false);
   const links = [
-    {
+    !coach && {
       label: "Coaches",
       to: "/coaches",
       icon: (
         <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
+    coach && 
     {
+      label: "Dashboard",
+      to: "/dashboard",
+      icon: (
+        <IconDashboard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    coach && 
+    {
+      label: "My Messages",
+      to: "/coach-messages",
+      icon: (
+        <IconMessage className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    !coach && {
       label: "Profile",
       to: "/profile",
       icon: (
@@ -44,21 +65,21 @@ export function SidebarDemo() {
         <IconWritingSign className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-    {
+    !user && !coach &&{
       label: "Sign in",
       to: "/login",
       icon: (
         <IconLogin className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-    {
+    (user || coach) &&{
       label: "Logout",
       to: "#",
       icon: (
         <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-  ];
+  ].filter(Boolean);
   const [open, setOpen] = useState(false);
   return (
     <div
@@ -141,6 +162,8 @@ const Dashboard = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/coach-login" element={<CoachLogin />} />
         <Route path="/coach-signup" element={<CoachSignup />} />
+        <Route path="/dashboard" element={<CoachProfile />} />
+        <Route path="/coach-messages" element={<CoachMessages />} />
       </Routes>
     </div>
   );
