@@ -15,7 +15,8 @@ import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import Blog from "../pages/Blog";
 import Coaches from "../pages/Coaches";
-import Signin from "../pages/Signin";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
 import CoachProfile from "../pages/CoachProfile";
 
 export function SidebarDemo() {
@@ -43,7 +44,7 @@ export function SidebarDemo() {
     },
     {
       label: "Sign in",
-      to: "/signin",
+      to: "/login",
       icon: (
         <IconLogin className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
@@ -134,7 +135,8 @@ const Dashboard = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/coach-profile/:id" element={<CoachProfile />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );
