@@ -3,6 +3,7 @@ import { AnimatedTestimonials } from "../components/AnimatedTestimonials";
 import { testimonials } from "../lib/testimonials";
 import { ThreeDCardDemo } from "../components/ThreeDCardDemo";
 import { GlobeDemo } from "../components/GlobeDemo";
+import { TimelineDemo } from "../components/TimelineDemo";
 
 const Home = () => {
   const [gender, setGender] = useState(true);
@@ -25,7 +26,7 @@ const Home = () => {
           <button onClick={toggle} className="p-[3px] relative">
             <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-800 rounded-lg" />
             <div className="px-8 py-2 bg-gradient-to-r from-red-800 to-red-500 rounded-[6px] font-semibold relative group transition duration-200 text-white hover:bg-gradient-to-r hover:from-red-500 hover:to-red-800">
-            {gender ? "Become a coach" : "Find a coach"}
+              {gender ? "Become a coach" : "Find a coach"}
             </div>
           </button>
         </div>
@@ -50,7 +51,12 @@ const Home = () => {
           <ThreeDCardDemo gender={gender} />
         </div>
       </div>
-      <div className="relative mt-2 min-h-[100vh]">
+
+      <div>
+        <TimelineDemo />
+      </div>
+
+      <div className="relative min-h-screen mt-2">
         <div className="absolute bg-[url('https://i.pinimg.com/1200x/0b/18/64/0b1864e5cc7dc94694f38b4062b16fd8.jpg')] inset-0 bg-cover bg-center bg-no-repeat blur-[20px] md:blur-[25px]"></div>
         <div className="pt-8 md:pt-12 relative z-10 flex flex-col justify-center items-center">
           <h1 className="text-white text-4xl font-semibold">Testimonials</h1>
@@ -61,7 +67,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="h-screen relative">
+      <div className="relative">
         <div className="bg-black">
           <GlobeDemo />
         </div>

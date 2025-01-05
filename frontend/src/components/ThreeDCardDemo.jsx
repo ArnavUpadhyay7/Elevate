@@ -14,7 +14,7 @@ export function ThreeDCardDemo({gender}) {
           translateZ="50"
           className="md:text-3xl text-2xl text-center font-bold text-white">
           {gender ? 
-          "Elevate Your Game":"Help others elevate their game."
+          "Elevate Your Game 🚀":"Help others elevate their game."
           }
         </CardItem>
         
@@ -34,23 +34,34 @@ export function ThreeDCardDemo({gender}) {
             alt="Jett valorant" />
         </CardItem>
 
-        <div className="flex justify-between items-center mt-8">
-          <CardItem
-            translateZ={20}
-            as={Link}
-            to={gender ? "/coaches" : "coach-signup"}
-            className="px-4 py-2 text-black rounded-xl bg-neutral-100 text-sm">
-            {gender ? "Find Coaches → " : "Be a coach → "}
-          </CardItem>
-          
-          <CardItem
-            translateZ={20}
-            as={Link}
-            to={gender ? "/signup" : "coach-signup"}
-            className="px-4 py-2 rounded-xl bg-black text-white text-sm">
-            Sign up
-          </CardItem>
-        </div>
+          {gender ? 
+            <div className="flex justify-between items-center mt-8">
+              <CardItem
+                translateZ={20}
+                as={Link}
+                to="/coaches" 
+                className="px-4 py-2 text-black rounded-xl bg-neutral-100 text-sm">
+                Find Coaches
+              </CardItem>
+              
+              <CardItem
+                translateZ={20}
+                as={Link}
+                to="/signup" 
+                className="px-4 py-2 rounded-xl bg-black text-white text-sm">
+                Sign up
+              </CardItem>
+            </div> : 
+            <div className="flex justify-center items-center h-full mt-8">
+              <CardItem
+                translateZ={20}
+                as={Link}
+                to="/coach-signup" 
+                className="px-6 py-2 text-black rounded-xl bg-neutral-100 text-sm">
+                Be a coach →
+              </CardItem>
+            </div>
+          }
       </CardBody>
     </CardContainer>
   );

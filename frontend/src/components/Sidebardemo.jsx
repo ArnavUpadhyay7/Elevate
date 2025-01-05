@@ -25,8 +25,8 @@ import CoachLogin from "../pages/CoachLogin";
 import CoachMessages from "../pages/CoachMessages"
 
 export function SidebarDemo() {
-  const [coach, setCoach] = useState(true);
-  const [user, setUser] = useState(false);
+  const [coach, setCoach] = useState(false);
+  const [user, setUser] = useState(true);
   const links = [
     !coach && {
       label: "Coaches",
