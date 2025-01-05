@@ -18,6 +18,8 @@ import Coaches from "../pages/Coaches";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import CoachProfile from "../pages/CoachProfile";
+import CoachSignup from "../pages/CoachSignup";
+import CoachLogin from "../pages/CoachLogin";
 
 export function SidebarDemo() {
   const links = [
@@ -137,6 +139,8 @@ const Dashboard = () => {
         <Route path="/blog" element={<Blog />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/coach-login" element={<CoachLogin />} />
+        <Route path="/coach-signup" element={<CoachSignup />} />
       </Routes>
     </div>
   );

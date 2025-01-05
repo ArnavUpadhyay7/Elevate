@@ -3,7 +3,7 @@ import AuthImagePattern from "../components/AuthImagePattern";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 
-const Login = () => {
+const CoachLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -19,14 +19,14 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#161b20] grid lg:grid-cols-2">
+    <div className="min-h-screen bg-[#161b20] p-6 grid lg:grid-cols-2">
       {/* Left Side - Form */}
-      <div className="flex flex-col justify-center items-center p-6 sm:p-12">
+      <div className="flex flex-col justify-center items-center sm:p-12">
         <div className="w-full max-w-md space-y-8">
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
-              <h1 className="text-2xl font-bold mt-2">Welcome Back</h1>
+              <h1 className="text-2xl font-bold mt-2">Welcome Back Captain</h1>
               <p className="text-base-content/60">Sign in to your account</p>
             </div>
           </div>
@@ -101,7 +101,7 @@ const Login = () => {
           <div className="text-center">
             <p className="text-base-content/60">
               Don't have an account?{" "}
-              <Link to="/signup" className="link link-primary">
+              <Link to="/coach-signup" className="link link-primary">
                 Create account
               </Link>
             </p>
@@ -117,4 +117,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default CoachLogin;

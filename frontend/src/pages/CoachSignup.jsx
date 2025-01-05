@@ -3,7 +3,7 @@ import AuthImagePattern from "../components/AuthImagePattern";
 import { Link } from "react-router-dom";
 import { Camera, Eye, EyeOff, Loader2, Lock, Mail, TextIcon } from "lucide-react";
 
-const Signup = () => {
+const CoachSignup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullname: "",
@@ -13,7 +13,7 @@ const Signup = () => {
     rank: "",
     role: "",
     about: "",
-    playerCardImage: ""
+    rate: ""
   });
   // const [formData, setFormData] = useState({
   //   email: "",
@@ -32,7 +32,7 @@ const Signup = () => {
           {/* Logo */}
           <div className="text-center">
             <div className="flex flex-col items-center gap-2 group">
-              <h1 className="text-2xl font-bold">Create account</h1>
+              <h1 className="text-2xl font-bold">Create account Captain</h1>
               <p className="text-base-content/60">Get ready to elevate your skills 🚀</p>
             </div>
           </div>
@@ -143,6 +143,21 @@ const Signup = () => {
 
             <div className="form-control">
               <label className="label">
+                <span className="label-text font-medium">Rate per hour {"(in rupees)"}</span>
+              </label>
+              <div className="relative flex items-center">
+                <input
+                  type="number"
+                  className={`input input-bordered w-full text-sm md:text-base pl-5 tracking-tighter placeholder:text-gray-600`}
+                  placeholder="200"
+                  value={formData.rate}
+                  onChange={(e) => setFormData({ ...formData, rate: e.target.value })}
+                />
+              </div>
+            </div>
+
+            <div className="form-control">
+              <label className="label">
                 <span className="label-text font-medium">About you</span>
               </label>
               <div className="relative flex items-center">
@@ -202,17 +217,6 @@ const Signup = () => {
             </div>
           </div> */}
 
-            {/* <button type="submit" className="btn btn-primary w-full" disabled={isLoggingIn}>
-              {isLoggingIn ? (
-                <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  Loading...
-                </>
-              ) : (
-                "Sign in"
-              )}
-            </button> */}
-
             <div className="pt-5">
               <button type="submit" className="btn btn-primary w-full">Create account</button>
             </div>
@@ -222,7 +226,7 @@ const Signup = () => {
           <div className="text-center pt-2">
             <p className="text-base-content/60">
               Already have an account?{" "}
-              <Link to="/login" className="link link-primary">
+              <Link to="/coach-login" className="link link-primary">
                 Log in
               </Link>
             </p>
@@ -238,4 +242,4 @@ const Signup = () => {
     </div>
   );
 };
-export default Signup;
+export default CoachSignup;

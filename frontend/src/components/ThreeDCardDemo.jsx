@@ -38,7 +38,7 @@ export function ThreeDCardDemo({gender}) {
           <CardItem
             translateZ={20}
             as={Link}
-            to={gender ? "/coaches" : ""}
+            to={gender ? "/coaches" : "coach-signup"}
             className="px-4 py-2 text-black rounded-xl bg-neutral-100 text-sm">
             {gender ? "Find Coaches → " : "Be a coach → "}
           </CardItem>
@@ -46,7 +46,7 @@ export function ThreeDCardDemo({gender}) {
           <CardItem
             translateZ={20}
             as={Link}
-            to={gender ? "/signup" : ""}
+            to={gender ? "/signup" : "coach-signup"}
             className="px-4 py-2 rounded-xl bg-black text-white text-sm">
             Sign up
           </CardItem>
