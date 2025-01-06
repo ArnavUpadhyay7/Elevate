@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+// const playerRouter = require("./routes/player.route");
+// const coachRouter = require("./routes/coach.route");
 
 const connectToDb = require("./db/db");
 connectToDb();
@@ -20,8 +22,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// app.use("/player",playerRouter);
+// app.use("/coach", coachRouter);
+
 app.get("/", (req, res) => {
-    console.log("Server started");
+    res.send("ELEVATE");
 })
 
 app.listen(port, ()=> {
