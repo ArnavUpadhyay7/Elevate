@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AuthImagePattern from "../components/AuthImagePattern";
 import { Link } from "react-router-dom";
-import { Camera, Eye, EyeOff, Loader2, Lock, Mail, TextIcon } from "lucide-react";
+import { Eye, EyeOff, Loader2, Lock, Mail, TextIcon } from "lucide-react";
 
 const CoachSignup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -9,16 +9,13 @@ const CoachSignup = () => {
     fullname: "",
     email: "",
     password: "",
-    profilePic: "",
     rank: "",
     role: "",
     about: "",
-    rate: ""
+    rate: "",
+    profilePic: "",
+    coachBanner: ""
   });
-  // const [formData, setFormData] = useState({
-  //   email: "",
-  //   password: "",
-  // });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -186,36 +183,20 @@ const CoachSignup = () => {
               </div>
             </div>
 
-          {/* <div className="flex gap-5 pt-2">
-            <div>
-              <p className="label-text font-medium">Upload Profile Picture - </p>
-            </div>
-            <div className="flex flex-col items-center gap-4">
-              <div className="relative">
-                <img
-                  src="https://assets.aceternity.com/manu.png"
-                  alt="Profile"
-                  className="size-14 rounded-full object-cover"
-                />
-                <label
-                htmlFor="avatar-upload"
-                className={`
-                  absolute bottom-0 right-0 
-                  bg-base-content
-                  p-1 rounded-full cursor-pointer 
-                `}
-              >
-                <Camera className="size-4 text-base-200" />
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text font-medium">Upload Profile Banner</span>
+              </label>
+              <div className="relative flex items-center">
                 <input
-                  type="file"
-                  id="avatar-upload"
-                  className="hidden"
-                  accept="image/*"
+                  type="text"
+                  className={`input input-bordered w-full text-sm md:text-base pl-5 tracking-tighter placeholder:text-gray-600`}
+                  placeholder="Your image url here"
+                  value={formData.coachBanner}
+                  onChange={(e) => setFormData({ ...formData, coachBanner: e.target.value })}
                 />
-                </label>
               </div>
             </div>
-          </div> */}
 
             <div className="pt-5">
               <button type="submit" className="btn btn-primary w-full">Create account</button>

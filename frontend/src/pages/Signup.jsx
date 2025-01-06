@@ -9,11 +9,11 @@ const Signup = () => {
     fullname: "",
     email: "",
     password: "",
-    profilePic: "",
     rank: "",
     role: "",
     about: "",
-    playerCardImage: ""
+    profilePic: "",
+    playerBanner: ""
   });
   // const [formData, setFormData] = useState({
   //   email: "",
@@ -167,6 +167,21 @@ const Signup = () => {
                   placeholder="Your image url here"
                   value={formData.profilePic}
                   onChange={(e) => setFormData({ ...formData, profilePic: e.target.value })}
+                />
+              </div>
+            </div>
+
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text font-medium">Upload Profile Banner</span>
+              </label>
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  className={`input input-bordered w-full text-sm md:text-base pl-5 tracking-tighter placeholder:text-gray-600`}
+                  placeholder="Your image url here"
+                  value={formData.playerBanner}
+                  onChange={(e) => setFormData({ ...formData, playerBanner: e.target.value })}
                 />
               </div>
             </div>
