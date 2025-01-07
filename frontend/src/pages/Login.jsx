@@ -2,20 +2,19 @@ import { useState } from "react";
 import AuthImagePattern from "../components/AuthImagePattern";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
+import { playerStore } from "../store/authStore";
 
 const Login = () => {
+  const login = playerStore((store)=>store.login);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  // const [formData, setFormData] = useState({
-  //   email: "",
-  //   password: "",
-  // });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    login(formData);
   };
 
   return (
@@ -79,17 +78,6 @@ const Login = () => {
                 </button>
               </div>
             </div>
-
-            {/* <button type="submit" className="btn btn-primary w-full" disabled={isLoggingIn}>
-              {isLoggingIn ? (
-                <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  Loading...
-                </>
-              ) : (
-                "Sign in"
-              )}
-            </button> */}
           
             <div className="pt-4">
               <button type="submit" className="btn btn-primary w-full">Login</button>

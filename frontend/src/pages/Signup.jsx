@@ -2,8 +2,10 @@ import { useState } from "react";
 import AuthImagePattern from "../components/AuthImagePattern";
 import { Link } from "react-router-dom";
 import { Camera, Eye, EyeOff, Loader2, Lock, Mail, TextIcon } from "lucide-react";
+import { playerStore } from "../store/authStore";
 
 const Signup = () => {
+  const signup = playerStore((state) => state.signup);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullname: "",
@@ -15,13 +17,10 @@ const Signup = () => {
     profilePic: "",
     playerBanner: ""
   });
-  // const [formData, setFormData] = useState({
-  //   email: "",
-  //   password: "",
-  // });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    signup(formData);
   };
 
   return (
@@ -185,48 +184,6 @@ const Signup = () => {
                 />
               </div>
             </div>
-
-          {/* <div className="flex gap-5 pt-2">
-            <div>
-              <p className="label-text font-medium">Upload Profile Picture - </p>
-            </div>
-            <div className="flex flex-col items-center gap-4">
-              <div className="relative">
-                <img
-                  src="https://assets.aceternity.com/manu.png"
-                  alt="Profile"
-                  className="size-14 rounded-full object-cover"
-                />
-                <label
-                htmlFor="avatar-upload"
-                className={`
-                  absolute bottom-0 right-0 
-                  bg-base-content
-                  p-1 rounded-full cursor-pointer 
-                `}
-              >
-                <Camera className="size-4 text-base-200" />
-                <input
-                  type="file"
-                  id="avatar-upload"
-                  className="hidden"
-                  accept="image/*"
-                />
-                </label>
-              </div>
-            </div>
-          </div> */}
-
-            {/* <button type="submit" className="btn btn-primary w-full" disabled={isLoggingIn}>
-              {isLoggingIn ? (
-                <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  Loading...
-                </>
-              ) : (
-                "Sign in"
-              )}
-            </button> */}
 
             <div className="pt-5">
               <button type="submit" className="btn btn-primary w-full">Create account</button>

@@ -12,4 +12,6 @@ router.post("/profile", authMiddleware.authCoach, coachController.coachProfile);
 
 router.post("/logout", authMiddleware.authCoach, coachController.coachLogout);
 
+router.post("/check-auth", authMiddleware.authCoach, coachController.checkAuthCoach);
+
 module.exports = router;

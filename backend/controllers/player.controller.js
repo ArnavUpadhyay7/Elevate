@@ -50,3 +50,12 @@ exports.playerLogout = (req, res) => {
     res.clearCookie('token');
     res.status(200).json({ message: 'Logout successful' });
 };
+
+exports.checkAuthPlayer = (req, res) => {
+    try {
+        res.status(200).json({ player: req.player });
+    } catch (error) {
+        console.log("Error checking player authentication: ", error.message);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};

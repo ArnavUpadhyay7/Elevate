@@ -50,3 +50,12 @@ exports.coachLogout = (req, res) => {
     res.clearCookie('token');
     res.status(200).json({ message: 'Logout successful' });
 };
+
+exports.checkAuthCoach = (req, res) => {
+    try {
+        res.status(200).json({ coach: req.coach });
+    } catch (error) {
+        console.log("Error checking coach authentication: ", error.message);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};

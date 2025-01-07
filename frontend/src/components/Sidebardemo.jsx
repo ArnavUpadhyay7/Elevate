@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
-import {
-  IconArrowLeft,
-  IconBrandTabler,
-  IconDashboard,
-  IconLogin,
-  IconMessage,
-  IconUserBolt,
-  IconWritingSign,
-} from "@tabler/icons-react";
+import { IconArrowLeft, IconBrandTabler, IconDashboard, IconLogin, IconMessage, IconUserBolt, IconWritingSign } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "../lib/utils";
 import { Routes, Route } from "react-router-dom";
-import Home from "../pages/Home";
+import Home from "../pages/Home";1
 import Profile from "../pages/Profile";
 import Blog from "../pages/Blog";
 import Coaches from "../pages/Coaches";
@@ -22,11 +14,15 @@ import Signup from "../pages/Signup";
 import CoachProfile from "../pages/CoachProfile";
 import CoachSignup from "../pages/CoachSignup";
 import CoachLogin from "../pages/CoachLogin";
-import CoachMessages from "../pages/CoachMessages"
+import {coachStore, playerStore} from "../store/authStore";
+import Messages from "../pages/Messages";
 
 export function SidebarDemo() {
-  const [coach, setCoach] = useState(false);
-  const [user, setUser] = useState(true);
+  const coach = coachStore((state) => state.coach);
+  const player = playerStore((state) => state.player);
+// const {coach, logoutCoach} = coachStore((state) => ({coach: state.coach, logoutCoach: state.logout}));
+  // const {player, logoutPlayer} = playerStore((state)=>({player: state.player, logoutPlayer: state.logout}));
+
   const links = [
     !coach && {
       label: "Coaches",
@@ -43,10 +39,10 @@ export function SidebarDemo() {
         <IconDashboard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-    coach && 
+    (player || coach) && 
     {
       label: "My Messages",
-      to: "/coach-messages",
+      to: "/messages",
       icon: (
         <IconMessage className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
@@ -65,20 +61,27 @@ export function SidebarDemo() {
         <IconWritingSign className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-    !user && !coach &&{
+    !player && !coach &&{
       label: "Sign in",
       to: "/login",
       icon: (
         <IconLogin className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-    (user || coach) &&{
-      label: "Logout",
-      to: "#",
-      icon: (
-        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
+    // player &&{
+    //   label: "Logout",
+    //   onClick: logoutPlayer,
+    //   icon: (
+    //     <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    //   ),
+    // },
+    // coach &&{
+    //   label: "Logout",
+    //   onClick: logoutCoach,
+    //   icon: (
+    //     <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    //   ),
+    // },
   ].filter(Boolean);
   const [open, setOpen] = useState(false);
   return (
@@ -163,7 +166,7 @@ const Dashboard = () => {
         <Route path="/coach-login" element={<CoachLogin />} />
         <Route path="/coach-signup" element={<CoachSignup />} />
         <Route path="/dashboard" element={<CoachProfile />} />
-        <Route path="/coach-messages" element={<CoachMessages />} />
+        <Route path="/messages" element={<Messages />} />
       </Routes>
     </div>
   );

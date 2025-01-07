@@ -2,8 +2,10 @@ import { useState } from "react";
 import AuthImagePattern from "../components/AuthImagePattern";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, Loader2, Lock, Mail, TextIcon } from "lucide-react";
+import { coachStore } from "../store/authStore";
 
 const CoachSignup = () => {
+  const signup = coachStore((store)=>store.login);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullname: "",
@@ -19,6 +21,7 @@ const CoachSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    signup(formData);
   };
 
   return (
