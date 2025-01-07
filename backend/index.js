@@ -3,14 +3,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-// const playerRouter = require("./routes/player.route");
-// const coachRouter = require("./routes/coach.route");
+const playerRouter = require("./routes/player.route");
+const coachRouter = require("./routes/coach.route");
 
 const connectToDb = require("./db/db");
 connectToDb();
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4000; 
 
 app.use(
     cors({
@@ -22,8 +22,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// app.use("/player",playerRouter);
-// app.use("/coach", coachRouter);
+app.use("/player",playerRouter);
+app.use("/coach", coachRouter);
 
 app.get("/", (req, res) => {
     res.send("ELEVATE");
