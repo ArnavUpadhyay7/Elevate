@@ -1,10 +1,11 @@
 import { useState } from "react";
 import AuthImagePattern from "../components/AuthImagePattern";
-import { Link } from "react-router-dom";
-import { Camera, Eye, EyeOff, Loader2, Lock, Mail, TextIcon } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff, Loader2, Lock, Mail, TextIcon } from "lucide-react";
 import { playerStore } from "../store/authStore";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const signup = playerStore((state) => state.signup);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    signup(formData);
+    signup(formData, navigate);
   };
 
   return (

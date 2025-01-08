@@ -18,11 +18,9 @@ const playerSchema = new mongoose.Schema({
   },
   profilePic: {
     type: String,
-    default: "https://cdn-icons-png.flaticon.com/128/149/149071.png"
   },
   playerBanner: {
     type: String,
-    default: "https://i.pinimg.com/1200x/8a/a6/14/8aa61454976eb18a034fa52f16c1ed70.jpg"
   },
   about: {
     type: String,

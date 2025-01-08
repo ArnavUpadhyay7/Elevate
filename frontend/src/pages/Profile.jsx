@@ -1,11 +1,54 @@
 import React from 'react'
-import ProfileCard from '../components/ProfileCard'
+import CoachProfileCard from '../components/CoachProfileCard';
+import { playerStore } from '../store/authStore';
 
 const Profile = () => {
+  const player = playerStore((state) => state.player);
+
   return (
-    <div className='h-screen w-full flex justify-center pt-20'>
-      <ProfileCard />
-      
+    <div className='bg-[#13131A] min-h-screen w-full pb-10'>
+      <img className='md:h-[30vh] h-full w-full rounded-xl' src={player?.playerBanner || "https://i.pinimg.com/1200x/8a/a6/14/8aa61454976eb18a034fa52f16c1ed70.jpg"} alt="Player Profile Banner" />
+      <div className='md:px-24 px-6 -mt-[30px] flex items-center gap-5'>
+        <img className='md:size-28 size-20 rounded-full' src={player?.profilePic || "https://cdn-icons-png.flaticon.com/128/149/149071.png"} alt="Player Profile" />
+        <div className='flex flex-col pt-10 md:pt-5'>
+          <div className="flex items-center gap-2">
+              <p className="md:-mt-[5px] -mt-[8px] font-bold text-3xl md:text-4xl text-white">{player?.fullname}</p>
+              <div className="bg-cyan-500 flex justify-center items-center rounded-full w-5 h-5 shadow-[0_0_12px_rgba(89,235,255,1)]">
+                <svg
+                    stroke="black"
+                    fill="none"
+                    stroke-width="20"
+                    viewBox="0 0 512 512"
+                    className="w-4 h-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                    d="M416 128 192 384l-96-96"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    ></path>
+                </svg>
+              </div>
+          </div>
+          <div>
+            <p className='font-semibold text-lg'>{player?.rank}</p>
+          </div>
+        </div>
+        </div>
+        <div className='md:px-28 px-10 pt-2 md:flex md:gap-32'> 
+          <div>
+            <h1 className='text-3xl font-bold'>About me</h1>
+            <div className='mt-5 rounded-2xl bg-[#1D1D27] md:w-[40vw]'>
+            <p className="text-gray-400 mt-5 tracking-tighter md:tracking-normal leading-tight md:leading-6 md:text-xl px-10 py-5">
+              {player?.about} 
+            </p>
+            </div>
+          </div>
+          <div className='md:-mt-[5%] mt-10'>
+            <CoachProfileCard rank={player?.rank} role={player?.role} fullname={player?.fullname} about={player?.about} profilePic={player?.profilePic}/>
+          </div>
+        </div>
+
     </div>
   )
 }

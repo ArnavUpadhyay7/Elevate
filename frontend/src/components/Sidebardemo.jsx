@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import { IconArrowLeft, IconBrandTabler, IconDashboard, IconLogin, IconMessage, IconUserBolt, IconWritingSign } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "../lib/utils";
 import { Routes, Route } from "react-router-dom";
-import Home from "../pages/Home";1
-import Profile from "../pages/Profile";
-import Blog from "../pages/Blog";
-import Coaches from "../pages/Coaches";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
-import CoachProfile from "../pages/CoachProfile";
-import CoachSignup from "../pages/CoachSignup";
-import CoachLogin from "../pages/CoachLogin";
 import {coachStore, playerStore} from "../store/authStore";
-import Messages from "../pages/Messages";
+import { Loader } from "lucide-react";
+
+const Home = lazy(() => import("../pages/Home"));
+const Profile = lazy(() => import("../pages/Profile"));
+const Blog = lazy(() => import("../pages/Blog")); 
+const Coaches = lazy(() => import("../pages/Coaches"));
+const Login = lazy(() => import("../pages/Login"));
+const Signup = lazy(() => import("../pages/Signup"));
+const CoachProfile = lazy(() => import("../pages/CoachProfile"));
+const CoachSignup = lazy(() => import("../pages/CoachSignup"));
+const CoachLogin = lazy(() => import("../pages/CoachLogin"));
+const Messages = lazy(() => import("../pages/Messages"));
+
 
 export function SidebarDemo() {
+  const navigate = useNavigate();
   const coach = coachStore((state) => state.coach);
   const player = playerStore((state) => state.player);
   const logoutCoach = coachStore((state) => (state.logout));
@@ -70,14 +74,14 @@ export function SidebarDemo() {
     },
     player &&{
       label: "Logout",
-      onClick: logoutPlayer,
+      onClick: () => logoutPlayer(navigate),
       icon: (
         <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     coach &&{
       label: "Logout",
-      onClick: logoutCoach,
+      onClick: () => logoutCoach(navigate),
       icon: (
         <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
@@ -105,11 +109,11 @@ export function SidebarDemo() {
             <div className="fixed bottom-10 flex flex-col flex-1 overflow-x-hidden">
               <SidebarLink
                 link={{
-                  label: "Arnav Upadhyay",
-                  to: "/profile",
+                  label: player?.fullname || coach?.fullname,
+                  to: "#",
                   icon: (
                     <img
-                      src="https://assets.aceternity.com/manu.png"
+                      src={player?.profilePic || coach?.profilePic || "https://cdn-icons-png.flaticon.com/128/149/149071.png"} 
                       className="h-7 w-7 flex-shrink-0 rounded-full"
                       width={50}
                       height={50}
@@ -157,19 +161,25 @@ export const LogoIcon = () => {
 const Dashboard = () => {
   return (
     <div className="h-screen w-full">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/coaches" element={<Coaches />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/coach-profile/:id" element={<CoachProfile />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/coach-login" element={<CoachLogin />} />
-        <Route path="/coach-signup" element={<CoachSignup />} />
-        <Route path="/dashboard" element={<CoachProfile />} />
-        <Route path="/messages" element={<Messages />} />
-      </Routes>
+      <Suspense fallback={
+        <div className="flex justify-center items-center h-screen">
+          <Loader className="size-12 animate-spin"/>
+        </div>
+      }>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/coaches" element={<Coaches />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/coach-profile/:id" element={<CoachProfile />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/coach-login" element={<CoachLogin />} />
+          <Route path="/coach-signup" element={<CoachSignup />} />
+          <Route path="/dashboard" element={<CoachProfile />} />
+          <Route path="/messages" element={<Messages />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 };

@@ -20,10 +20,11 @@ export const playerStore = create((set) => ({
     }
   },
 
-  signup: async (data) => {
+  signup: async (data, navigate) => {
     try {
       const res = await axiosInstance.post("/player/signup", data);
       set({ player: res.data.player });
+      navigate("/coaches");
       toast.success("Account created successfully");
     } catch (error) {
       console.error("Error in signup: ", error);
@@ -31,10 +32,11 @@ export const playerStore = create((set) => ({
     }
   },
 
-  logout: async () => {
+  logout: async (navigate) => {
     try {
       await axiosInstance.post("/player/logout");
       set({ player: null });
+      navigate("/login");
       toast.success("Logged out successfully");
     } catch (error) {
       console.error("Error in logout: ", error);
@@ -42,12 +44,12 @@ export const playerStore = create((set) => ({
     }
   },
 
-  login: async (data) => {
+  login: async (data, navigate) => {
     try {
       const res = await axiosInstance.post("/player/login", data);
       set({ player: res.data.player });
+      navigate("/coaches");
       toast.success("Logged in successfully");
-      
     } catch (error) {
       console.error("Error in login: ", error);
       toast.error("Something went wrong");
@@ -73,21 +75,23 @@ export const coachStore = create((set) => ({
     }
   },
 
-  signup: async (data) => {
+  signup: async (data, navigate) => {
     try {
       const res = await axiosInstance.post("/coach/signup", data);
-      toast.success("Account created successfully");
       set({ coach: res.data.coach });
+      navigate("/dashboard");
+      toast.success("Account created successfully");
     } catch (error) {
       console.error("Error in signup: ", error);
       toast.error(error.response.data.message);
     }
   },
 
-  logout: async () => {
+  logout: async (navigate) => {
     try {
       await axiosInstance.post("/coach/logout");
       set({ coach: null });
+      navigate("/coach-login")
       toast.success("Logged out successfully");
     } catch (error) {
       console.error("Error in logout: ", error);
@@ -95,10 +99,11 @@ export const coachStore = create((set) => ({
     }
   },
 
-  login: async (data) => {
+  login: async (data, navigate) => {
     try {
       const res = await axiosInstance.post("/coach/login", data);
       set({ coach: res.data.coach });
+      navigate("/dashboard");
       toast.success("Logged in successfully");
     } catch (error) {
       console.error("Error in login: ", error);
