@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
 import {AnimatedModalDemo} from '../components/AnimatedModalDemo';
 import CoachProfileCard from '../components/CoachProfileCard';
-import { IconCheck, IconPointFilled, IconX } from "@tabler/icons-react";
+import { IconCheck, IconPlayerPause, IconPointFilled, IconX } from "@tabler/icons-react";
+import { coachStore, playerStore } from '../store/authStore';
 
 const CoachProfile = () => {
-    const [coach, setCoach] = useState(true);
+    const coach = coachStore((state) => state.coach);
+    const player = playerStore((state) => state.player);
     const {id} = useParams();
 
     const requests = [
@@ -28,7 +30,7 @@ const CoachProfile = () => {
                     fill="none"
                     stroke-width="20"
                     viewBox="0 0 512 512"
-                    class="w-4 h-4"
+                    className="w-4 h-4"
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <path
@@ -113,13 +115,13 @@ const CoachProfile = () => {
           </div>
           <div className='md:-mt-[5%] mt-10'>
             <CoachProfileCard />
-            {!coach && 
+            {player && 
               <div className='md:block hidden mt-6'>
               <AnimatedModalDemo />
               </div>
             }
           </div>
-          {!coach && 
+          {player && 
             <div className='block md:hidden mt-10'>
               <AnimatedModalDemo />
             </div>

@@ -5,7 +5,7 @@ import { Eye, EyeOff, Loader2, Lock, Mail, TextIcon } from "lucide-react";
 import { coachStore } from "../store/authStore";
 
 const CoachSignup = () => {
-  const signup = coachStore((store)=>store.login);
+  const signup = coachStore((store)=>store.signup);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullname: "",

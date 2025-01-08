@@ -121,11 +121,12 @@ export const SidebarLink = ({ link, className, ...props }) => {
   const { open, animate } = useSidebar();
   return (
     <Link
-      to={link.to}
+      to={link.to ? link.to: "#"}
       className={cn(
         "flex items-center justify-start gap-2  group/sidebar py-2",
         className
       )}
+      onClick={link.onClick ? link.onClick : undefined}
       {...props}
     >
       {link.icon}

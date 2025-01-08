@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import { IconArrowLeft, IconBrandTabler, IconDashboard, IconLogin, IconMessage, IconUserBolt, IconWritingSign } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
@@ -20,8 +20,8 @@ import Messages from "../pages/Messages";
 export function SidebarDemo() {
   const coach = coachStore((state) => state.coach);
   const player = playerStore((state) => state.player);
-// const {coach, logoutCoach} = coachStore((state) => ({coach: state.coach, logoutCoach: state.logout}));
-  // const {player, logoutPlayer} = playerStore((state)=>({player: state.player, logoutPlayer: state.logout}));
+  const logoutCoach = coachStore((state) => (state.logout));
+  const logoutPlayer = playerStore((state)=>(state.logout));
 
   const links = [
     !coach && {
@@ -47,7 +47,7 @@ export function SidebarDemo() {
         <IconMessage className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-    !coach && {
+    player && {
       label: "Profile",
       to: "/profile",
       icon: (
@@ -68,20 +68,20 @@ export function SidebarDemo() {
         <IconLogin className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-    // player &&{
-    //   label: "Logout",
-    //   onClick: logoutPlayer,
-    //   icon: (
-    //     <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    //   ),
-    // },
-    // coach &&{
-    //   label: "Logout",
-    //   onClick: logoutCoach,
-    //   icon: (
-    //     <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    //   ),
-    // },
+    player &&{
+      label: "Logout",
+      onClick: logoutPlayer,
+      icon: (
+        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    coach &&{
+      label: "Logout",
+      onClick: logoutCoach,
+      icon: (
+        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
   ].filter(Boolean);
   const [open, setOpen] = useState(false);
   return (
@@ -101,23 +101,25 @@ export function SidebarDemo() {
               ))}
             </div>
           </div>
-          <div className="fixed bottom-10 flex flex-col flex-1 overflow-x-hidden">
-            <SidebarLink
-              link={{
-                label: "Arnav Upadhyay",
-                to: "/profile",
-                icon: (
-                  <img
-                    src="https://assets.aceternity.com/manu.png"
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
-                  />
-                ),
-              }}
-            />
-          </div>
+          {(player || coach) && 
+            <div className="fixed bottom-10 flex flex-col flex-1 overflow-x-hidden">
+              <SidebarLink
+                link={{
+                  label: "Arnav Upadhyay",
+                  to: "/profile",
+                  icon: (
+                    <img
+                      src="https://assets.aceternity.com/manu.png"
+                      className="h-7 w-7 flex-shrink-0 rounded-full"
+                      width={50}
+                      height={50}
+                      alt="Avatar"
+                    />
+                  ),
+                }}
+              />
+            </div>
+          }
         </SidebarBody>
       </Sidebar>
       <Dashboard />
