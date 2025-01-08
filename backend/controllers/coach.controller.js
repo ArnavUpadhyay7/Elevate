@@ -59,3 +59,25 @@ exports.checkAuthCoach = (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
+exports.getAllCoaches = async (req, res) => {
+    try {
+      const coaches = await Coach.find();
+      res.status(200).json(coaches);
+    } catch (error) {
+      console.error("Error fetching coaches: ", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+exports.getCoachById = async (req, res) => {
+    try {
+      const coachId = req.params.id;
+      const coach = await Coach.findById(coachId);
+  
+      res.status(200).json(coach);
+    } catch (error) {
+      console.error("Error fetching coach by ID: ", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+};

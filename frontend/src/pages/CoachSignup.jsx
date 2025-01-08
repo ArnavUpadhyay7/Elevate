@@ -174,7 +174,7 @@ const CoachSignup = () => {
 
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium">Upload Profile Picture</span>
+                <span className="label-text font-medium">Upload Profile Picture {"(OPTIONAL)"}</span>
               </label>
               <div className="relative flex items-center">
                 <input
@@ -189,7 +189,7 @@ const CoachSignup = () => {
 
             <div className="form-control">
               <label className="label">
-                <span className="label-text font-medium">Upload Profile Banner</span>
+                <span className="label-text font-medium">Upload Profile Banner {"(OPTIONAL)"}</span>
               </label>
               <div className="relative flex items-center">
                 <input

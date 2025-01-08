@@ -1,40 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
-import {AnimatedModalDemo} from '../components/AnimatedModalDemo';
+import React from 'react'
 import CoachProfileCard from '../components/CoachProfileCard';
-import { IconPointFilled } from "@tabler/icons-react";
-import { axiosInstance } from '../lib/axios';
-import { Loader } from 'lucide-react';
-import { playerStore } from '../store/authStore';
+import { IconCheck, IconPointFilled, IconX } from "@tabler/icons-react";
+import { coachStore, playerStore } from '../store/authStore';
 
 const CoachProfile = () => {
-    const player = playerStore((state)=>state.player);
-    const {id} = useParams();
-    const [coach, setCoach] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const coach = coachStore((state) => state.coach);
+    const player = playerStore((state) => state.player);
 
-    useEffect(() => {
-      const fetchCoach = async () => {
-        try {
-          const res = await axiosInstance.get(`/coach/${id}`); 
-          setCoach(res.data);
-        } catch (error) {
-          console.error("Error fetching coach: ", error);
-        } finally{
-          setLoading(false);
-        }
-      };
-      fetchCoach();
-    }, [id]);
-
-    if (loading) {
-      return (
-        <div className="flex justify-center items-center h-screen">
-          <Loader className="size-12 animate-spin" />
-        </div>
-      );
-    }
-
+    const requests = [
+      { id: 1, name: "Arnav Upadhyay", img: "https://vodify-gg.vercel.app/_next/image?url=%2Fegirl1.png&w=640&q=75" },
+      { id: 2, name: "John Doe", img: "https://vodify-gg.vercel.app/_next/image?url=%2Fegirl1.png&w=640&q=75" },
+      // { id: 3, name: "Jane Smith", img: "https://vodify-gg.vercel.app/_next/image?url=%2Fegirl1.png&w=640&q=75" },
+      // { id: 4, name: "Emily Davis", img: "https://vodify-gg.vercel.app/_next/image?url=%2Fegirl1.png&w=640&q=75" },
+    ];
   return (
     <div className='bg-[#13131A] min-h-screen w-full pb-10'>
       <img className='md:h-[30vh] h-full w-full rounded-xl' src={coach?.coachBanner || "https://i.pinimg.com/1200x/8a/a6/14/8aa61454976eb18a034fa52f16c1ed70.jpg"} alt="Coach Profile Banner" />
@@ -67,13 +45,13 @@ const CoachProfile = () => {
         </div>
         <div className='md:px-28 px-10 pt-2 md:flex md:gap-32'> 
           <div>
-            <h1 className='text-3xl font-bold'>About me</h1>
+            <h1 className='text-3xl font-bold'>About me -</h1>
             <div className='mt-5 rounded-2xl bg-[#1D1D27] md:w-[40vw]'>
             <p className="text-gray-400 mt-5 tracking-tighter md:tracking-normal leading-tight md:leading-6 md:text-xl px-10 py-5">
               {coach?.about}
             </p>
             </div>
-            <div>
+              <div className='leading-tight'>
                 <h1 className='pt-5 text-3xl font-bold'>Services Provided -</h1>
                 <div className='px-10 py-5 mt-5 md:mb-0 mb-10 rounded-2xl bg-[#1D1D27] md:w-[40vw]'>
                   <div className='flex items-center gap-2'>
@@ -93,21 +71,42 @@ const CoachProfile = () => {
                     <p className='md:text-xl tracking-tighter'>Actionable insights to improve decision-making under pressure.</p>    
                   </div>
                 </div>
-            </div>
+              </div>
+              <>
+                <h1 className="py-5 text-3xl font-bold">Requests 🎯</h1>
+                {requests.length > 0 ? (
+                  requests.map((profile) => (
+                    <div
+                      key={profile.id}
+                      className="px-8 py-3 mt-2 md:mb-0 mb-2 rounded-2xl bg-[#1D1D27] md:w-[40vw]"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <img
+                            className="md:size-14 size-10 rounded-full"
+                            src={profile.img}
+                            alt={`${profile.name} profile pic`}
+                          />
+                          <p className="md:text-xl tracking-tighter">{profile.name}</p>
+                        </div>
+                        <div className="flex gap-4">
+                          <IconCheck className="md:size-8 text-green-500" />
+                          <IconX className="md:size-8 text-red-500" />
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )  : (
+                  <div className="px-8 py-4 mt-6 md:mb-0 mb-2 rounded-2xl md:text-xl bg-[#1D1D27] md:w-[40vw]">
+                    <p>No request available at the moment.</p>
+                  </div>
+                )
+              }
+              </>
           </div>
           <div className='md:-mt-[5%] mt-10'>
             <CoachProfileCard rank={coach?.rank} role={coach?.role} fullname={coach?.fullname} about={coach?.about} profilePic={coach?.profilePic}/>
-            {player && 
-              <div className='md:block hidden mt-6'>
-              <AnimatedModalDemo />
-              </div>
-            }
           </div>
-          {player && 
-            <div className='block md:hidden mt-10'>
-              <AnimatedModalDemo />
-            </div>
-          }
         </div>
 
     </div>

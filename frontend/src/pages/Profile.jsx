@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CoachProfileCard from '../components/CoachProfileCard';
 import { playerStore } from '../store/authStore';
+import {Link} from 'react-router-dom';
+import { axiosInstance } from '../lib/axios';
+import { Loader } from 'lucide-react';
 
 const Profile = () => {
   const player = playerStore((state) => state.player);
+  const [coaches, setCoaches] = useState([]);
+
+  useEffect(() => {
+    const fetchCoaches = async () => {
+      try {
+        const res = await axiosInstance.get("/coach/coaches");
+        setCoaches(res.data);
+      } catch (error) {
+        console.error("Error fetching coaches: ", error);
+      }
+    };
+    fetchCoaches();
+  }, []);
+
+  const topCoaches = coaches.slice(0,3);
 
   return (
     <div className='bg-[#13131A] min-h-screen w-full pb-10'>
@@ -39,9 +57,26 @@ const Profile = () => {
           <div>
             <h1 className='text-3xl font-bold'>About me</h1>
             <div className='mt-5 rounded-2xl bg-[#1D1D27] md:w-[40vw]'>
-            <p className="text-gray-400 mt-5 tracking-tighter md:tracking-normal leading-tight md:leading-6 md:text-xl px-10 py-5">
-              {player?.about} 
-            </p>
+              <p className="text-gray-400 mt-5 tracking-tighter md:tracking-normal leading-tight md:leading-6 md:text-xl px-10 py-5">
+                {player?.about} 
+              </p>
+            </div>
+            <h1 className='pt-4 text-3xl font-bold'>Top Coaches</h1>
+            <div>
+              {topCoaches.map((coach) => {
+                  return (
+                    <Link to={`/coach-profile/${coach._id}`} className='flex justify-between items-center mt-4 rounded-2xl px-8 py-2 bg-[#1D1D27] md:w-[40vw] hover:bg-red-900'>
+                      <div className='flex gap-4 items-center'>
+                        <img className='size-12 rounded-full' src={coach.profilePic} alt="" />
+                        <p className='text-xl font-semibold'>{coach.fullname}</p>
+                      </div>
+                      <div>
+                        <p className='text-xl font-semibold'>{coach.rank}</p>
+                      </div>
+                    </Link>
+                  )
+                })
+              }
             </div>
           </div>
           <div className='md:-mt-[5%] mt-10'>

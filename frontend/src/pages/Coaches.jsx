@@ -1,13 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CoachCard from "../components/CoachCard";
+import { axiosInstance } from "../lib/axios";
+import { Loader } from "lucide-react";
 
 const Coaches = () => {
-  const id = 1;
-  const id2 = 2;
-  const id3 = 3;
-  const id4 = 4;
-  const id5 = 5;
-  const id6 = 6;
+  const [coaches, setCoaches] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCoaches = async () => {
+      try {
+        const res = await axiosInstance.get("/coach/coaches");
+        setCoaches(res.data);
+      } catch (error) {
+        console.error("Error fetching coaches: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCoaches();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader className="size-12 animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <div className="bg-[#13131A] w-full">
       <div className="relative">
@@ -26,12 +47,16 @@ const Coaches = () => {
       </div>
 
       <div className="relative z-10 flex flex-wrap justify-center gap-10 py-20 md:px-20">
-        <CoachCard link={`/coach-profile/${id}`} />
-        <CoachCard link={`/coach-profile/${id2}`}/>
-        <CoachCard link={`/coach-profile/${id3}`}/>
-        <CoachCard link={`/coach-profile/${id4}`}/>
-        <CoachCard link={`/coach-profile/${id5}`}/>
-        <CoachCard link={`/coach-profile/${id6}`}/>
+        {coaches.map((coach) => (
+          <CoachCard
+            key={coach._id}
+            link={`/coach-profile/${coach._id}`}
+            about={coach.about}
+            fullname={coach.fullname} 
+            coachBanner={coach.coachBanner}
+            rate={coach.rate}
+          />
+        ))}
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ const CoachProfile = lazy(() => import("../pages/CoachProfile"));
 const CoachSignup = lazy(() => import("../pages/CoachSignup"));
 const CoachLogin = lazy(() => import("../pages/CoachLogin"));
 const Messages = lazy(() => import("../pages/Messages"));
+const CoachDashboard = lazy(() => import("../pages/CoachDashboard"));
 
 
 export function SidebarDemo() {
@@ -176,7 +177,7 @@ const Dashboard = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/coach-login" element={<CoachLogin />} />
           <Route path="/coach-signup" element={<CoachSignup />} />
-          <Route path="/dashboard" element={<CoachProfile />} />
+          <Route path="/dashboard" element={<CoachDashboard />} />
           <Route path="/messages" element={<Messages />} />
         </Routes>
       </Suspense>
