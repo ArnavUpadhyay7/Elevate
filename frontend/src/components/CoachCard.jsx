@@ -1,9 +1,13 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const CoachCard = ({link, fullname, coachBanner, about, rate}) => {
+const CoachCard = ({link, fullname, coachBanner, about, rate, rank, role}) => {
+
   return (
-    <div className="hover:cursor-pointer bg-[#1D1D27] min-h-[60vh] md:min-h-[55vh] pb-2 w-[80vw] md:w-[22vw] rounded-2xl">
+    <div className="hover:cursor-pointer relative bg-[#1D1D27] min-h-[60vh] md:min-h-[55vh] pb-2 w-[80vw] md:w-[22vw] rounded-2xl">
+      <div className="absolute mx-2 my-1 px-4 py-1 text-white bg-gradient-to-r from-purple-600 to-purple-400 rounded-full shadow-md">{rank}</div>
+      <div className="absolute right-2 top-2 px-5 text-black bg-white rounded-full">{role}</div>
+
       <Link to={link}>
         <div className="h-[26vh]">
           <img

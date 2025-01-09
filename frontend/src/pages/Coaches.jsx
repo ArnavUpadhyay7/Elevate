@@ -55,6 +55,8 @@ const Coaches = () => {
             fullname={coach.fullname} 
             coachBanner={coach.coachBanner}
             rate={coach.rate}
+            rank={coach.rank}
+            role={coach.role}
           />
         ))}
       </div>

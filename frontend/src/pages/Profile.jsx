@@ -13,7 +13,8 @@ const Profile = () => {
     const fetchCoaches = async () => {
       try {
         const res = await axiosInstance.get("/coach/coaches");
-        setCoaches(res.data);
+        const topCoaches = res.data.filter((coach) => coach.rank === "Radiant");
+        setCoaches(topCoaches);
       } catch (error) {
         console.error("Error fetching coaches: ", error);
       }
