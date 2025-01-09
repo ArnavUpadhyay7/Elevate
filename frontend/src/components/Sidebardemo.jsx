@@ -7,6 +7,7 @@ import { cn } from "../lib/utils";
 import { Routes, Route } from "react-router-dom";
 import {coachStore, playerStore} from "../store/authStore";
 import { Loader } from "lucide-react";
+import { CreateBlog } from "../pages/CreateBlog";
 
 const Home = lazy(() => import("../pages/Home"));
 const Profile = lazy(() => import("../pages/Profile"));
@@ -179,6 +180,7 @@ const Dashboard = () => {
           <Route path="/coach-signup" element={<CoachSignup />} />
           <Route path="/dashboard" element={<CoachDashboard />} />
           <Route path="/messages" element={<Messages />} />
+          <Route path="/create-blog" element={<CreateBlog />} />
         </Routes>
       </Suspense>
     </div>

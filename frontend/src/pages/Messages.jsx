@@ -2,8 +2,8 @@ import React from 'react'
 import { coachStore, playerStore } from '../store/authStore';
 
 const Messages = () => {
-    const coach = coachStore((state)=>state.coach);
-    const player = playerStore((state)=>state.player);
+  const coach = coachStore((state)=>state.coach);
+  const player = playerStore((state)=>state.player);
   return (
     <div>
       {coach && 
