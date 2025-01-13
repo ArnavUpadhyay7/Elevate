@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import {coachStore, playerStore} from "../store/authStore";
 import { Loader } from "lucide-react";
 import { CreateBlog } from "../pages/CreateBlog";
+import GlobalAudioPlayer from "../pages/GlobalAudio";
 
 const Home = lazy(() => import("../pages/Home"));
 const Profile = lazy(() => import("../pages/Profile"));
@@ -168,6 +169,7 @@ const Dashboard = () => {
           <Loader className="size-12 animate-spin"/>
         </div>
       }>
+          <GlobalAudioPlayer />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/coaches" element={<Coaches />} />
