@@ -3,27 +3,40 @@ import { coachStore } from "../store/authStore";
 import BlogCard from "../components/BlogCard";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../lib/axios";
+import { Loader } from "lucide-react";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const coach = coachStore((state) => state.coach);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchBlogs = async () => {
+      setIsLoading(true);
       try {
         const res = await axiosInstance.get("/blog/blogs");
         setBlogs(res.data.data); 
       } catch (error) {
         console.error("Error fetching blogs:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchBlogs();
   }, []);
+
+  if(isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader className="size-12 animate-spin" />
+      </div>
+    )
+  }
   
   return (
-    <div className="pb-10">
-      <h1 className="text-center text-3xl md:text-5xl font-semibold pt-4">Read Latest Blogs</h1>
+    <div className="pb-10 bg-[#161B20]">
+      <h1 className="text-center text-white text-3xl md:text-5xl font-semibold pt-4">Read Latest Blogs</h1>
       {coach && (
         <div className="absolute bottom-10 right-20">
           <button
@@ -35,7 +48,7 @@ const Blog = () => {
         </div>
       )}
 
-      <div className="pt-12 gap-6 px-10">
+      <div className="pt-12 gap-6 px-10 ">
         {blogs.length > 0 ? (
           blogs.map((blog) => (
             <BlogCard

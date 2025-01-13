@@ -30,20 +30,20 @@ export const CreateBlog = () => {
     };
   
     return (
-      <div className="min-h-screen bg-gray-100 flex justify-center items-center p-6">
-        <div className="bg-white shadow-lg rounded-lg w-full max-w-3xl p-8">
-          <h2 className="text-2xl font-bold text-gray-700 mb-6">Create Blog</h2>
+      <div className="min-h-screen bg-[#161B20] flex justify-center items-center p-6">
+        <div className="bg-[#1D232A] shadow-lg rounded-lg w-full max-w-3xl p-8">
+          <h2 className="text-2xl font-bold text-gray-200 mb-6">Create Blog</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label
                 htmlFor="postTitle"
-                className="block text-gray-700 font-semibold mb-2"
+                className="block text-gray-300 font-semibold mb-2"
               >
                 Blog Title
               </label>
               <input
                 type="text"
-                className="w-full border bg-white border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-[#1a2025] border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your blog title"
                 value={postTitle}
                 onChange={(e) => setPostTitle(e.target.value)}
@@ -54,13 +54,13 @@ export const CreateBlog = () => {
             <div>
               <label
                 htmlFor="postPic"
-                className="block text-gray-700 font-semibold mb-2"
+                className="block text-gray-300 font-semibold mb-2"
               >
                 Blog Image URL
               </label>
               <input
                 type="text"
-                className="w-full border bg-white border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-[#1a2025] border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter blog image URL"
                 value={postPic}
                 onChange={(e) => setPostPic(e.target.value)}
@@ -70,12 +70,12 @@ export const CreateBlog = () => {
             <div>
               <label
                 htmlFor="postContent"
-                className="block text-gray-700 font-semibold mb-2"
+                className="block text-gray-300 font-semibold mb-2"
               >
                 Blog Content
               </label>
               <textarea
-                className="w-full border bg-white border-gray-300 rounded-lg px-4 py-2 h-40 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-[#1a2025] border border-gray-300 rounded-lg px-4 py-2 h-40 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Write your blog content here..."
                 value={postContent}
                 onChange={(e) => setPostContent(e.target.value)}

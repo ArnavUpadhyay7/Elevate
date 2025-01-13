@@ -13,7 +13,7 @@ module.exports.authPlayer = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const player = await playerModel.findById(decoded.id);
     if (!player) {
-      console.log('Player not found');
+      // console.log('Player not found');
       return res.status(404).json({ message: 'Player not found' });
     }
     req.player = player;
@@ -35,7 +35,7 @@ module.exports.authCoach = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const coach = await coachModel.findById(decoded.id);
     if (!coach) {
-      console.log('Coach not found');
+      // console.log('Coach not found');
       return res.status(404).json({ message: 'Coach not found' });
     }
     req.coach = coach;

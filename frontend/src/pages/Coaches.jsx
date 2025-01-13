@@ -32,7 +32,7 @@ const Coaches = () => {
   return (
     <div className="bg-[#13131A] w-full">
       <div className="relative">
-        <div className="absolute h-[50vh] w-full bg-cover inset-0 bg-[url('https://i.pinimg.com/1200x/e9/a4/45/e9a445b8d2393b33f5c37e97df6b62a4.jpg')] blur-[15px] md:blur-[10px] bg-center">
+        <div className="absolute h-[60vh] w-full bg-cover inset-0 bg-[url('https://i.pinimg.com/1200x/5c/77/b4/5c77b498d943184c08da0b6d9dc174aa.jpg')] bg-center">
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
         <div className="relative z-10 text-white text-center p-10">

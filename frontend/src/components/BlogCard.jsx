@@ -9,7 +9,7 @@ const BlogCard = ( {postTitle, postPic, postContent, createdAt, coachName, profi
   }
 
   return (
-    <div className="bg-[#1D1D27] mb-5 shadow-lg rounded-lg max-w-lg md:mx-auto">
+    <div className="bg-[#1D232A] mb-5 shadow-lg rounded-lg max-w-lg md:mx-auto">
       <div className="py-2 px-6 border-b-[1px] flex items-center gap-2">
         <img className="size-16 rounded-full" src={profilePic || "http://localhost:5173/src/assets/authImages/Two.png"} alt="" />
         <div>

@@ -3,7 +3,7 @@ import CoachProfileCard from '../components/CoachProfileCard';
 import { IconCheck, IconPointFilled, IconX } from "@tabler/icons-react";
 import { coachStore, playerStore } from '../store/authStore';
 
-const CoachProfile = () => {
+const CoachDashboard = () => {
     const coach = coachStore((state) => state.coach);
     const player = playerStore((state) => state.player);
 
@@ -13,6 +13,7 @@ const CoachProfile = () => {
       // { id: 3, name: "Jane Smith", img: "https://vodify-gg.vercel.app/_next/image?url=%2Fegirl1.png&w=640&q=75" },
       // { id: 4, name: "Emily Davis", img: "https://vodify-gg.vercel.app/_next/image?url=%2Fegirl1.png&w=640&q=75" },
     ];
+    
   return (
     <div className='bg-[#13131A] min-h-screen w-full pb-10'>
       <img className='md:h-[30vh] h-full w-full rounded-xl' src={coach?.coachBanner || "https://i.pinimg.com/1200x/8a/a6/14/8aa61454976eb18a034fa52f16c1ed70.jpg"} alt="Coach Profile Banner" />
@@ -113,4 +114,4 @@ const CoachProfile = () => {
   )
 }
 
-export default CoachProfile
+export default CoachDashboard

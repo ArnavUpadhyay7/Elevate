@@ -56,8 +56,8 @@ const Home = () => {
         <TimelineDemo />
       </div>
 
-      <div className="relative min-h-screen mt-2">
-        <div className="absolute bg-[url('https://i.pinimg.com/1200x/0b/18/64/0b1864e5cc7dc94694f38b4062b16fd8.jpg')] inset-0 bg-cover bg-center bg-no-repeat blur-[20px] md:blur-[25px]"></div>
+      <div className="relative min-h-screen bg-black">
+        {/* <div className="absolute bg-[url('https://i.pinimg.com/1200x/0b/18/64/0b1864e5cc7dc94694f38b4062b16fd8.jpg')] inset-0 bg-cover bg-center bg-no-repeat blur-[20px] md:blur-[25px]"></div> */}
         <div className="pt-8 md:pt-12 relative z-10 flex flex-col justify-center items-center">
           <h1 className="text-white text-4xl font-semibold">Testimonials</h1>
           <p className="pt-2 text-md">

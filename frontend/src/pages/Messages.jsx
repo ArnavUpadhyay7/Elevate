@@ -5,12 +5,14 @@ const Messages = () => {
   const coach = coachStore((state)=>state.coach);
   const player = playerStore((state)=>state.player);
   return (
-    <div>
+    <div className='bg-[#13131A] text-white min-h-screen w-full pt-8'>
       {coach && 
-      <p>This is coach messages section</p>
+        <div>
+          <h1 className='text-center font-semibold text-5xl'>Feature incoming</h1>
+        </div>
       }
       {player && 
-      <p>This is player messages section</p>
+        <h1 className='text-center font-semibold text-5xl'>Feature incoming</h1>
       }
     </div>
   )
