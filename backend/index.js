@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const playerRouter = require("./routes/player.route");
 const coachRouter = require("./routes/coach.route");
 const blogRouter = require("./routes/blog.route");
+const paymentRouter = require("./routes/payment.route");
 
 const connectToDb = require("./db/db");
 connectToDb();
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use("/player", playerRouter);
 app.use("/coach", coachRouter);
 app.use("/blog", blogRouter);
+app.use("/payment", paymentRouter);
 
 app.get("/", (req, res) => {
     res.send("ELEVATE");

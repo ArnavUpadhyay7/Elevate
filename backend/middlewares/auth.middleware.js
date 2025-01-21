@@ -17,7 +17,6 @@ module.exports.authPlayer = async (req, res, next) => {
       return res.status(404).json({ message: 'Player not found' });
     }
     req.player = player;
-
     return next();
   }catch(error){
     return res.status(401).json({message: 'Unauthorized'});
