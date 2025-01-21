@@ -67,7 +67,7 @@ const CoachProfile = () => {
         </div>
         <div className='md:px-28 px-10 pt-2 md:flex md:gap-32'> 
           <div>
-            <h1 className='text-3xl font-bold'>About me</h1>
+            <h1 className='mt-2 text-3xl font-bold'>About {coach?.fullname}</h1>
             <div className='mt-5 rounded-2xl bg-[#1D1D27] md:w-[40vw]'>
             <p className="text-gray-400 mt-5 tracking-tighter md:tracking-normal leading-tight md:leading-6 md:text-xl px-10 py-5">
               {coach?.about}
@@ -99,13 +99,13 @@ const CoachProfile = () => {
             <CoachProfileCard rank={coach?.rank} role={coach?.role} fullname={coach?.fullname} about={coach?.about} profilePic={coach?.profilePic}/>
             {player && 
               <div className='md:block hidden mt-6'>
-              <AnimatedModalDemo />
+              <AnimatedModalDemo coach={coach} player={player}/>
               </div>
             }
           </div>
           {player && 
             <div className='block md:hidden mt-10'>
-              <AnimatedModalDemo />
+              <AnimatedModalDemo coach={coach} player={player}/>
             </div>
           }
         </div>

@@ -143,7 +143,7 @@ export const Logo = () => {
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="font-medium text-black dark:text-white whitespace-pre"
+        className="font-semibold text-white whitespace-pre"
       >
         Elevate
       </motion.span>
@@ -169,7 +169,7 @@ const Dashboard = () => {
           <Loader className="size-12 animate-spin"/>
         </div>
       }>
-          <GlobalAudioPlayer />
+        <GlobalAudioPlayer />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/coaches" element={<Coaches />} />

@@ -34,15 +34,7 @@ const AuthImagePattern = ({ title, subtitle }) => {
             />
           </div>
         ))}
-
-          {/* {[...Array(9)].map((_, i) => (
-              <div
-                key={i}
-                className={`bg-[url(${imgArr.src})] bg-cover bg-center aspect-square rounded-2xl bg-primary/10 ${
-                  i % 2 === 0 ? "animate-pulse" : ""
-                }`}
-              />
-            ))} */}
+        
         </div>
         <h2 className="text-2xl font-bold mb-4">{title}</h2>
         <p className="text-base-content/60">{subtitle}</p>

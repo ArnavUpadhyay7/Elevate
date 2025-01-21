@@ -10,8 +10,6 @@ const CoachDashboard = () => {
     const requests = [
       { id: 1, name: "Arnav Upadhyay", img: "https://vodify-gg.vercel.app/_next/image?url=%2Fegirl1.png&w=640&q=75" },
       { id: 2, name: "John Doe", img: "https://vodify-gg.vercel.app/_next/image?url=%2Fegirl1.png&w=640&q=75" },
-      // { id: 3, name: "Jane Smith", img: "https://vodify-gg.vercel.app/_next/image?url=%2Fegirl1.png&w=640&q=75" },
-      // { id: 4, name: "Emily Davis", img: "https://vodify-gg.vercel.app/_next/image?url=%2Fegirl1.png&w=640&q=75" },
     ];
     
   return (
@@ -46,7 +44,7 @@ const CoachDashboard = () => {
         </div>
         <div className='md:px-28 px-10 pt-2 md:flex md:gap-32'> 
           <div>
-            <h1 className='text-3xl font-bold'>About me -</h1>
+            <h1 className='mt-2 text-3xl font-bold'>About me -</h1>
             <div className='mt-5 rounded-2xl bg-[#1D1D27] md:w-[40vw]'>
             <p className="text-gray-400 mt-5 tracking-tighter md:tracking-normal leading-tight md:leading-6 md:text-xl px-10 py-5">
               {coach?.about}
