@@ -1,1 +1,2 @@
-Connection Request feature
+REMOVE Connection Request feature
+Complete payment integration
