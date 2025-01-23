@@ -30,16 +30,16 @@ const Coaches = () => {
   }
 
   return (
-    <div className="bg-[#13131A] w-full">
+    <div className="w-full">
       <div className="relative">
         <div className="absolute h-[60vh] w-full bg-cover inset-0 bg-[url('https://i.pinimg.com/1200x/5c/77/b4/5c77b498d943184c08da0b6d9dc174aa.jpg')] bg-center">
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
-        <div className="relative z-10 text-white text-center p-10">
-          <h1 className="text-4xl tracking-tighter font-bold drop-shadow-2xl">
+        <div className="relative z-10 text-center p-10">
+          <h1 className="text-white text-4xl tracking-tighter font-bold drop-shadow-2xl">
             Elevate Your Game with Expert Coaching
           </h1>
-          <p className="text-gray-400 leading-tight tracking-tighter mt-5 text-lg drop-shadow-lg mx-auto md:w-[50%]">
+          <p className="text-zinc-300 leading-tight tracking-tighter mt-5 text-lg drop-shadow-lg mx-auto md:w-[50%]">
             Unlock your full potential with personalized guidance from top Valorant coaches.
             Tailored sessions that refine your skills and boost your gameplay to the next level.  
           </p>

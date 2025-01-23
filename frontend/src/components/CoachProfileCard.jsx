@@ -3,7 +3,7 @@ import { cn } from '../lib/utils'
 
 const CoachProfileCard = ({rank, role, fullname, about, profilePic}) => {
   return (
-    <div className="max-w-xs w-full group/card">
+    <div className="max-w-xs w-full group/card text-zinc-300">
       <div
         className={cn(
           "cursor-pointer overflow-hidden relative card h-[60vh] md:h-[55vh] md:w-[20vw] rounded-xl mx-auto flex flex-col justify-between p-4",
@@ -19,17 +19,17 @@ const CoachProfileCard = ({rank, role, fullname, about, profilePic}) => {
             src={profilePic || "https://cdn-icons-png.flaticon.com/128/149/149071.png"}
             className="h-10 w-10 rounded-full border-2 object-cover" />
           <div className="flex flex-col">
-            <p className="font-bold text-xl text-gray-50 relative z-10">
+            <p className="font-bold text-xl relative z-10">
               {rank}
             </p>
-            <p className="text-sm text-gray-400">{role}</p>
+            <p className="text-sm">{role}</p>
           </div>
         </div>
         <div className="text content">
-          <h1 className="font-bold text-xl md:text-2xl text-gray-50 relative z-10">
+          <h1 className="font-bold text-xl md:text-2xl relative z-10">
             {fullname}
           </h1>
-          <p className="tracking-tight text-sm text-gray-50 relative z-10 my-4">
+          <p className="tracking-tight text-sm relative z-10 my-4">
             {about}
           </p>
         </div>

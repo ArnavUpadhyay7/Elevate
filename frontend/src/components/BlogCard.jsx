@@ -9,7 +9,7 @@ const BlogCard = ( {postTitle, postPic, postContent, createdAt, coachName, profi
   }
 
   return (
-    <div className="bg-[#1D232A] mb-5 shadow-lg rounded-lg max-w-lg md:mx-auto">
+    <div className="mb-5 border-black shadow-lg rounded-lg max-w-lg md:mx-auto">
       <div className="py-2 px-6 border-b-[1px] flex items-center gap-2">
         <img className="size-16 rounded-full" src={profilePic || "http://localhost:5173/src/assets/authImages/Two.png"} alt="" />
         <div>
@@ -20,15 +20,15 @@ const BlogCard = ( {postTitle, postPic, postContent, createdAt, coachName, profi
 
       {/* Blog Content */}
       <div className="px-6 pt-4 space-y-3">
-        <h3 className="text-2xl text-center font-bold text-white line-clamp-2">
+        <h3 className="text-2xl text-center font-bold line-clamp-2">
           {postTitle}
         </h3>
 
-        <p className={`text-sm text-gray-400 ${!readMore ? 'line-clamp-3' : ''}`}>
+        <p className={`text-sm ${!readMore ? 'line-clamp-3' : ''}`}>
           {postContent}
         </p>
 
-        <div className="flex justify-between items-center text-gray-400 text-sm">
+        <div className="flex justify-between items-center text-sm">
           <span>Created at - {new Date(createdAt).toLocaleDateString()}</span>
         </div>
 
@@ -46,7 +46,7 @@ const BlogCard = ( {postTitle, postPic, postContent, createdAt, coachName, profi
       }
 
       <div className="text-center pb-5">
-          <button onClick={handleReadMore} className="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-bold px-4 py-1 rounded-lg shadow-lg hover:scale-105 transition-transform duration-200">
+          <button onClick={handleReadMore} className="bg-gradient-to-r from-purple-500 to-blue-500 font-bold px-4 py-1 rounded-lg shadow-lg hover:scale-105 transition-transform duration-200">
             {readMore ? "Show Less" : "Read More"}
           </button>
         </div>

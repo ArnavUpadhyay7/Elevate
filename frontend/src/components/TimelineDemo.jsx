@@ -7,7 +7,7 @@ export function TimelineDemo() {
       title: "Connect with the Best Coaches",
       content: (
         <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
+          <p className="text-xs md:text-sm font-normal mb-8">
             Browse through a curated list of top-rated Valorant coaches and find the perfect match for your playstyle.
           </p>
           <div className="grid grid-cols-2 gap-4">
@@ -47,7 +47,7 @@ export function TimelineDemo() {
       title: "Personalized Coaching Sessions",
       content: (
         <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
+          <p className="text-xs md:text-sm font-normal mb-8">
             Engage in tailored sessions designed to address your weaknesses, refine your strategies, and boost your skills.
           </p>
           <div className="grid grid-cols-2 gap-4">
@@ -87,17 +87,17 @@ export function TimelineDemo() {
       title: "Achieve Your Goals",
       content: (
         <div>
-          <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-4">
+          <p className="text-xs md:text-sm font-normal mb-4">
             Implement expert guidance, improve your gameplay, and climb the ranks faster than ever before.
           </p>
           <div className="mb-12">
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
+            <div className="flex gap-2 items-center text-xs md:text-sm">
               🎯 Access to top-tier Valorant coaches worldwide.
             </div>
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
+            <div className="flex gap-2 items-center text-xs md:text-sm">
               🎯 Personalized strategies to improve your gameplay.
             </div>
-            <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
+            <div className="flex gap-2 items-center text-xs md:text-sm">
               🎯 Live feedback to refine your skills in real time.
             </div>
           </div>

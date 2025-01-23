@@ -19,7 +19,7 @@ const CoachLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#161b20] p-6 grid lg:grid-cols-2">
+    <div className="min-h-screen p-6 grid lg:grid-cols-2">
       {/* Left Side - Form */}
       <div className="flex flex-col justify-center items-center sm:p-12">
         <div className="w-full max-w-md space-y-8">

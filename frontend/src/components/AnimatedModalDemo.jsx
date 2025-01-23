@@ -51,10 +51,10 @@ export function AnimatedModalDemo({coach, player}) {
     "https://i.pinimg.com/736x/24/0c/9b/240c9b396d7a1a60e6338cd496ee151f.jpg",
   ];
   return (
-    (<div className="flex items-center justify-center">
+    (<div className="flex text-white items-center justify-center">
       <Modal>
         <ModalTrigger
-          className="dark:bg-white dark:text-black font-semibold text-white md:w-[10vw] flex justify-center group/modal-btn">
+          className="bg-white text-black border-[2px] font-semibold md:w-[10vw] flex justify-center group/modal-btn">
           <span
             className="group-hover/modal-btn:translate-x-40 text-center transition duration-500">
             Book a Session
@@ -67,10 +67,10 @@ export function AnimatedModalDemo({coach, player}) {
         <ModalBody>
           <ModalContent>
             <h4
-              className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
+              className="text-white text-lg md:text-2xl font-bold text-center mb-8">
               Book your Session{" "}
               <span
-                className="px-1 py-0.5 rounded-md bg-gray-100 dark:bg-neutral-800 dark:border-neutral-700 border border-gray-200">
+                className="px-1 py-0.5 rounded-md text-zinc-900 bg-gray-100 border border-gray-200">
                 With me
               </span>{" "}
               now! 🚀

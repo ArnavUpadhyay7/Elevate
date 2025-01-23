@@ -4,9 +4,9 @@ import {Link} from "react-router-dom";
 const CoachCard = ({link, fullname, coachBanner, about, rate, rank, role}) => {
 
   return (
-    <div className="hover:cursor-pointer relative bg-[#1D1D27] min-h-[60vh] md:min-h-[55vh] pb-2 w-[80vw] md:w-[22vw] rounded-2xl">
-      <div className="absolute mx-2 my-1 px-4 py-1 text-white bg-gradient-to-r from-purple-600 to-purple-400 rounded-full shadow-md">{rank}</div>
-      <div className="absolute right-2 top-2 px-5 text-black bg-white rounded-full">{role}</div>
+    <div className="hover:cursor-pointer relative bg-[#1D1D27] text-zinc-300 min-h-[60vh] md:min-h-[55vh] pb-2 w-[80vw] md:w-[22vw] rounded-2xl">
+      <div className="absolute mx-2 my-1 px-4 py-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-full shadow-md">{rank}</div>
+      <div className="absolute right-2 top-2 px-5 bg-white text-black rounded-full">{role}</div>
 
       <Link to={link}>
         <div className="h-[26vh]">
@@ -18,7 +18,7 @@ const CoachCard = ({link, fullname, coachBanner, about, rate, rank, role}) => {
         </div>
         <div className="py-3 flex justify-between px-5">
           <div className="flex items-center gap-2">
-            <p className="-mt-[5px] font-bold text-2xl text-white">{fullname}</p>
+            <p className="-mt-[5px] font-bold text-2xl">{fullname}</p>
             <div className="bg-cyan-500 flex justify-center items-center rounded-full w-5 h-5 shadow-[0_0_12px_rgba(89,235,255,1)]">
               <svg
                 stroke="black"
@@ -48,7 +48,7 @@ const CoachCard = ({link, fullname, coachBanner, about, rate, rank, role}) => {
           <p>{about}</p>
         </div>
         <div className="px-5 pt-5">
-          <p className="font-semibold text-xl text-gray-400">{rate}/game</p>
+          <p className="font-semibold text-xl">{rate}/game</p>
         </div>
       </Link>
     </div>

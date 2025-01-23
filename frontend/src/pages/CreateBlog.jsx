@@ -30,14 +30,14 @@ export const CreateBlog = () => {
     };
   
     return (
-      <div className="min-h-screen bg-[#161B20] flex justify-center items-center p-6">
-        <div className="bg-[#1D232A] shadow-lg rounded-lg w-full max-w-3xl p-8">
-          <h2 className="text-2xl font-bold text-gray-200 mb-6">Create Blog</h2>
+      <div className="min-h-screen flex justify-center items-center p-6">
+        <div className="shadow-lg rounded-lg w-full max-w-3xl p-8">
+          <h2 className="text-2xl font-bold mb-6">Create Blog</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label
                 htmlFor="postTitle"
-                className="block text-gray-300 font-semibold mb-2"
+                className="block font-semibold mb-2"
               >
                 Blog Title
               </label>
@@ -54,7 +54,7 @@ export const CreateBlog = () => {
             <div>
               <label
                 htmlFor="postPic"
-                className="block text-gray-300 font-semibold mb-2"
+                className="block font-semibold mb-2"
               >
                 Blog Image URL
               </label>
@@ -70,7 +70,7 @@ export const CreateBlog = () => {
             <div>
               <label
                 htmlFor="postContent"
-                className="block text-gray-300 font-semibold mb-2"
+                className="block font-semibold mb-2"
               >
                 Blog Content
               </label>
@@ -85,7 +85,7 @@ export const CreateBlog = () => {
   
             <button
               type="submit"
-              className="w-full py-3 rounded-lg text-white font-bold bg-gradient-to-r from-purple-500 to-blue-500 hover:scale-105 transition-transform duration-200"
+              className="w-full py-3 rounded-lg font-bold bg-gradient-to-r from-purple-500 to-blue-500 hover:scale-105 transition-transform duration-200"
             >
               Submit
             </button>

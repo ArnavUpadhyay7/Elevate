@@ -19,17 +19,17 @@ const ProfileCard = () => {
             src="https://assets.aceternity.com/manu.png"
             className="h-10 w-10 rounded-full border-2 object-cover" />
           <div className="flex flex-col">
-            <p className="font-bold text-xl text-gray-50 relative z-10">
+            <p className="font-bold text-xl relative z-10">
               Radiant
             </p>
-            <p className="text-sm text-gray-400">Duelists</p>
+            <p className="text-sm">Duelists</p>
           </div>
         </div>
         <div className="text content">
-          <h1 className="font-bold text-xl md:text-2xl text-gray-50 relative z-10">
+          <h1 className="font-bold text-xl md:text-2xl relative z-10">
             Arnav Upadhyay
           </h1>
-          <p className="tracking-tight text-sm text-gray-50 relative z-10 my-4">
+          <p className="tracking-tight text-sm relative z-10 my-4">
             Over 4 years of experience, with a winning streak of 12 games.
           </p>
         </div>

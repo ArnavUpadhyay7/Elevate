@@ -35,13 +35,13 @@ const Blog = () => {
   }
   
   return (
-    <div className="pb-10 bg-[#161B20]">
-      <h1 className="text-center text-white text-3xl md:text-5xl font-semibold pt-4">Read Latest Blogs</h1>
+    <div className="pb-10">
+      <h1 className="text-center text-3xl md:text-5xl font-semibold pt-4">Read Latest Blogs</h1>
       {coach && (
         <div className="absolute bottom-10 right-20">
           <button
             onClick={() => navigate("/create-blog")}
-            className="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-bold px-20 py-3 rounded-lg shadow-lg hover:scale-105 transition-transform duration-200"
+            className="bg-gradient-to-r from-purple-500 to-blue-500 font-bold px-20 py-3 rounded-lg shadow-lg hover:scale-105 transition-transform duration-200"
           >
             Write a Blog
           </button>
@@ -63,7 +63,7 @@ const Blog = () => {
             />
           ))
         ) : (
-          <p className="text-center text-xl text-gray-500">No blogs found!</p>
+          <p className="text-center text-xl">No blogs found!</p>
         )}
       </div>
 

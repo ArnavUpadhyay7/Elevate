@@ -12,7 +12,7 @@ export function ThreeDCardDemo({gender}) {
       <CardBody className="bg-dark rounded-xl md:p-12 p-5 border md:w-[600px]">
         <CardItem
           translateZ="50"
-          className="md:text-3xl text-2xl text-center font-bold text-white">
+          className="text-white md:text-3xl text-2xl text-center font-bold">
           {gender ? 
           "Elevate Your Game 🚀":"Help others elevate their game."
           }
@@ -20,7 +20,7 @@ export function ThreeDCardDemo({gender}) {
         
         <CardItem
           translateZ="60"
-          className="text-gray-300 text-center text-sm mt-2">
+          className="text-white text-center text-sm mt-2">
             {gender ? 
           "Get coached by pro players and reach your gaming goals":"Guide players to unlock their full potential."
           }
@@ -40,7 +40,7 @@ export function ThreeDCardDemo({gender}) {
                 translateZ={20}
                 as={Link}
                 to="/coaches" 
-                className="px-4 py-2 text-black rounded-xl bg-neutral-100 text-sm">
+                className="px-4 py-2 rounded-xl bg-white text-black text-sm">
                 Find Coaches
               </CardItem>
               
@@ -48,7 +48,7 @@ export function ThreeDCardDemo({gender}) {
                 translateZ={20}
                 as={Link}
                 to="/signup" 
-                className="px-4 py-2 rounded-xl bg-black text-white text-sm">
+                className="px-4 py-2 text-white rounded-xl bg-black text-sm">
                 Sign up
               </CardItem>
             </div> : 
@@ -57,7 +57,7 @@ export function ThreeDCardDemo({gender}) {
                 translateZ={20}
                 as={Link}
                 to="/coach-signup" 
-                className="px-6 py-2 text-black rounded-xl bg-neutral-100 text-sm">
+                className="px-6 py-2 rounded-xl bg-white text-black text-sm">
                 Be a coach →
               </CardItem>
             </div>
