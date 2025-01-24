@@ -36,7 +36,7 @@ exports.payment = async (req, res) => {
 
 exports.webhook = async (req, res) => {
   try {
-    const webhookSignature = req.get["X-Razorpay-Signature"];
+    const webhookSignature = req.get("X-Razorpay-Signature");
 
     const isWebHookValid = validateWebhookSignature(
         JSON.stringify(req.body),
@@ -68,7 +68,7 @@ exports.webhook = async (req, res) => {
         
     // }
     return res.status(200).json({ message: "Webhook received successfully" });
-    
+
     } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -16,7 +16,7 @@ export const playerStore = create((set) => ({
       console.log("Error in checkPlayerAuth: ", error);
       set({ player: null });
     } finally {
-      set({isCheckingPlayerAuth: false})
+      set({ isCheckingPlayerAuth: false });
     }
   },
 
@@ -91,7 +91,7 @@ export const coachStore = create((set) => ({
     try {
       await axiosInstance.post("/coach/logout");
       set({ coach: null });
-      navigate("/coach-login")
+      navigate("/coach-login");
       toast.success("Logged out successfully");
     } catch (error) {
       console.error("Error in logout: ", error);

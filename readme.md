@@ -1,1 +1,0 @@
-For testing purposes add payed_player and payed_coach in the /payment api 

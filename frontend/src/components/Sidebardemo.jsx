@@ -23,6 +23,15 @@ const CoachLogin = lazy(() => import("../pages/CoachLogin"));
 const Messages = lazy(() => import("../pages/Messages"));
 const CoachDashboard = lazy(() => import("../pages/CoachDashboard"));
 
+const PageWrapper = ({ children }) => (
+  <Suspense fallback={
+    <div className="flex h-screen w-full items-center justify-center">
+      <Loader className="h-8 w-8 animate-spin" />
+    </div>
+  }>
+    {children}
+  </Suspense>
+)
 
 export function SidebarDemo() {
   const navigate = useNavigate();
@@ -172,28 +181,22 @@ export const LogoIcon = () => {
 const Dashboard = () => {
   return (
     <div className="h-screen w-full">
-      <Suspense fallback={
-        <div className="flex justify-center items-center h-screen">
-          <Loader className="size-12 animate-spin"/>
-        </div>
-      }>
         <GlobalAudioPlayer />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/coaches" element={<Coaches />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/coach-profile/:id" element={<CoachProfile />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/coach-login" element={<CoachLogin />} />
-          <Route path="/coach-signup" element={<CoachSignup />} />
-          <Route path="/dashboard" element={<CoachDashboard />} />
-          <Route path="/messages" element={<Messages />} />
-          <Route path="/create-blog" element={<CreateBlog />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+          <Route path="/coaches" element={<PageWrapper><Coaches /></PageWrapper>} />
+          <Route path="/profile" element={<PageWrapper><Profile /></PageWrapper>} />
+          <Route path="/coach-profile/:id" element={<PageWrapper><CoachProfile /></PageWrapper>} />
+          <Route path="/blog" element={<PageWrapper><Blog /></PageWrapper>} />
+          <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
+          <Route path="/signup" element={<PageWrapper><Signup /></PageWrapper>} />
+          <Route path="/coach-login" element={<PageWrapper><CoachLogin /></PageWrapper>} />
+          <Route path="/coach-signup" element={<PageWrapper><CoachSignup /></PageWrapper>} />
+          <Route path="/dashboard" element={<PageWrapper><CoachDashboard /></PageWrapper>} />
+          <Route path="/messages" element={<PageWrapper><Messages /></PageWrapper>} />
+          <Route path="/create-blog" element={<PageWrapper><CreateBlog /></PageWrapper>} />
+          <Route path="/settings" element={<PageWrapper><Settings /></PageWrapper>} />
         </Routes>
-      </Suspense>
     </div>
   );
 };
