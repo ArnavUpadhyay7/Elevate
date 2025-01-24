@@ -15,7 +15,6 @@ connectToDb();
 
 const app = express();
 const port = process.env.PORT || 4000;
-const __dirname = path.resolve();
 
 app.use(
     cors({
