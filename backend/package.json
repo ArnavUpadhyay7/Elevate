@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Find the best valorant coaches",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
