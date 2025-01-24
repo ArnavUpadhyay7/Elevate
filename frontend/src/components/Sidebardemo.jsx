@@ -107,6 +107,7 @@ export function SidebarDemo() {
       ),
     },
   ].filter(Boolean);
+  
   const [open, setOpen] = useState(false);
   return (
     <div
@@ -118,10 +119,12 @@ export function SidebarDemo() {
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10 fixed z-50 bg-neutral-900">
           <div className="fixed flex flex-col flex-1 overflow-x-hidden">
-            {open ? <Logo /> : <LogoIcon />}
+            {open ? <Logo setOpen={setOpen}/> : <LogoIcon setOpen={setOpen}/>}
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} />
+                <SidebarLink key={idx} link={{...link, onClick: ()=> {
+                  setOpen(false);
+                }}} />
               ))}
             </div>
           </div>
@@ -150,13 +153,15 @@ export function SidebarDemo() {
     </div>
   );
 }
-export const Logo = () => {
+
+export const Logo = ({setOpen}) => {
   return (
     <Link
       to="/"
+      onClick={() => setOpen(false)}
       className="font-normal flex space-x-2 items-center text-sm py-1 relative z-20"
     >
-      <div className="h-5 w-6 dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <img className="size-6" src="https://cdn-icons-png.flaticon.com/128/17910/17910540.png" alt="Elevate Logo" />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -167,13 +172,13 @@ export const Logo = () => {
     </Link>
   );
 };
+
 export const LogoIcon = () => {
   return (
     <Link
       to="/"
-      className="font-normal flex space-x-2 items-center text-sm  py-1 relative z-20"
     >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <img className="size-6" src="https://cdn-icons-png.flaticon.com/128/17910/17910540.png" alt="Elevate Logo" />
     </Link>
   );
 };

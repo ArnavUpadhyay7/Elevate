@@ -22,7 +22,7 @@ const GlobalAudioPlayer = () => {
       <audio ref={audioRef} src={music} loop />
 
       <div className="absolute z-50">
-          <button onClick={togglePlayPause} className="fixed md:top-10 top-16 md:right-10 right-2 bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300">{isPlaying ? 
+          <button onClick={togglePlayPause} className="fixed md:top-10 md:bottom-auto bottom-4 md:right-10 right-4 bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300">{isPlaying ? 
             <div> <IconMusicCancel /> </div> 
             : 
             <div> <IconMusic /> </div>
