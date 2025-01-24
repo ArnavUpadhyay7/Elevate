@@ -1,49 +1,13 @@
 import { THEMES } from "../constants";
 import { useThemeStore } from "../store/useThemeStore";
-import { useEffect, useState } from "react";
+import { Send } from "lucide-react";
 
-const tips = [
-  {
-    title: "Master Crosshair Placement",
-    description: "Always aim at head level for quick eliminations.",
-    image: "https://i.pinimg.com/736x/00/95/cd/0095cd4f82eacd340cd0d726218785a8.jpg", // Replace with your image URL
-  },
-  {
-    title: "Learn Agent Lineups",
-    description: "Master utility lineups to dominate the battlefield.",
-    image: "https://i.pinimg.com/736x/7b/9a/fd/7b9afda092a239ffda016a733ac8ba36.jpg", // Replace with your image URL
-  },
-  {
-    title: "Communicate Effectively",
-    description: "Use callouts to share enemy locations with your team.",
-    image: "https://i.pinimg.com/736x/3c/0e/52/3c0e52d634d736e2a398e71e77497258.jpg", // Replace with your image URL
-  },
-  {
-    title: "Control the Economy",
-    description: "Plan your buys wisely to maintain a strong economy.",
-    image: "https://i.pinimg.com/736x/50/02/6b/50026b1839712154e44e469c1608f806.jpg", // Replace with your image URL
-  },
-  {
-    title: "Map Awareness",
-    description: "Learn the maps to predict enemy movements effectively.",
-    image: "https://i.pinimg.com/236x/56/ae/cf/56aecfc3c9207858a20e7cad3e93803a.jpg", // Replace with your image URL
-  },
-  {
-    title: "Warm-Up Before Matches",
-    description: "Practice in aim trainers to get sharp before games.",
-    image: "https://i.pinimg.com/236x/08/5e/aa/085eaa8ccfa35e2f1c83d424b703eb66.jpg", // Replace with your image URL
-  },
+const PREVIEW_MESSAGES = [
+  { id: 1, content: "Hey! How's it going?", isSent: false },
+  { id: 2, content: "I'm doing great! Just working on some new features.", isSent: true },
 ];
 
 const SettingsPage = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % tips.length);
-    }, 3000); // Change every 3 seconds
-    return () => clearInterval(interval);
-  }, []);
   const { theme, setTheme } = useThemeStore();
 
   return (
@@ -79,42 +43,72 @@ const SettingsPage = () => {
           ))}
         </div>
 
-        
+        {/* Preview Section */}
+        <h3 className="text-lg font-semibold mb-3">Preview</h3>
+        <div className="rounded-xl border border-base-300 overflow-hidden bg-base-100 shadow-lg">
+          <div className="p-4 bg-base-200">
+            <div className="max-w-lg mx-auto">
+              {/* Mock Chat UI */}
+              <div className="bg-base-100 rounded-xl shadow-sm overflow-hidden">
+                {/* Chat Header */}
+                <div className="px-4 py-3 border-b border-base-300 bg-base-100">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-content font-medium">
+                      J
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-sm">John Doe</h3>
+                      <p className="text-xs text-base-content/70">Online</p>
+                    </div>
+                  </div>
+                </div>
 
-        <div className="mt-10">
-        <h2 className="text-lg font-semibold mb-4 text-center">Pro Tips to Elevate Your Gameplay</h2>
-      <div className="relative w-full h-64 overflow-hidden rounded-lg shadow-lg">
-        {tips.map((step, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 flex flex-col justify-end p-6 bg-cover text-white transition-opacity duration-1000 ${
-              index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-            }`}
-            style={{ backgroundImage: `url(${step.image})` }}
-          >
-            <div className="bg-black/60 p-4 rounded-lg">
-              <h3 className="text-xl font-bold">{step.title}</h3>
-              <p className="text-sm mt-1">{step.description}</p>
+                {/* Chat Messages */}
+                <div className="p-4 space-y-4 min-h-[200px] max-h-[200px] overflow-y-auto bg-base-100">
+                  {PREVIEW_MESSAGES.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex ${message.isSent ? "justify-end" : "justify-start"}`}
+                    >
+                      <div
+                        className={`
+                          max-w-[80%] rounded-xl p-3 shadow-sm
+                          ${message.isSent ? "bg-primary text-primary-content" : "bg-base-200"}
+                        `}
+                      >
+                        <p className="text-sm">{message.content}</p>
+                        <p
+                          className={`
+                            text-[10px] mt-1.5
+                            ${message.isSent ? "text-primary-content/70" : "text-base-content/70"}
+                          `}
+                        >
+                          12:00 PM
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Chat Input */}
+                <div className="p-4 border-t border-base-300 bg-base-100">
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      className="input input-bordered flex-1 text-sm h-10"
+                      placeholder="Type a message..."
+                      value="This is a preview"
+                      readOnly
+                    />
+                    <button className="btn btn-primary h-10 min-h-0">
+                      <Send size={18} />
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        ))}
-      </div>
-
-      {/* Navigation Dots */}
-      <div className="flex justify-center mt-4 space-x-2">
-        {tips.map((_, index) => (
-          <div
-            key={index}
-            className={`h-2 w-2 rounded-full transition-all duration-500 ${
-              index === currentIndex ? "bg-primary" : "bg-gray-400"
-            }`}
-          ></div>
-        ))}
-      </div>
-    </div>
-
-
-
+        </div>
       </div>
     </div>
   );

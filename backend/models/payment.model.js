@@ -26,7 +26,10 @@ const paymentSchema = new mongoose.Schema({
         required: true
     },
     notes: {
-        fullname: {
+        coachEmail: {
+            type: String
+        },
+        playerEmail: {
             type: String
         }
     },

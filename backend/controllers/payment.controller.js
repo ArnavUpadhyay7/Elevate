@@ -1,4 +1,6 @@
+const coachModel = require("../models/coach.model");
 const paymentModel = require("../models/payment.model");
+const playerModel = require("../models/player.model");
 const instance = require("../utils/razorpay");
 const {validateWebhookSignature,} = require("razorpay/dist/utils/razorpay-utils");
 
@@ -52,11 +54,21 @@ exports.webhook = async (req, res) => {
     payment.status = paymentDetails.status;
     await payment.save();
 
-    // const user = 
+    const player = await playerModel.findOne({_id: payment.playerId});
+    const coach = await coachModel.findOne({email: payment.notes.coachEmail});
+    
+    // add coach._id to payed_coach in playerModel
+    // add player._id to payed_player in coachModel
+    player.payed_coach.push(coach._id);
+    await player.save();
+    coach.payed_player.push(player._id);
+    await coach.save();
 
-    if(req.body.event == "payment.captured" ) {
+    // if(req.body.event == "payment.captured" ) {
         
-    }
+    // }
+    return res.status(200).json({ message: "Webhook received successfully" });
+    
     } catch (error) {
     res.status(500).json({ message: error.message });
   }

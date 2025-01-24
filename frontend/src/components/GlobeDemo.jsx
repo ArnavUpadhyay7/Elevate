@@ -411,7 +411,7 @@ export function GlobeDemo() {
           }}
           className="div">
           <h2
-            className="text-center text-xl md:text-4xl font-bold">
+            className="text-center text-zinc-300 text-xl md:text-4xl font-bold">
             Connect with coaches around the world
           </h2>
           <p

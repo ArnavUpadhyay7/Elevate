@@ -13,8 +13,8 @@ export function AnimatedModalDemo({coach, player}) {
         currency: "INR",
         receipt: "order_rcptid_1",
         notes: {
-          fullname: player?.fullname,
-          email: player?.email,
+          coachEmail: coach?.email,
+          playerEmail: player?.email,
         }
       }, {withCredentials: true});
 

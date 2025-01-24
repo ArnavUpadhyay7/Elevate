@@ -29,6 +29,7 @@ app.use("/coach", coachRouter);
 app.use("/blog", blogRouter);
 app.use("/payment", paymentRouter);
 
+// Remove this route later
 app.get("/", (req, res) => {
     res.send("ELEVATE");
 })

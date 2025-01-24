@@ -33,6 +33,10 @@ const playerSchema = new mongoose.Schema({
   role: {
     type: String,
     required: true
+  },
+  payed_coach:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'coach',
   }
 
 }, {timestamps: true});
