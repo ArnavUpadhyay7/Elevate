@@ -1,6 +1,6 @@
-const express = require('express');
 const dotenv = require("dotenv");
 dotenv.config();
+const express = require('express');
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const playerRouter = require("./routes/player.route");
@@ -38,11 +38,6 @@ if(process.env.NODE_ENV === "production") {
       res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
     });
 }
-
-// Remove this route later
-app.get("/", (req, res) => {
-    res.send("ELEVATE");
-})
 
 app.listen(port, ()=> {
     console.log(`Server is listening on port: ${port}`);

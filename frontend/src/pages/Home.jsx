@@ -22,7 +22,7 @@ const Home = () => {
               : 'url("https://i.pinimg.com/1200x/e9/3a/cc/e93accfca67cb616635147f584c2bff9.jpg")',
           }}
         ></div>
-        <div className="flex items-center gap-2 absolute top-[85%] md:top-[90%] left-1/2 transform -translate-x-1/2">
+        <div className="flex items-center gap-2 absolute top-[80%] md:top-[90%] left-1/2 transform -translate-x-1/2">
           <button onClick={toggle} className="p-[3px] relative">
             <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-800 rounded-lg" />
             <div className="text-white px-8 py-2 bg-gradient-to-r from-red-800 to-red-500 rounded-[6px] font-semibold relative group transition duration-200 hover:bg-gradient-to-r hover:from-red-500 hover:to-red-800">
