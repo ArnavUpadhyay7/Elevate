@@ -7,16 +7,20 @@ import { Loader } from 'lucide-react';
 
 const Profile = () => {
   const player = playerStore((state) => state.player);
+  const [isLoading, setIsLoading] = useState(true);
   const [coaches, setCoaches] = useState([]);
 
   useEffect(() => {
     const fetchCoaches = async () => {
+      setIsLoading(true);
       try {
         const res = await axiosInstance.get("/coach/coaches");
         const topCoaches = res.data.filter((coach) => coach.rank === "Radiant");
         setCoaches(topCoaches);
       } catch (error) {
         console.error("Error fetching coaches: ", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchCoaches();
@@ -63,6 +67,7 @@ const Profile = () => {
               </p>
             </div>
             <h1 className='pt-4 text-3xl font-bold'>Top Coaches</h1>
+            {!isLoading ? 
             <div className='text-white'>
               {topCoaches.map((coach) => {
                   return (
@@ -78,7 +83,12 @@ const Profile = () => {
                   )
                 })
               }
+            </div> 
+            : 
+            <div className='flex justify-center items-center mt-10'>
+              <Loader className="h-8 w-8 animate-spin" />
             </div>
+            }
           </div>
           <div className='md:-mt-[5%] mt-10'>
             <CoachProfileCard rank={player?.rank} role={player?.role} fullname={player?.fullname} about={player?.about} profilePic={player?.profilePic}/>

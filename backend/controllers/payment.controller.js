@@ -57,13 +57,14 @@ exports.webhook = async (req, res) => {
 
     const player = await playerModel.findOne({_id: payment.playerId}).populate('payed_coach', 'fullname profilePic rank role');
     const coach = await coachModel.findOne({email: payment.notes.coachEmail}).populate('payed_player', 'fullname profilePic rank role');
-    
-    // add coach._id to payed_coach in playerModel
-    // add player._id to payed_player in coachModel
 
-    if(player.payed_coach.includes(coach._id) || coach.payed_player.includes(player._id)) {
-      return res.status(200).json({ message: "Webhook received successfully"});
-    };
+    // If the player has already paid to the coach, then return
+    const coachIdStr = coach._id.toString();
+    const playerCoachIds = player.payed_coach.map(coach => coach._id.toString());
+
+    if (playerCoachIds.includes(coachIdStr)) {
+      return res.status(200).json({ message: "Webhook received successfully" });
+    }
 
     player.payed_coach.push(coach._id);
     await player.save();
