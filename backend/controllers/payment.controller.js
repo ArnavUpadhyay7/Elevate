@@ -55,8 +55,8 @@ exports.webhook = async (req, res) => {
     payment.status = paymentDetails.status;
     await payment.save();
 
-    const player = await playerModel.findOne({_id: payment.playerId}).populate('payed_coach');
-    const coach = await coachModel.findOne({email: payment.notes.coachEmail}).populate('payed_player');
+    const player = await playerModel.findOne({_id: payment.playerId}).populate('payed_coach', 'fullname profilePic rank role');
+    const coach = await coachModel.findOne({email: payment.notes.coachEmail}).populate('payed_player', 'fullname profilePic rank role');
     
     // add coach._id to payed_coach in playerModel
     // add player._id to payed_player in coachModel

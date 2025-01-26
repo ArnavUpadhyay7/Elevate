@@ -59,3 +59,13 @@ exports.checkAuthPlayer = (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
+exports.myCoaches = async (req, res) => {
+    try {
+      const player = await playerModel.findById(req.player._id)
+        .populate('payed_coach', 'fullname profilePic rank role');
+      res.json(player.payed_coach);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };

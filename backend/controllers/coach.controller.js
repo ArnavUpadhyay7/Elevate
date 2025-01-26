@@ -81,3 +81,13 @@ exports.getCoachById = async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     }
 };
+
+exports.myPlayers = async (req, res) => {
+    try {
+      const coach = await coachModel.findById(req.coach._id)
+        .populate('payed_player', 'fullname profilePic rank role');
+      res.json(coach.payed_player);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };

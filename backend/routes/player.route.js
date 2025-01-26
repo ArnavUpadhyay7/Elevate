@@ -14,4 +14,6 @@ router.post("/logout", authMiddleware.authPlayer, playerController.playerLogout)
 
 router.get("/check-auth", authMiddleware.authPlayer, playerController.checkAuthPlayer);
 
+router.get("/my-coaches", authMiddleware.authPlayer, playerController.myCoaches);
+
 module.exports = router;

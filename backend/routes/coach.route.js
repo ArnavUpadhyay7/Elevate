@@ -18,4 +18,6 @@ router.get("/coaches", coachController.getAllCoaches);
 
 router.get("/:id", coachController.getCoachById);
 
+router.get("my-players", authMiddleware.authCoach, coachController.myPlayers);
+
 module.exports = router;
