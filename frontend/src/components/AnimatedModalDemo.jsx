@@ -3,8 +3,10 @@ import { Modal, ModalBody, ModalContent, ModalFooter, ModalTrigger} from "./ui/a
 import { motion } from "framer-motion";
 import { VideoIcon, Videotape } from "lucide-react";
 import { axiosInstance } from "../lib/axios";
+import {useNavigate} from "react-router-dom";
 
 export function AnimatedModalDemo({coach, player}) {
+  const navigate = useNavigate();
 
   const handleBuyClick = async () => {
     try {
@@ -34,6 +36,9 @@ export function AnimatedModalDemo({coach, player}) {
         theme: {
           color: '#F37254'
         },
+        handler: function (res) {
+          navigate("/messages");
+        }
       };
 
       const rzp = new window.Razorpay(options);
