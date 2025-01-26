@@ -1,5 +1,5 @@
-const coachModel = require("../models/coach.model");
 const paymentModel = require("../models/payment.model");
+const coachModel = require("../models/coach.model");
 const playerModel = require("../models/player.model");
 const instance = require("../utils/razorpay");
 const {validateWebhookSignature,} = require("razorpay/dist/utils/razorpay-utils");
@@ -60,6 +60,7 @@ exports.webhook = async (req, res) => {
     
     // add coach._id to payed_coach in playerModel
     // add player._id to payed_player in coachModel
+
     player.payed_coach.push(coach._id);
     await player.save();
     coach.payed_player.push(player._id);
