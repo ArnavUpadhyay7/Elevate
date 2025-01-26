@@ -55,8 +55,8 @@ exports.webhook = async (req, res) => {
     payment.status = paymentDetails.status;
     await payment.save();
 
-    const player = await playerModel.findOne({_id: payment.playerId});
-    const coach = await coachModel.findOne({email: payment.notes.coachEmail});
+    const player = await playerModel.findOne({_id: payment.playerId}).populate('payed_coach');
+    const coach = await coachModel.findOne({email: payment.notes.coachEmail}).populate('payed_player');
     
     // add coach._id to payed_coach in playerModel
     // add player._id to payed_player in coachModel
@@ -66,9 +66,6 @@ exports.webhook = async (req, res) => {
     coach.payed_player.push(player._id);
     await coach.save();
 
-    // if(req.body.event == "payment.captured" ) {
-        
-    // }
     return res.status(200).json({ message: "Webhook received successfully" });
 
     } catch (error) {
