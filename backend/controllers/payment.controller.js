@@ -49,10 +49,9 @@ exports.webhook = async (req, res) => {
     }
 
     const paymentDetails = req.body.payload.payment.entity;
-    console.log(paymentDetails);
-    console.log("Webhook called atleast :)");
 
     const payment = await paymentModel.findOne({orderId: paymentDetails.order_id});
+    payment.paymentId = paymentDetails.id;
     payment.status = paymentDetails.status;
     await payment.save();
 
