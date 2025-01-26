@@ -61,6 +61,10 @@ exports.webhook = async (req, res) => {
     // add coach._id to payed_coach in playerModel
     // add player._id to payed_player in coachModel
 
+    if(player.payed_coach.includes(coach._id) || coach.payed_player.includes(player._id)) {
+      return res.status(200).json({ message: "Webhook received successfully"});
+    };
+
     player.payed_coach.push(coach._id);
     await player.save();
     coach.payed_player.push(player._id);
