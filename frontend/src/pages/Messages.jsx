@@ -50,7 +50,7 @@ const Messages = () => {
             {myPlayers.map((player) => (
               <div key={player._id} className="bg-neutral-800 p-6 rounded-lg">
                 <div className="flex items-center gap-4">
-                  <img src={player.profilePic} className="w-12 h-12 rounded-full"/>
+                  <img src={player.profilePic || "https://cdn-icons-png.flaticon.com/128/149/149071.png"} className="w-12 h-12 rounded-full"/>
                   <div>
                     <h3 className="text-xl font-semibold">{player.fullname}</h3>
                     <p className="text-sm text-gray-400">{player.rank} • {player.role}</p>
