@@ -3,7 +3,6 @@ const router = express.Router();
 const coachController = require("../controllers/coach.controller");
 const authMiddleware = require("../middlewares/auth.middleware");
 
-
 router.post("/signup", coachController.coachSignup);
 
 router.post("/login", coachController.coachLogin);
@@ -16,8 +15,8 @@ router.get("/check-auth", authMiddleware.authCoach, coachController.checkAuthCoa
 
 router.get("/coaches", coachController.getAllCoaches);
 
-router.get("/:id", coachController.getCoachById);
+router.get("/my-players", authMiddleware.authCoach, coachController.myPlayers);
 
-router.get("my-players", authMiddleware.authCoach, coachController.myPlayers);
+router.get("/:id", coachController.getCoachById);
 
 module.exports = router;

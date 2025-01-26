@@ -1,35 +1,49 @@
 import React, {useEffect, useState} from "react";
 import { coachStore, playerStore } from "../store/authStore";
 import { axiosInstance } from "../lib/axios";
+import { Loader } from "lucide-react";
 
 const Messages = () => {
   const [myCoaches, setMyCoaches] = useState([]);
   const [myPlayers, setMyPlayers] = useState([]);
-  const coach = coachStore((state) => state.coach);
-  const player = playerStore((state) => state.player);
+  const [loading, setLoading] = useState(true);
+  const coachX = coachStore((state) => state.coach);
+  const playerX = playerStore((state) => state.player);
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (player) {
+        setLoading(true);
+        if (playerX) {
           const coachesRes = await axiosInstance.get("/player/my-coaches");
           setMyCoaches(coachesRes.data);
         }
-        if (coach) {
+        if (coachX) {
           const playersRes = await axiosInstance.get("/coach/my-players");
+          console.log(playersRes.data);
           setMyPlayers(playersRes.data);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
-  }, [coach, player]);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center">
+        <Loader className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen w-full pt-8">
+    <div className="min-h-screen w-full pt-8 px-14">
       
-      {coach && (
+      {coachX && (
         <div>
           <h1 className="text-center text-4xl font-bold mb-8">My Players</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
@@ -48,7 +62,7 @@ const Messages = () => {
         </div>
       )}
 
-      {player && (
+      {playerX && (
         <div>
           <h1 className="text-center text-4xl font-bold mb-8">My Coaches</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
@@ -66,7 +80,7 @@ const Messages = () => {
           </div>
         </div>
       )}
-      
+
     </div>
   );
 };
