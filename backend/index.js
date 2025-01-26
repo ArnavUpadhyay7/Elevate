@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const express = require('express');
 const cors = require("cors");
+const compression = require('compression');
 const cookieParser = require("cookie-parser");
 const playerRouter = require("./routes/player.route");
 const coachRouter = require("./routes/coach.route");
@@ -25,8 +26,9 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization']
 };
 
+app.use(compression());
 app.use(cors(corsOptions));
-app.use(express.json());
+app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
