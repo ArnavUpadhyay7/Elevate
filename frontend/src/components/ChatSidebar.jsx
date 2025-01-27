@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 import { coachStore, playerStore } from "../store/authStore";
 import { axiosInstance } from "../lib/axios";
-// import { useChatStore } from "../store/useChatStore";
+import { useChatStore } from "../store/useChatStore";
 // import { useAuthStore } from "../store/useAuthStore";
-// import SidebarSkeleton from "./skeletons/SidebarSkeleton";
-import { Users } from "lucide-react";
+import { Loader, Users } from "lucide-react";
 
 const ChatSidebar = () => {
+
+  const { selectedUser, setSelectedUser } = useChatStore();
+
   const [myCoaches, setMyCoaches] = useState([]);
   const [myPlayers, setMyPlayers] = useState([]);
-  //   const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const coachX = coachStore((state) => state.coach);
   const playerX = playerStore((state) => state.player);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // setLoading(true);
+        setLoading(true);
         if (playerX) {
           const coachesRes = await axiosInstance.get("/player/my-coaches");
           setMyCoaches(coachesRes.data);
@@ -28,13 +30,20 @@ const ChatSidebar = () => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-      }
-      //   finally {
-      //     setLoading(false);
-      //   }
+      } finally {
+          setLoading(false);
+        }
     };
     fetchData();
   }, []);
+
+  if(loading) {
+    return (
+      <div className="flex items-center justify-center h-full w-[25%]">
+        <Loader className="size-10 animate-spin"/>
+      </div>
+    )
+  }
 
   return (
     <aside className="px-2 h-full w-20 lg:w-72 border-r border-base-300 flex flex-col">
@@ -52,11 +61,11 @@ const ChatSidebar = () => {
           ? myCoaches.map((coach) => (
               <button
                 key={coach._id}
-                // onClick={() => setSelectedUser(user)}
+                onClick={() => setSelectedUser(coach)}
                 className={`
                 w-full p-3 flex items-center gap-4
+                ${selectedUser?._id === coach._id ? "bg-base-300" : ""}
                 `}
-                // ${selectedUser?._id === coach._id ? "bg-base-300" : ""}
               >
                 <div className="relative mx-auto lg:mx-0">
                   <img
@@ -75,11 +84,11 @@ const ChatSidebar = () => {
           : myPlayers.map((player) => (
               <button
                 key={player._id}
-                // onClick={() => setSelectedUser(user)}
+                onClick={() => setSelectedUser(player)}
                 className={`
                 w-full p-3 flex items-center gap-4
+                ${selectedUser?._id === player._id ? "bg-base-300" : ""}
                 `}
-                // ${selectedUser?._id === player._id ? "bg-base-300" : ""}
               >
                 <div className="relative mx-auto lg:mx-0">
                   <img

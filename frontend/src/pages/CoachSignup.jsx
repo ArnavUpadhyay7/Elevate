@@ -33,8 +33,8 @@ const CoachSignup = () => {
           {/* Logo */}
           <div className="text-center">
             <div className="flex flex-col items-center gap-2 group">
-              <h1 className="text-2xl font-bold">Create account Captain</h1>
-              <p className="text-base-content/60">Get ready to elevate your skills 🚀</p>
+              <h1 className="text-2xl font-bold">Create account</h1>
+              <p className="text-base-content/60">Show others the path to success 🚀</p>
             </div>
           </div>
 
@@ -222,7 +222,7 @@ const CoachSignup = () => {
       {/* Right Side - Image/Pattern */}
       <AuthImagePattern
         title={"Get your free account right now!"}
-        subtitle={"Sign up to explore new coaches and connect with them."}
+        subtitle={"Sign up to explore new players and connect with them."}
       />
     </div>
   );

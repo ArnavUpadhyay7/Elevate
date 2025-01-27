@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { coachStore, playerStore } from "../store/authStore";
 import { axiosInstance } from "../lib/axios";
-import { Loader } from "lucide-react";
+import { useChatStore } from "../store/useChatStore";
 import NoChatSelected from "../components/NoChatSelected";
 import ChatSidebar from "../components/ChatSidebar";
+import ChatContainer from "../components/ChatContainer";
+import MessageSkeleton from "../components/MessageSkeleton";
 
 const Messages = () => {
-  const [loading, setLoading] = useState(true);
 
-  // if (loading) {
-  //   return (
-  //     <div className="min-h-screen w-full flex items-center justify-center">
-  //       <Loader className="h-8 w-8 animate-spin" />
-  //     </div>
-  //   );
-  // }
+  const { selectedUser } = useChatStore();
 
   return (
     <div className="min-h-screen w-full">
@@ -24,9 +19,8 @@ const Messages = () => {
           <div className="bg-base-100 rounded-lg shadow-cl w-full max-w-6xl h-[calc(100vh-8rem)]">
             <div className="flex h-full rounded-lg overflow-hidden">
               <ChatSidebar />
-
-              {/* {!selectedUser ? <NoChatSelected /> : <ChatContainer />} */}
-              <NoChatSelected />
+              {/* Add the ChatContainer component instead of messageSkeleton */}
+              {!selectedUser ? <NoChatSelected /> : <MessageSkeleton />}
             </div>
           </div>
         </div>

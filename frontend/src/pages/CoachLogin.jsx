@@ -79,24 +79,12 @@ const CoachLogin = () => {
                 </button>
               </div>
             </div>
-
-            {/* <button type="submit" className="btn btn-primary w-full" disabled={isLoggingIn}>
-              {isLoggingIn ? (
-                <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  Loading...
-                </>
-              ) : (
-                "Sign in"
-              )}
-            </button> */}
           
             <div className="pt-4">
               <button type="submit" className="btn btn-primary w-full">Login</button>
             </div>
 
           </form>
-
 
           <div className="text-center">
             <p className="text-base-content/60">
@@ -111,8 +99,8 @@ const CoachLogin = () => {
 
       {/* Right Side - Image/Pattern */}
       <AuthImagePattern
-        title={"Welcome back!"}
-        subtitle={"Sign in to explore new coaches and connect with them."}
+        title={"Welcome back Captain!"}
+        subtitle={"Sign in to explore new players and connect with them."}
       />
     </div>
   );
