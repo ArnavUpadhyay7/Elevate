@@ -20,7 +20,7 @@ const Messages = () => {
             <div className="flex h-full rounded-lg overflow-hidden">
               <ChatSidebar />
               {/* Add the ChatContainer component instead of messageSkeleton */}
-              {!selectedUser ? <NoChatSelected /> : <MessageSkeleton />}
+              {!selectedUser ? <NoChatSelected /> : <ChatContainer />}
             </div>
           </div>
         </div>

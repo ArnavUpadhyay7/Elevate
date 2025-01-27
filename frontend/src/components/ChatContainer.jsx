@@ -1,63 +1,77 @@
 import { useChatStore } from "../store/useChatStore";
 import { useEffect, useRef } from "react";
 import ChatHeader from "./ChatHeader";
-// import MessageInput from "./MessageInput";
-import MessageSkeleton from "./MessageSkeleton";
-// import { formatMessageTime } from "../lib/utils";
+import MessageInput from "./MessageInput";
 import { coachStore, playerStore } from "../store/authStore";
+// import { formatMessageTime } from "../utils/formatTime";
+import { formatTime } from "../lib/formatTime";
 
 const ChatContainer = () => {
-  const {selectedUser} = useChatStore();
+  const { selectedUser } = useChatStore();
   const coach = coachStore((state) => state.coach);
   const player = playerStore((state) => state.player);
-  const messageEndRef = useRef(null);
 
-  useEffect(() => {
-    if (messageEndRef.current && messages) {
-      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages]);
-
-  if (isMessagesLoading) {
-    return (
-      <div className="flex-1 flex flex-col overflow-auto">
-        <ChatHeader />
-        <MessageSkeleton />
-        <MessageInput />
-      </div>
-    );
-  }
+  // Sample message data
+  const messages = [
+    {
+      _id: "1",
+      senderId: player._id,
+      text: "Hey, how are you?",
+      createdAt: new Date(),
+      image: null,
+    },
+    {
+      _id: "2",
+      senderId: selectedUser._id,
+      text: "I'm good, thank you! How can I help?",
+      createdAt: new Date(),
+      image: null,
+    },
+    {
+      _id: "3",
+      senderId: player._id,
+      text: "I need some guidance on improving my aim.",
+      createdAt: new Date(),
+      image: null,
+    },
+  ];
 
   return (
     <div className="flex-1 flex flex-col overflow-auto">
+      {/* Chat Header */}
       <ChatHeader />
 
+      {/* Messages Container */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
           <div
             key={message._id}
             className={`chat ${
-              message.senderId === authUser.user._id ? "chat-end" : "chat-start"
+              message.senderId === player._id ? "chat-end" : "chat-start"
             }`}
-            ref={messageEndRef}
           >
-            <div className=" chat-image avatar">
+            {/* Profile Picture */}
+            <div className="chat-image avatar">
               <div className="size-10 rounded-full border">
                 <img
                   src={
-                    message.senderId === authUser.user._id
-                      ? authUser.user.profilePic || "/avatar.png"
-                      : selectedUser.profilePic || "/avatar.png"
+                    message.senderId === player._id
+                      ? player.profilePic || "https://cdn-icons-png.flaticon.com/128/149/149071.png"
+                      : selectedUser.profilePic || "https://cdn-icons-png.flaticon.com/128/149/149071.png"
                   }
                   alt="profile pic"
                 />
               </div>
             </div>
+
+            {/* Message Header */}
             <div className="chat-header mb-1">
               <time className="text-xs opacity-50 ml-1">
-                {formatMessageTime(message.createdAt)}
+                {formatTime(message.createdAt)}
               </time>
             </div>
+
+            {/* Message Content */}
             <div className="chat-bubble flex flex-col">
               {message.image && (
                 <img
@@ -72,8 +86,10 @@ const ChatContainer = () => {
         ))}
       </div>
 
+      {/* Message Input */}
       <MessageInput />
     </div>
   );
 };
+
 export default ChatContainer;
