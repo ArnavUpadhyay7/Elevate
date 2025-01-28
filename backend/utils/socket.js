@@ -4,19 +4,22 @@ const initializeSocket = (server) => {
   const io = socket(server, {
     cors: {
       origin: "http://localhost:5173",
-      credentials: true,
     },
   });
 
   io.on("connection", (socket) => {
-    // Handle events
 
-    socket.on("joinChat", () => {
-        // Handle join chat
+    console.log("Client connected");
+
+    socket.on("joinChat", ({ username, senderId, recieverId }) => {
+      const roomId = [senderId, recieverId].sort().join("_");
+      socket.join(roomId);
     });
 
-    socket.on("sendMessage", () => {
-        // Handle send message
+    socket.on("sendMessage", ({senderId, recieverId, text}) => {
+      const roomId = [senderId, recieverId].sort().join("_");
+      const createdAt = new Date().toISOString();
+      io.to(roomId).emit("messageRecieved", {text, senderId, createdAt});
     });
 
     socket.on("disconnect", () => {

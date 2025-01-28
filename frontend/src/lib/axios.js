@@ -1,6 +1,7 @@
 import axios from "axios";
+import { BASE_URL } from "../constants";
 
 export const axiosInstance = axios.create({
-  baseURL:import.meta.env.MODE === "development" ? "http://localhost:4001" : "https://elevate-xqw2.onrender.com/",
+  baseURL: BASE_URL,
   withCredentials: true,
 });

@@ -11,7 +11,7 @@ export function ThreeDCardDemo({gender}) {
     <CardContainer>
       <CardBody className="bg-dark rounded-xl md:p-12 p-5 border md:w-[600px]">
         <CardItem
-          translateZ="50"
+          translatez="50"
           className="text-white md:text-3xl text-2xl text-center font-bold">
           {gender ? 
           "Elevate Your Game 🚀":"Help others elevate their game."
@@ -19,7 +19,7 @@ export function ThreeDCardDemo({gender}) {
         </CardItem>
         
         <CardItem
-          translateZ="60"
+          translatez="60"
           className="text-white text-center text-sm mt-2">
             {gender ? 
           "Get coached by pro players and reach your gaming goals":"Guide players to unlock their full potential."
@@ -27,7 +27,7 @@ export function ThreeDCardDemo({gender}) {
           
         </CardItem>
 
-        <CardItem translateZ="100" className="w-full mt-4">
+        <CardItem translatez="100" className="w-full mt-4">
           <img
             src={imageUrl}
             className="md:h-60 w-full object-cover rounded-xl"
@@ -37,7 +37,7 @@ export function ThreeDCardDemo({gender}) {
           {gender ? 
             <div className="flex justify-between items-center mt-8">
               <CardItem
-                translateZ={20}
+                translatez={20}
                 as={Link}
                 to="/coaches" 
                 className="px-4 py-2 rounded-xl bg-white text-black text-sm">
@@ -45,7 +45,7 @@ export function ThreeDCardDemo({gender}) {
               </CardItem>
               
               <CardItem
-                translateZ={20}
+                translatez={20}
                 as={Link}
                 to="/signup" 
                 className="px-4 py-2 text-white rounded-xl bg-black text-sm">
@@ -54,7 +54,7 @@ export function ThreeDCardDemo({gender}) {
             </div> : 
             <div className="flex justify-center items-center h-full mt-8">
               <CardItem
-                translateZ={20}
+                translatez={20}
                 as={Link}
                 to="/coach-signup" 
                 className="px-6 py-2 rounded-xl bg-white text-black text-sm">

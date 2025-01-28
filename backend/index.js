@@ -13,11 +13,11 @@ const paymentRouter = require("./routes/payment.route");
 const path = require("path");
 
 const connectToDb = require("./db/db");
-const initializeSocket = require("./utils/socket");
 connectToDb();
+const initializeSocket = require("./utils/socket");
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 
 const corsOptions = {
   origin: process.env.NODE_ENV === "production" 

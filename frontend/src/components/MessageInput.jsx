@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
+import { createSocketConnection } from "../lib/socket";
 
-const MessageInput = () => {
+const MessageInput = ({senderId, recieverId}) => {
   const [text, setText] = useState("");
+  const socket = createSocketConnection();
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
+    socket.emit("sendMessage", {senderId, recieverId, text: text});
+    setText("");
   };
 
   return (
