@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { coachStore, playerStore } from "../store/authStore";
 import { axiosInstance } from "../lib/axios";
 import { useChatStore } from "../store/useChatStore";
-// import { useAuthStore } from "../store/useAuthStore";
 import { Loader, Users } from "lucide-react";
 
 const ChatSidebar = () => {
@@ -25,7 +24,6 @@ const ChatSidebar = () => {
         }
         if (coachX) {
           const playersRes = await axiosInstance.get("/coach/my-players");
-          console.log(playersRes.data);
           setMyPlayers(playersRes.data);
         }
       } catch (error) {

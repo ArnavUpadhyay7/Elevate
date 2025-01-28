@@ -1,11 +1,8 @@
-import { useRef, useState } from "react";
-import { useChatStore } from "../store/useChatStore";
-import { Image, Send, X } from "lucide-react";
-import toast from "react-hot-toast";
+import { useState } from "react";
+import { Send } from "lucide-react";
 
 const MessageInput = () => {
   const [text, setText] = useState("");
-//   const { sendMessage } = useChatStore();
 
   const handleSendMessage = async (e) => {
     e.preventDefault();

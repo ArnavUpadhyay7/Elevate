@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { coachStore, playerStore } from "../store/authStore";
-import { axiosInstance } from "../lib/axios";
+import React from "react";
 import { useChatStore } from "../store/useChatStore";
 import NoChatSelected from "../components/NoChatSelected";
 import ChatSidebar from "../components/ChatSidebar";
 import ChatContainer from "../components/ChatContainer";
-import MessageSkeleton from "../components/MessageSkeleton";
 
 const Messages = () => {
 

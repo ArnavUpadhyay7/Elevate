@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const express = require('express');
 const cors = require("cors");
+const http = require('http');
 const compression = require('compression');
 const cookieParser = require("cookie-parser");
 const playerRouter = require("./routes/player.route");
@@ -12,6 +13,7 @@ const paymentRouter = require("./routes/payment.route");
 const path = require("path");
 
 const connectToDb = require("./db/db");
+const initializeSocket = require("./utils/socket");
 connectToDb();
 
 const app = express();
@@ -42,6 +44,9 @@ app.use("/coach", coachRouter);
 app.use("/blog", blogRouter);
 app.use("/payment", paymentRouter);
 
+const server = http.createServer(app);
+initializeSocket(server);
+
 if(process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
@@ -50,6 +55,6 @@ if(process.env.NODE_ENV === "production") {
     });
 }
 
-app.listen(port, '0.0.0.0', ()=> {
+server.listen(port, '0.0.0.0', ()=> {
     console.log(`Server is listening on port: ${port}`);
 });
