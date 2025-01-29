@@ -11,11 +11,6 @@ const Home = () => {
   const [gender, setGender] = useState(true);
   const [showHowToUse, setShowHowToUse] = useState(false);
   
-  const handleClickOutside = (e) => {
-    if (e.target.id === "howToUseOverlay") {
-      setShowHowToUse(false);
-    }
-  };
   const toggle = () => {
     setGender(!gender);
   };
@@ -32,20 +27,11 @@ const Home = () => {
           <IconQuestionMark className="size-8 font-bold" />
         </div>
 
-        {/* How To Use Modal */}
         {showHowToUse && (
           <div
-            id="howToUseOverlay"
-            onClick={handleClickOutside}
             className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
           >
             <div className="w-[60%] h-[80%] p-8 rounded-lg shadow-lg relative">
-              <button
-                onClick={() => setShowHowToUse(false)}
-                className="absolute top-4 right-4 text-gray-500 hover:text-black"
-              >
-                ✖
-              </button>
                 <HowToUse onClose={() => setShowHowToUse(false)}/>
             </div>
           </div>
