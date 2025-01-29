@@ -4,9 +4,18 @@ import { testimonials } from "../lib/testimonials";
 import { ThreeDCardDemo } from "../components/ThreeDCardDemo";
 import { GlobeDemo } from "../components/GlobeDemo";
 import { TimelineDemo } from "../components/TimelineDemo";
+import { IconQuestionMark } from "@tabler/icons-react";
+import HowToUse from "../components/HowToUse";
 
 const Home = () => {
   const [gender, setGender] = useState(true);
+  const [showHowToUse, setShowHowToUse] = useState(false);
+  
+  const handleClickOutside = (e) => {
+    if (e.target.id === "howToUseOverlay") {
+      setShowHowToUse(false);
+    }
+  };
   const toggle = () => {
     setGender(!gender);
   };
@@ -14,6 +23,34 @@ const Home = () => {
   return (
     <div>
       <div className="relative min-h-screen w-screen md:p-10 p-5 overflow-auto">
+
+        {/* Floating Question Icon */}
+        <div
+          onClick={() => setShowHowToUse(true)}
+          className="cursor-pointer z-50 fixed right-4 md:top-10 md:right-32 border-white border-[1px] rounded-full p-1 hover:bg-white hover:text-black transition"
+        >
+          <IconQuestionMark className="size-8 font-bold" />
+        </div>
+
+        {/* How To Use Modal */}
+        {showHowToUse && (
+          <div
+            id="howToUseOverlay"
+            onClick={handleClickOutside}
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          >
+            <div className="w-[60%] h-[80%] p-8 rounded-lg shadow-lg relative">
+              <button
+                onClick={() => setShowHowToUse(false)}
+                className="absolute top-4 right-4 text-gray-500 hover:text-black"
+              >
+                ✖
+              </button>
+                <HowToUse onClose={() => setShowHowToUse(false)}/>
+            </div>
+          </div>
+        )}
+
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat blur-[5px] md:blur-[15px]"
           style={{
