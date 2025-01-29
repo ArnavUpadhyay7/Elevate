@@ -14,6 +14,14 @@ const PlayerChatContainer = () => {
   const player = playerStore((state) => state.player);
 
   const socketRef = useRef(null);
+  const bottomRef = useRef(null);
+  
+  // Scroll to the bottom whenever messages change
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (!player || !selectedUser) return;
@@ -30,7 +38,14 @@ const PlayerChatContainer = () => {
             [roomId]: [...(prev[roomId] || []), { text, senderId, createdAt }],
           };
 
-          setMessages(updatedMessages[roomId]);
+          setMessages((prevMessages) => {
+            const newMessage = { text, senderId, createdAt };
+            if (!prevMessages.some((msg) => msg.createdAt === createdAt && msg.senderId === senderId)) {
+              return [...prevMessages, newMessage];
+            }
+            return prevMessages;
+          });
+          
           return updatedMessages;
         });
       });
@@ -108,6 +123,8 @@ const PlayerChatContainer = () => {
 
             </div>
           ))}
+
+          <div ref={bottomRef} />
         </div>
 
       <MessageInput role={"player"} senderId={player?._id} receiverId={selectedUser?._id}/>

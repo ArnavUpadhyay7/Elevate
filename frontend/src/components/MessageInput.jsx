@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Send } from "lucide-react";
 import { createSocketConnection } from "../lib/socket";
 
-const MessageInput = ({ role, senderId, receiverId}) => {
+const MessageInput = ({role, senderId, receiverId}) => {
   const [text, setText] = useState("");
   const socket = createSocketConnection();
 
@@ -20,7 +20,6 @@ const MessageInput = ({ role, senderId, receiverId}) => {
       text,
       roomId: [senderId, receiverId].sort().join("_"), 
     };
-
     socket.emit("sendMessage", message);
     setText("");
   };

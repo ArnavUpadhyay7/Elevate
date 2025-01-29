@@ -14,6 +14,14 @@ const CoachChatContainer = () => {
   const coach = coachStore((state) => state.coach);
 
   const socketRef = useRef(null);
+  const bottomRef = useRef(null);
+
+  // Scroll to the bottom whenever messages change
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (!coach || !selectedUser) return;
@@ -28,20 +36,23 @@ const CoachChatContainer = () => {
           setRoomMessages((prev) => {
             const updatedMessages = {
               ...prev,
-              [roomId]: [
-                ...(prev[roomId] || []),
-                { text, senderId, createdAt },
-              ],
+              [roomId]: [...(prev[roomId] || []), { text, senderId, createdAt }],
             };
 
-            setMessages(updatedMessages[roomId]);
+            setMessages((prevMessages) => {
+              const newMessage = { text, senderId, createdAt };
+              if (!prevMessages.some((msg) => msg.createdAt === createdAt && msg.senderId === senderId)) {
+                return [...prevMessages, newMessage];
+              }
+              return prevMessages;
+            });
+            
             return updatedMessages;
           });
         }
       );
     }
 
-    const roomId = [coach?._id, selectedUser?._id].sort().join("_");
     socketRef.current.emit("joinChat", {
       senderId: coach?._id,
       receiverId: selectedUser?._id,
@@ -113,9 +124,15 @@ const CoachChatContainer = () => {
             </div>
           </div>
         ))}
+
+        <div ref={bottomRef} />
       </div>
 
-      <MessageInput role={"coach"} senderId={coach?._id} receiverId={selectedUser?._id} />
+      <MessageInput
+        role={"coach"}
+        senderId={coach?._id}
+        receiverId={selectedUser?._id}
+      />
     </div>
   );
 };
