@@ -5,6 +5,7 @@ import MessageInput from "./MessageInput";
 import { playerStore } from "../store/authStore";
 import { formatTime } from "../lib/formatTime";
 import { createSocketConnection } from "../lib/socket";
+import { axiosInstance } from "../lib/axios";
 
 const PlayerChatContainer = () => {
   const { selectedUser } = useChatStore();
@@ -12,53 +13,58 @@ const PlayerChatContainer = () => {
   const [messages, setMessages] = useState([]);
   const player = playerStore((state) => state.player);
 
-  const socketRef = useRef(null); // Store the socket instance
+  const socketRef = useRef(null);
 
   useEffect(() => {
     if (!player || !selectedUser) return;
 
-    // Initialize the socket connection once
     if (!socketRef.current) {
       socketRef.current = createSocketConnection();
 
-      // Handle incoming messages
-      socketRef.current.on("messageRecieved", ({ text, senderId, createdAt }) => {
+      socketRef.current.on("messageReceived", ({ text, senderId, createdAt }) => {
         const roomId = [player?._id, selectedUser?._id].sort().join("_");
+        
         setRoomMessages((prev) => {
           const updatedMessages = {
             ...prev,
             [roomId]: [...(prev[roomId] || []), { text, senderId, createdAt }],
           };
 
-          // Update messages for the currently visible room
           setMessages(updatedMessages[roomId]);
           return updatedMessages;
         });
       });
     }
 
-    // Join the specific chat room
-    const roomId = [player?._id, selectedUser?._id].sort().join("_");
     socketRef.current.emit("joinChat", {
-      username: player?.fullname,
       senderId: player?._id,
-      recieverId: selectedUser?._id,
+      receiverId: selectedUser?._id,
     });
 
     return () => {
-      // Disconnect socket on component unmount
       socketRef.current.disconnect();
       socketRef.current = null;
     };
   }, [player, selectedUser]);
 
-  // Update messages when the selectedUser changes
   useEffect(() => {
     if (!player || !selectedUser) return;
 
     const roomId = [player?._id, selectedUser?._id].sort().join("_");
-    setMessages(roomMessages[roomId] || []);
-  }, [selectedUser, player, roomMessages]);
+
+    const fetchMessages = async () => {
+      try {
+        const res = await axiosInstance.get(`/message/${roomId}`);
+        console.log("Messages fetched successfully:", res.data);
+        
+        setMessages(res.data); 
+      } catch (error) {
+        console.error("Error fetching messages:", error.response ? error.response.data : error.message);
+      }
+    };
+
+    fetchMessages();
+  }, [selectedUser, player]);
 
 
   return (
@@ -104,7 +110,7 @@ const PlayerChatContainer = () => {
           ))}
         </div>
 
-      <MessageInput senderId={player?._id} recieverId={selectedUser?._id}/>
+      <MessageInput role={"player"} senderId={player?._id} receiverId={selectedUser?._id}/>
     </div>
   );
 };

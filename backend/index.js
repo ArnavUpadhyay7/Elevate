@@ -9,6 +9,7 @@ const playerRouter = require("./routes/player.route");
 const coachRouter = require("./routes/coach.route");
 const blogRouter = require("./routes/blog.route");
 const paymentRouter = require("./routes/payment.route");
+const messageRouter = require("./routes/message.route");
 
 const path = require("path");
 
@@ -43,6 +44,7 @@ app.use("/player", playerRouter);
 app.use("/coach", coachRouter);
 app.use("/blog", blogRouter);
 app.use("/payment", paymentRouter);
+app.use("/message", messageRouter);
 
 const server = http.createServer(app);
 initializeSocket(server);

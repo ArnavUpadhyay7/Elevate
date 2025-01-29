@@ -2,13 +2,26 @@ import { useState } from "react";
 import { Send } from "lucide-react";
 import { createSocketConnection } from "../lib/socket";
 
-const MessageInput = ({senderId, recieverId}) => {
+const MessageInput = ({ role, senderId, receiverId}) => {
   const [text, setText] = useState("");
   const socket = createSocketConnection();
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    socket.emit("sendMessage", {senderId, recieverId, text: text});
+
+    const senderType = (role==="player") ? "player" : "coach"; 
+    const receiverType = (role==="coach") ? "coach" : "player"; 
+
+    const message = {
+      senderType,
+      senderId,
+      receiverType,
+      receiverId,
+      text,
+      roomId: [senderId, receiverId].sort().join("_"), 
+    };
+
+    socket.emit("sendMessage", message);
     setText("");
   };
 

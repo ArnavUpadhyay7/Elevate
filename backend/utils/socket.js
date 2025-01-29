@@ -1,4 +1,5 @@
 const socket = require("socket.io");
+const Message = require("../models/message.model");
 
 const initializeSocket = (server) => {
   const io = socket(server, {
@@ -9,21 +10,42 @@ const initializeSocket = (server) => {
 
   io.on("connection", (socket) => {
 
-    console.log("Client connected");
+    console.log("New client connected:", socket.id);
 
-    socket.on("joinChat", ({ username, senderId, recieverId }) => {
-      const roomId = [senderId, recieverId].sort().join("_");
+    socket.on("joinChat", ({ senderId, senderType, receiverId, receiverType }) => {
+      const roomId = [senderId, receiverId].sort().join("_");
       socket.join(roomId);
     });
 
-    socket.on("sendMessage", ({senderId, recieverId, text}) => {
-      const roomId = [senderId, recieverId].sort().join("_");
-      const createdAt = new Date().toISOString();
-      io.to(roomId).emit("messageRecieved", {text, senderId, createdAt});
+    socket.on("sendMessage", async ({ senderId, senderType, receiverId, receiverType, text }) => {
+      const roomId = [senderId, receiverId].sort().join("_");
+
+      const messageData = {
+        senderId,
+        senderType,
+        receiverId,
+        receiverType,
+        text,
+        roomId,
+      };
+  
+      try {
+        const newMessage = await Message.create(messageData);
+  
+        io.to(roomId).emit("messageReceived", {
+          _id: newMessage._id,
+          text: newMessage.text,
+          senderId: newMessage.senderId,
+          senderType: newMessage.senderType,
+          createdAt: newMessage.createdAt,
+        });
+      } catch (error) {
+        console.error("Error saving message:", error);
+      }
     });
 
     socket.on("disconnect", () => {
-      // Handle disconnect
+      console.log(`Client disconnected: ${socket.id}`);
     });
   });
 };
