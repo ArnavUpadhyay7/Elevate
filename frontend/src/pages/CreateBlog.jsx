@@ -21,7 +21,7 @@ export const CreateBlog = () => {
   
         if (response.status === 201) {
           toast.success("Blog created successfully!");
-          navigate("/blogs");
+          navigate("/blog");
         }
       } catch (error) {
         console.error("Error creating blog:", error);
@@ -85,7 +85,7 @@ export const CreateBlog = () => {
   
             <button
               type="submit"
-              className="w-full py-3 rounded-lg font-bold bg-gradient-to-r from-purple-500 to-blue-500 hover:scale-105 transition-transform duration-200"
+              className="text-white w-full py-3 rounded-lg font-bold bg-gradient-to-r from-purple-500 to-blue-500 hover:scale-105 transition-transform duration-200"
             >
               Submit
             </button>
