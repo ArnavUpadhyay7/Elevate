@@ -22,9 +22,9 @@ const Home = () => {
         {/* Floating Question Icon */}
         <div
           onClick={() => setShowHowToUse(true)}
-          className="cursor-pointer z-50 fixed right-4 md:top-10 md:right-32 border-white border-[1px] rounded-full p-1 hover:bg-white hover:text-black transition"
+          className="cursor-pointer z-50 fixed right-4 top-20 md:top-10 md:right-28 border-white border-[1px] rounded-full p-1 hover:bg-white hover:text-black transition"
         >
-          <IconQuestionMark className="size-8 font-bold" />
+          <IconQuestionMark className="md:size-6 size-4 font-bold" /> 
         </div>
 
         {showHowToUse && (
