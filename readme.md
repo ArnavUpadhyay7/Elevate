@@ -16,6 +16,7 @@ Live URL - https://elevate-xqw2.onrender.com/
 - **Frontend**: React, TailwindCSS, AceternityUI, DaisyUI
 - **Backend**: Node.js, Express.js, MongoDB
 - **Real-time**: Socket.io
+- **Payment integration**: Razorpay
 - **State Management**: Zustand
 - **Hosting**: Render (Backend), UptimeRobot (Monitoring)
 
