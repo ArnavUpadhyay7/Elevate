@@ -10,7 +10,7 @@ const coachRouter = require("./routes/coach.route");
 const blogRouter = require("./routes/blog.route");
 const paymentRouter = require("./routes/payment.route");
 const messageRouter = require("./routes/message.route");
-
+const chatBotRouter = require("./routes/chatBot.route");
 const path = require("path");
 
 const connectToDb = require("./db/db");
@@ -45,6 +45,7 @@ app.use("/coach", coachRouter);
 app.use("/blog", blogRouter);
 app.use("/payment", paymentRouter);
 app.use("/message", messageRouter);
+app.use("/chat-bot", chatBotRouter);
 
 const server = http.createServer(app);
 initializeSocket(server);

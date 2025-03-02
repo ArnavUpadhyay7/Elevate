@@ -10,6 +10,7 @@ export const Timeline = ({ data }) => {
     if (ref.current) {
       const rect = ref.current.getBoundingClientRect();
       setHeight(rect.height);
+      console.log(height)
     }
   }, [ref]);
 

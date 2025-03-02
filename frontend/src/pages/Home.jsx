@@ -6,33 +6,57 @@ import { GlobeDemo } from "../components/GlobeDemo";
 import { TimelineDemo } from "../components/TimelineDemo";
 import { IconQuestionMark } from "@tabler/icons-react";
 import HowToUse from "../components/HowToUse";
+import ChatBot from "./ChatBot";
+import { coachStore, playerStore } from "../store/authStore";
 
 const Home = () => {
+  const player = playerStore((state) => state.player);
+  const coach = coachStore((state) => state.coach);
   const [gender, setGender] = useState(true);
   const [showHowToUse, setShowHowToUse] = useState(false);
-  
+  const [showChatBot, setShowChatBot] = useState(false);
+
   const toggle = () => {
     setGender(!gender);
+  };
+  const handleOpenChatBot = () => {
+    setShowChatBot(true);
   };
 
   return (
     <div>
-      <div className="relative min-h-screen w-screen md:p-10 p-5 overflow-auto">
 
+      {/* ChatBot  */}
+      <div
+        onClick={handleOpenChatBot}
+        className="absolute z-50 bottom-10 right-4 md:right-10 cursor-pointer h-14 w-14 animate-bounce"
+      >
+        <img
+          src="https://cdn-icons-png.flaticon.com/128/2593/2593635.png"
+          alt="Chat-Bot Image"
+        />
+      </div>
+
+      {showChatBot && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-end z-50">
+          <ChatBot onClose={() => setShowChatBot(false)} />
+        </div>
+      )}
+
+      <div className="relative min-h-screen w-screen md:p-10 p-5 overflow-auto">
         {/* Floating Question Icon */}
+
         <div
           onClick={() => setShowHowToUse(true)}
-          className="cursor-pointer z-50 fixed right-4 top-20 md:top-10 md:right-28 border-white border-[1px] rounded-full p-1 hover:bg-white hover:text-black transition"
+          className="cursor-pointer z-50 fixed right-4 top-20 md:top-10 md:right-12 border-white border-[1px] rounded-full p-1 hover:bg-white hover:text-black"
         >
-          <IconQuestionMark className="md:size-6 size-4 font-bold" /> 
+          <IconQuestionMark className="md:size-6 size-4 font-bold" />
         </div>
 
         {showHowToUse && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-          >
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="w-[60%] h-[80%] p-8 rounded-lg shadow-lg relative">
-                <HowToUse onClose={() => setShowHowToUse(false)}/>
+              <HowToUse onClose={() => setShowHowToUse(false)} />
             </div>
           </div>
         )}

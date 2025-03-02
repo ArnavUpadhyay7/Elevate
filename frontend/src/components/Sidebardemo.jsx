@@ -17,7 +17,6 @@ import { Routes, Route } from "react-router-dom";
 import { coachStore, playerStore } from "../store/authStore";
 import { Loader } from "lucide-react";
 import { CreateBlog } from "../pages/CreateBlog";
-import GlobalAudioPlayer from "../pages/GlobalAudio";
 import Settings from "../pages/Settings";
 
 const Home = lazy(() => import("../pages/Home"));
@@ -216,7 +215,6 @@ export const LogoIcon = () => {
 const Dashboard = () => {
   return (
     <div className="h-screen w-full">
-      <GlobalAudioPlayer />
       <Routes>
         <Route
           path="/"

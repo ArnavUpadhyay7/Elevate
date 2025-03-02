@@ -1,0 +1,404 @@
+[
+  {
+    "id": "1",
+    "request": "What is Elevate?",
+    "response": "Elevate is a coaching platform for Valorant players to improve their skills.",
+    "tokens": ["Elevate", "platform", "Valorant", "coaching", "skills"]
+  },
+  {
+    "id": "2",
+    "request": "How do I book a coach?",
+    "response": "Browse coaches, check profiles, and book directly through the site.",
+    "tokens": ["book", "coach", "Elevate", "profiles"]
+  },
+  {
+    "id": "3",
+    "request": "Is Elevate free?",
+    "response": "Signing up is free, but coaching sessions are paid.",
+    "tokens": ["free", "Elevate", "coaching", "sessions"]
+  },
+  {
+    "id": "4",
+    "request": "What payment methods are accepted?",
+    "response": "Credit cards, debit cards, and UPI are supported.",
+    "tokens": ["payment", "methods", "credit", "debit", "UPI"]
+  },
+  {
+    "id": "5",
+    "request": "How do I become a coach?",
+    "response": "Create a profile, show your experience, and apply for verification.",
+    "tokens": ["become", "coach", "profile", "verification"]
+  },
+  {
+    "id": "6",
+    "request": "What is Radiant rank?",
+    "response": "Radiant is the highest rank in Valorant.",
+    "tokens": ["Radiant", "rank", "highest", "Valorant"]
+  },
+  {
+    "id": "7",
+    "request": "What is crosshair placement?",
+    "response": "Keeping your crosshair at head level to react faster.",
+    "tokens": ["crosshair", "placement", "head", "aim"]
+  },
+  {
+    "id": "8",
+    "request": "How to change my crosshair?",
+    "response": "Go to settings, then crosshair tab to customize.",
+    "tokens": ["change", "crosshair", "settings", "customize"]
+  },
+  {
+    "id": "9",
+    "request": "What are Duelists in Valorant?",
+    "response": "Duelists are self-sufficient fraggers meant to get kills.",
+    "tokens": ["Duelists", "fraggers", "kills"]
+  },
+  {
+    "id": "10",
+    "request": "How to contact support?",
+    "response": "Email support@elevate.gg or visit the Contact Us page.",
+    "tokens": ["contact", "support", "email", "Elevate"]
+  },
+  {
+    "id": "11",
+    "request": "How do refunds work?",
+    "response": "Refunds are only issued for valid disputes or no-shows.",
+    "tokens": ["refunds", "disputes", "no-shows"]
+  },
+  {
+    "id": "12",
+    "request": "What is Valorant Premier?",
+    "response": "It's a competitive tournament mode for teams.",
+    "tokens": ["Premier", "competitive", "tournament", "teams"]
+  },
+  {
+    "id": "13",
+    "request": "Can I review my coach?",
+    "response": "Yes, you can rate and review after sessions.",
+    "tokens": ["review", "coach", "rate", "sessions"]
+  },
+  {
+    "id": "14",
+    "request": "What agents are best for beginners?",
+    "response": "Sage, Brimstone, and Phoenix are beginner-friendly.",
+    "tokens": ["agents", "beginners", "Sage", "Brimstone", "Phoenix"]
+  },
+  {
+    "id": "15",
+    "request": "Can I reschedule a session?",
+    "response": "Yes, contact the coach at least 12 hours before.",
+    "tokens": ["reschedule", "session", "contact", "coach"]
+  },
+  {
+    "id": "16",
+    "request": "What are smokes in Valorant?",
+    "response": "Smokes are abilities that block vision.",
+    "tokens": ["smokes", "block", "vision", "abilities"]
+  },
+  {
+    "id": "17",
+    "request": "How do I check my session history?",
+    "response": "Login to your dashboard to see past sessions.",
+    "tokens": ["session", "history", "dashboard", "past"]
+  },
+  {
+    "id": "18",
+    "request": "What is Elevate's refund policy?",
+    "response": "Refunds are case-by-case for disputes and coach no-shows.",
+    "tokens": ["refund", "policy", "Elevate", "disputes"]
+  },
+  {
+    "id": "19",
+    "request": "What is the best gun for beginners?",
+    "response": "The Phantom and Vandal are reliable all-round guns.",
+    "tokens": ["best", "gun", "beginners", "Phantom", "Vandal"]
+  },
+  {
+    "id": "20",
+    "request": "Can I get coaching for my whole team?",
+    "response": "Yes, Elevate offers team coaching sessions.",
+    "tokens": ["team", "coaching", "sessions", "Elevate"]
+  },
+  {
+    "id": "21",
+    "request": "What's the coaching price range?",
+    "response": "Prices vary from $5 to $50+ per session.",
+    "tokens": ["coaching", "price", "range", "session"]
+  },
+  {
+    "id": "22",
+    "request": "What is ZenithBot?",
+    "response": "ZenithBot is Elevate's built-in chatbot for Valorant queries.",
+    "tokens": ["ZenithBot", "chatbot", "Elevate", "Valorant"]
+  },
+  {
+    "id": "23",
+    "request": "How do I join Elevate?",
+    "response": "Visit elevate.gg and sign up for free.",
+    "tokens": ["join", "Elevate", "sign up", "free"]
+  },
+  {
+    "id": "24",
+    "request": "What's the age requirement?",
+    "response": "You must be at least 13 years old to use Elevate.",
+    "tokens": ["age", "requirement", "13", "Elevate"]
+  },
+  {
+    "id": "25",
+    "request": "How to warm up before games?",
+    "response": "Use the range, deathmatch, or aim trainers.",
+    "tokens": ["warm up", "range", "deathmatch", "aim trainers"]
+  },
+  {
+    "id": "26",
+    "request": "Does Elevate offer discounts?",
+    "response": "Occasionally, discounts are offered during events.",
+    "tokens": ["discounts", "Elevate", "events"]
+  },
+  {
+    "id": "27",
+    "request": "What regions does Elevate support?",
+    "response": "Elevate supports all major Valorant regions.",
+    "tokens": ["regions", "Elevate", "support"]
+  },
+  {
+    "id": "28",
+    "request": "Can I become a coach if I'm not Radiant?",
+    "response": "Yes, top Immortal players can apply.",
+    "tokens": ["become", "coach", "Immortal", "apply"]
+  },
+  {
+    "id": "29",
+    "request": "How are coaches rated?",
+    "response": "Coaches are rated by students after sessions.",
+    "tokens": ["coaches", "rated", "students", "sessions"]
+  },
+  {
+    "id": "30",
+    "request": "What languages do coaches speak?",
+    "response": "Languages vary by coach and region.",
+    "tokens": ["languages", "coaches", "region"]
+  },
+  {
+    "id": "31",
+    "request": "Is there a mobile app?",
+    "response": "The mobile app is coming soon.",
+    "tokens": ["mobile", "app", "coming soon"]
+  },
+  {
+    "id": "32",
+    "request": "How do I improve game sense?",
+    "response": "Watch pros, review your matches, and learn map control.",
+    "tokens": ["improve", "game sense", "watch", "review", "map"]
+  },
+  {
+    "id": "33",
+    "request": "What if my coach is toxic?",
+    "response": "Report toxic coaches to Elevate support.",
+    "tokens": ["report", "toxic", "coach", "support"]
+  },
+  {
+    "id": "34",
+    "request": "Do coaches offer VOD reviews?",
+    "response": "Yes, many coaches offer VOD review services.",
+    "tokens": ["VOD", "reviews", "coaches", "services"]
+  },
+  {
+    "id": "35",
+    "request": "Can I gift a coaching session?",
+    "response": "Gift sessions will be added soon.",
+    "tokens": ["gift", "coaching", "session"]
+  },
+  {
+    "id": "36",
+    "request": "How do I know if a coach is good?",
+    "response": "Check reviews, ratings, and their rank history.",
+    "tokens": ["coach", "good", "reviews", "ratings"]
+  },
+  {
+    "id": "37",
+    "request": "Can I become a coach if I'm a girl?",
+    "response": "Absolutely, gender doesn't matter.",
+    "tokens": ["become", "coach", "girl", "gender"]
+  },
+  {
+    "id": "38",
+    "request": "What's Elevate's goal?",
+    "response": "To make pro coaching accessible to all players.",
+    "tokens": ["goal", "Elevate", "coaching", "accessible"]
+  },
+  {
+    "id": "39",
+    "request": "How to improve aim?",
+    "response": "Practice in aim trainers and deathmatch regularly.",
+    "tokens": ["improve", "aim", "practice", "deathmatch"]
+  },
+  {
+    "id": "40",
+    "request": "What roles exist in Valorant?",
+    "response": "Duelist, Controller, Sentinel, Initiator.",
+    "tokens": [ "roles", "Valorant", "Duelist", "Controller", "Sentinel", "Initiator"]
+  },
+  {
+    "id": "41",
+    "request": "What is ZenithBot?",
+    "response": "ZenithBot is Elevate's built-in Valorant chatbot.",
+    "tokens": ["ZenithBot", "Elevate", "chatbot", "Valorant"]
+  },
+  {
+    "id": "42",
+    "request": "How do refunds work?",
+    "response": "Refunds available for valid disputes or no-shows.",
+    "tokens": ["refund", "disputes", "no-shows"]
+  },
+  {
+    "id": "43",
+    "request": "What is Valorant Premier?",
+    "response": "Premier is a competitive team tournament mode.",
+    "tokens": ["Premier", "tournament", "competitive", "team"]
+  },
+  {
+    "id": "44",
+    "request": "How do I leave a review for my coach?",
+    "response": "After your session, you'll be prompted to review.",
+    "tokens": ["review", "coach", "session"]
+  },
+  {
+    "id": "45",
+    "request": "Best agent for beginners?",
+    "response": "Sage, Brimstone, Phoenix are good starter agents.",
+    "tokens": ["best", "agent", "beginners", "Sage", "Brimstone", "Phoenix"]
+  },
+  {
+    "id": "46",
+    "request": "Can I reschedule a session?",
+    "response": "Contact your coach 12 hours before to reschedule.",
+    "tokens": ["reschedule", "session", "coach"]
+  },
+  {
+    "id": "47",
+    "request": "How do I report a toxic coach?",
+    "response": "Report directly via support or in session history.",
+    "tokens": ["report", "toxic", "coach", "support"]
+  },
+  {
+    "id": "48",
+    "request": "Do coaches offer VOD reviews?",
+    "response": "Yes, many coaches review and analyze gameplay.",
+    "tokens": ["VOD", "review", "analyze", "gameplay"]
+  },
+  {
+    "id": "49",
+    "request": "Is there team coaching?",
+    "response": "Yes, Elevate offers team coaching sessions.",
+    "tokens": ["team", "coaching", "sessions", "Elevate"]
+  },
+  {
+    "id": "50",
+    "request": "How to become a pro player?",
+    "response": "Grind ranked, join teams, and play tournaments.",
+    "tokens": ["become", "pro", "player", "ranked", "tournaments"]
+  },
+  {
+    "id": "51",
+    "request": "What is game sense?",
+    "response": "Game sense is map awareness, rotations, and predicting enemies.",
+    "tokens": ["game", "sense", "map", "rotations", "predicting"]
+  },
+  {
+    "id": "52",
+    "request": "Can I choose my coach?",
+    "response": "Yes, browse and select any coach you want.",
+    "tokens": ["choose", "coach", "browse", "select"]
+  },
+  {
+    "id": "53",
+    "request": "What is a one-way smoke?",
+    "response": "A smoke where you see them, but they can't see you.",
+    "tokens": ["one-way", "smoke", "vision", "advantage"]
+  },
+  {
+    "id": "54",
+    "request": "How to practice recoil control?",
+    "response": "Use the shooting range and practice wall sprays.",
+    "tokens": ["practice", "recoil", "control", "shooting", "range"]
+  },
+  {
+    "id": "55",
+    "request": "Best ways to warm up?",
+    "response": "Play deathmatch, use aim trainers, and TDM.",
+    "tokens": ["warm up", "deathmatch", "aim", "trainers"]
+  },
+  {
+    "id": "56",
+    "request": "What ranks can become coaches?",
+    "response": "Generally Immortal+ but exceptions can be made.",
+    "tokens": ["ranks", "become", "coaches", "Immortal"]
+  },
+  {
+    "id": "57",
+    "request": "What happens if a coach misses?",
+    "response": "You can reschedule or request a refund.",
+    "tokens": ["coach", "misses", "reschedule", "refund"]
+  },
+  {
+    "id": "58",
+    "request": "Do coaches give homework?",
+    "response": "Some do, like VOD reviews and drills.",
+    "tokens": ["coaches", "homework", "VOD", "drills"]
+  },
+  {
+    "id": "59",
+    "request": "Can I gift a session?",
+    "response": "Gifted sessions will be added soon.",
+    "tokens": ["gift", "session", "soon"]
+  },
+  {
+    "id": "60",
+    "request": "Does Elevate work on mobile?",
+    "response": "Mobile version coming soon.",
+    "tokens": ["mobile", "version", "coming soon"]
+  },
+  {
+    "id": "61",
+    "request": "Are discounts available?",
+    "response": "Elevate offers discounts during events.",
+    "tokens": ["discounts", "events", "Elevate"]
+  },
+  {
+    "id": "62",
+    "request": "What's the Elevate support email?",
+    "response": "support@elevate.gg",
+    "tokens": ["support", "email", "Elevate"]
+  },
+  {
+    "id": "63",
+    "request": "Can I see my coach's stats?",
+    "response": "Yes, profiles show ranks and experience.",
+    "tokens": ["coach", "stats", "profile", "experience"]
+  },
+  {
+    "id": "64",
+    "request": "What languages do coaches speak?",
+    "response": "Varies by coach, check their profile.",
+    "tokens": ["languages", "coaches", "profile"]
+  },
+  {
+    "id": "65",
+    "request": "What's the refund window?",
+    "response": "Full refund if cancelled 12+ hours before.",
+    "tokens": ["refund", "window", "cancelled"]
+  },
+  {
+    "id": "66",
+    "request": "Can I pause coaching?",
+    "response": "You can reschedule sessions but not pause them.",
+    "tokens": ["pause", "coaching", "reschedule"]
+  },
+  {
+    "id": "67",
+    "request": "Is Elevate legit?",
+    "response": "Yes, all coaches are verified.",
+    "tokens": ["Elevate", "legit", "verified", "coaches"]
+  }
+]
