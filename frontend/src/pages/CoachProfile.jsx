@@ -5,6 +5,7 @@ import { axiosInstance } from "../lib/axios";
 import { playerStore } from "../store/authStore";
 import { useChatStore } from "../store/useChatStore";
 import CoachClipsViewer from "../components/CoachClipsViewer";
+import toast from "react-hot-toast";
 
 /* ─────────────────────────────────────────────────────────────
    Icons
@@ -191,7 +192,9 @@ const CoachProfile = () => {
           <AnimatedModalDemo coach={coach} player={player} />
         )
       ) : (
-        <button className="w-full bg-[#A01E2E] hover:bg-[#8E1C2A] text-white text-[12.5px] font-semibold py-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5 tracking-[0.02em]">
+        <button
+          onClick={() => toast.error("Sign up to book a session")}
+          className="w-full bg-[#A01E2E] hover:bg-[#8E1C2A] text-white text-[12.5px] font-semibold py-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5 tracking-[0.02em]">
           Book a Session
         </button>
       )}
@@ -393,7 +396,9 @@ const CoachProfile = () => {
                 </div>
               )
             ) : (
-              <button className="w-full max-w-xs mx-auto block bg-[#A01E2E] hover:bg-[#8E1C2A] text-white text-[13px] font-semibold py-3.5 rounded-lg transition-all duration-200 hover:-translate-y-0.5 tracking-[0.03em]">
+              <button 
+               onClick={() => toast.error("Sign up to book a session")}
+               className="w-full max-w-xs mx-auto block bg-[#A01E2E] hover:bg-[#8E1C2A] text-white text-[13px] font-semibold py-3.5 rounded-lg transition-all duration-200 hover:-translate-y-0.5 tracking-[0.03em]">
                 Book a Session with {coach.fullname}
               </button>
             )}
