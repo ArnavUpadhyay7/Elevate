@@ -19,9 +19,6 @@ const playerSchema = new mongoose.Schema({
   profilePic: {
     type: String,
   },
-  playerBanner: {
-    type: String,
-  },
   about: {
     type: String,
     required: true

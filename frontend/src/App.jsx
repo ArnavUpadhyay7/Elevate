@@ -3,7 +3,7 @@ import { SidebarDemo } from "./components/Sidebardemo";
 import { coachStore, playerStore } from "./store/authStore";
 import { useEffect } from "react";
 import { Loader } from "lucide-react";
-import {useThemeStore} from './store/useThemeStore';
+import SmoothScroll from "./components/SmoothScroll";
 
 function App() {
   const checkPlayerAuth = playerStore((state) => state.checkPlayerAuth);
@@ -11,30 +11,26 @@ function App() {
   const checkCoachAuth = coachStore((state) => state.checkCoachAuth);
   const isCheckingCoachAuth = coachStore((state) => state.isCheckingCoachAuth);
 
-  const {theme} = useThemeStore();
-
   useEffect(() => {
     checkPlayerAuth();
     checkCoachAuth();
   }, [checkPlayerAuth, checkCoachAuth]);
 
-  if(isCheckingPlayerAuth || isCheckingCoachAuth) {
+  if (isCheckingPlayerAuth || isCheckingCoachAuth) {
     return (
-      <div data-theme={theme}>
-        <div className="flex justify-center items-center h-screen">
-          <Loader className="size-12 animate-spin" />
-        </div>
+      <div className="flex justify-center items-center h-screen">
+        <Loader className="size-12 animate-spin" />
       </div>
     );
   }
 
   return (
-    <div data-theme={theme}>
+    <SmoothScroll>
       <div className="min-h-screen w-full">
         <Toaster position="top-center" />
         <SidebarDemo />
       </div>
-    </div>
+    </SmoothScroll>
   );
 }
 

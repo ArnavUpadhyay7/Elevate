@@ -12,8 +12,6 @@ export default defineConfig({
           'ui-vendor': ['framer-motion', '@tabler/icons-react'],
           'auth': ['zustand', 'axios'],
           'components': [
-            './src/components/ThreeDCardDemo.jsx',
-            './src/components/GlobeDemo.jsx',
             './src/components/TimelineDemo.jsx'
           ]
         }

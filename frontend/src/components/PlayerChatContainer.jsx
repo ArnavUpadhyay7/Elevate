@@ -13,121 +13,145 @@ const PlayerChatContainer = () => {
   const [messages, setMessages] = useState([]);
   const player = playerStore((state) => state.player);
 
-  const socketRef = useRef(null);
+  const socket = createSocketConnection(); // ✅ singleton socket
   const bottomRef = useRef(null);
-  
-  // Scroll to the bottom whenever messages change
+
+  // Scroll to bottom
   useEffect(() => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
+  // SOCKET LOGIC
   useEffect(() => {
     if (!player || !selectedUser) return;
 
-    if (!socketRef.current) {
-      socketRef.current = createSocketConnection();
+    const roomId = [player._id, selectedUser._id].sort().join("_");
 
-      socketRef.current.on("messageReceived", ({ text, senderId, createdAt }) => {
-        const roomId = [player?._id, selectedUser?._id].sort().join("_");
-        
-        setRoomMessages((prev) => {
-          const updatedMessages = {
-            ...prev,
-            [roomId]: [...(prev[roomId] || []), { text, senderId, createdAt }],
-          };
-
-          setMessages((prevMessages) => {
-            const newMessage = { text, senderId, createdAt };
-            if (!prevMessages.some((msg) => msg.createdAt === createdAt && msg.senderId === senderId)) {
-              return [...prevMessages, newMessage];
-            }
-            return prevMessages;
-          });
-          
-          return updatedMessages;
-        });
+    const handleJoin = () => {
+      socket.emit("joinChat", {
+        senderId: player._id,
+        receiverId: selectedUser._id,
       });
-    }
+    };
 
-    socketRef.current.emit("joinChat", {
-      senderId: player?._id,
-      receiverId: selectedUser?._id,
-    });
+    const handleMessage = ({ text, senderId, createdAt }) => {
+      setRoomMessages((prev) => {
+        const updatedMessages = {
+          ...prev,
+          [roomId]: [
+            ...(prev[roomId] || []),
+            { text, senderId, createdAt },
+          ],
+        };
+
+        setMessages((prevMessages) => {
+          const newMessage = { text, senderId, createdAt };
+
+          if (
+            !prevMessages.some(
+              (msg) =>
+                msg.createdAt === createdAt &&
+                msg.senderId === senderId
+            )
+          ) {
+            return [...prevMessages, newMessage];
+          }
+          return prevMessages;
+        });
+
+        return updatedMessages;
+      });
+    };
+
+    socket.on("connect", handleJoin);
+    socket.on("messageReceived", handleMessage);
+
+    // already connected case
+    if (socket.connected) handleJoin();
 
     return () => {
-      socketRef.current.disconnect();
-      socketRef.current = null;
+      socket.off("connect", handleJoin);
+      socket.off("messageReceived", handleMessage);
     };
-  }, [player, selectedUser]);
+  }, [player, selectedUser, socket]);
 
+  // FETCH OLD MESSAGES
   useEffect(() => {
     if (!player || !selectedUser) return;
 
-    const roomId = [player?._id, selectedUser?._id].sort().join("_");
+    const roomId = [player._id, selectedUser._id].sort().join("_");
 
     const fetchMessages = async () => {
       try {
         const res = await axiosInstance.get(`/message/${roomId}`);
         console.log("Messages fetched successfully:", res.data);
-        
-        setMessages(res.data); 
+        setMessages(res.data);
       } catch (error) {
-        console.error("Error fetching messages:", error.response ? error.response.data : error.message);
+        console.error(
+          "Error fetching messages:",
+          error.response ? error.response.data : error.message
+        );
       }
     };
 
     fetchMessages();
   }, [selectedUser, player]);
 
-
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
 
       {/* Messages Container */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {messages.map((message, idx) => (
-            <div
-              key={idx}
-              className={`chat ${
-                message.senderId === player?._id ? "chat-end" : "chat-start"
-              }`}
-            >
-              {/* Profile Picture */}
-              <div className="chat-image avatar">
-                <div className="size-10 rounded-full border">
-                  <img
-                    src={
-                      message.senderId === player._id
-                        ? player.profilePic || "https://cdn-icons-png.flaticon.com/128/149/149071.png"
-                        : selectedUser.profilePic || "https://cdn-icons-png.flaticon.com/128/149/149071.png"
-                    }
-                    alt="profile pic"
-                  />
-                </div>
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        {messages.map((message, idx) => (
+          <div
+            key={idx}
+            className={`chat ${
+              message.senderId === player?._id
+                ? "chat-end"
+                : "chat-start"
+            }`}
+          >
+            {/* Profile Picture */}
+            <div className="chat-image avatar">
+              <div className="size-10 rounded-full border">
+                <img
+                  src={
+                    message.senderId === player._id
+                      ? player.profilePic ||
+                        "https://cdn-icons-png.flaticon.com/128/149/149071.png"
+                      : selectedUser.profilePic ||
+                        "https://cdn-icons-png.flaticon.com/128/149/149071.png"
+                  }
+                  alt="profile pic"
+                />
               </div>
-
-              {/* Message Content */}
-              <div className="chat-bubble flex flex-col">
-                {<p>{message.text}</p>}
-              </div>
-
-              {/* Message Footer - Time */}
-              <div className="chat-footer mb-1">
-                <time className="text-xs opacity-50 ml-1">
-                  {formatTime(message.createdAt)}
-                </time>
-              </div>
-
             </div>
-          ))}
 
-          <div ref={bottomRef} />
-        </div>
+            {/* Message Content */}
+            <div className="chat-bubble flex flex-col">
+              <p>{message.text}</p>
+            </div>
 
-      <MessageInput role={"player"} senderId={player?._id} receiverId={selectedUser?._id}/>
+            {/* Message Footer */}
+            <div className="chat-footer mb-1">
+              <time className="text-xs opacity-50 ml-1">
+                {formatTime(message.createdAt)}
+              </time>
+            </div>
+          </div>
+        ))}
+
+        <div ref={bottomRef} />
+      </div>
+
+      <MessageInput
+        role="player"
+        senderId={player?._id}
+        receiverId={selectedUser?._id}
+      />
     </div>
   );
 };

@@ -43,7 +43,17 @@ const coachSchema = new mongoose.Schema({
   payed_player: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'player',
-  }]
+  }],
+  gameplayVideos: [
+  {
+    url: String,
+    publicId: String,
+    uploadedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+],
 }, {timestamps: true});
 
 const coachModel = mongoose.model("coach", coachSchema);

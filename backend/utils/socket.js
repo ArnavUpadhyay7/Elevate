@@ -5,6 +5,8 @@ const initializeSocket = (server) => {
   const io = socket(server, {
     cors: {
       origin: "http://localhost:5173",
+      methods: ["GET", "POST"],
+      credentials: true,
     },
   });
 
@@ -12,7 +14,7 @@ const initializeSocket = (server) => {
 
     console.log("New client connected:", socket.id);
 
-    socket.on("joinChat", ({ senderId, senderType, receiverId, receiverType }) => {
+    socket.on("joinChat", ({ senderId, receiverId }) => {
       const roomId = [senderId, receiverId].sort().join("_");
       socket.join(roomId);
     });

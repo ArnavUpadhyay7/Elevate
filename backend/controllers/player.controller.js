@@ -12,7 +12,6 @@ exports.playerSignup = async (req, res) => {
     rank,
     role,
     profilePic,
-    playerBanner,
   } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -24,7 +23,6 @@ exports.playerSignup = async (req, res) => {
       rank,
       role,
       profilePic,
-      playerBanner,
     });
     await newPlayer.save();
 

@@ -1,6 +1,8 @@
 const Coach = require("../models/coach.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const cloudinary = require("../config/cloudinary");
+const streamifier = require("streamifier");
 
 // Coach Signup
 exports.coachSignup = async (req, res) => {
@@ -120,5 +122,92 @@ exports.myPlayers = async (req, res) => {
     res.json(coach.payed_player);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+exports.uploadGameplayVideo = async (req, res) => {
+  try {
+    const coachId = req.coach._id;
+
+    const coach = await Coach.findById(coachId);
+
+    if (!coach)
+      return res.status(404).json({ message: "Coach not found" });
+
+    // limit to 3 videos
+    if (coach.gameplayVideos.length >= 3) {
+      return res
+        .status(400)
+        .json({ message: "Maximum 3 videos allowed" });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ message: "No video uploaded" });
+    }
+
+    // upload to cloudinary
+    const result = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        {
+          resource_type: "video",
+          folder: "elevate/gameplay",
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+
+      streamifier.createReadStream(req.file.buffer).pipe(stream);
+    });
+
+    coach.gameplayVideos.push({
+      url: result.secure_url,
+      publicId: result.public_id,
+    });
+
+    await coach.save();
+
+    res.status(200).json({
+      message: "Video uploaded successfully",
+      videos: coach.gameplayVideos,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Upload failed" });
+  }
+};
+
+// this doesn't work, needs fixing
+exports.deleteGameplayVideo = async (req, res) => {
+  try {
+    const coachId = req.coach._id;
+    const { videoId } = req.params;
+
+    const coach = await Coach.findById(coachId);
+
+    if (!coach)
+      return res.status(404).json({ message: "Coach not found" });
+
+    const video = coach.gameplayVideos.id(videoId);
+
+    if (!video)
+      return res.status(404).json({ message: "Video not found" });
+
+    await cloudinary.uploader.destroy(video.publicId, {
+      resource_type: "video",
+    });
+
+    video.deleteOne();
+
+    await coach.save();
+
+    res.json({
+      message: "Video deleted successfully",
+      videos: coach.gameplayVideos,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Delete failed" });
   }
 };

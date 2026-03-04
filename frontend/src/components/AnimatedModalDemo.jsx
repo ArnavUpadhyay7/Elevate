@@ -1,26 +1,38 @@
 import React from "react";
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalTrigger} from "./ui/animated-modal";
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalTrigger,
+} from "./ui/animated-modal";
 import { motion } from "framer-motion";
 import { VideoIcon, Videotape } from "lucide-react";
 import { axiosInstance } from "../lib/axios";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { playerStore } from "../store/authStore";
 
-export function AnimatedModalDemo({coach, player}) {
+export function AnimatedModalDemo({ coach, player }) {
   const navigate = useNavigate();
+  const refreshPlayer = playerStore((state) => state.refreshPlayer);
 
   const handleBuyClick = async () => {
     try {
-      const order = await axiosInstance.post(`/payment/create`, {
-        amount: coach?.rate,
-        currency: "INR",
-        receipt: "order_rcptid_1",
-        notes: {
-          coachEmail: coach?.email,
-          playerEmail: player?.email,
-        }
-      }, {withCredentials: true});
+      const order = await axiosInstance.post(
+        "/payment/create",
+        {
+          amount: coach?.rate,
+          currency: "INR",
+          receipt: "order_rcptid_1",
+          notes: {
+            coachEmail: coach?.email,
+            playerEmail: player?.email,
+          },
+        },
+        { withCredentials: true }
+      );
 
-      const {amount, keyId, currency, notes, orderId} = order.data;
+      const { amount, keyId, currency, notes, orderId } = order.data;
 
       const options = {
         key: keyId,
@@ -28,23 +40,32 @@ export function AnimatedModalDemo({coach, player}) {
         currency,
         name: "Elevate",
         description: "Elevate Coaching Session",
-        order_id: orderId, 
+        order_id: orderId,
         prefill: {
           name: notes.fullname,
           email: notes.email,
         },
         theme: {
-          color: '#F37254'
+          color: "#A01E2E",
         },
-        handler: function (res) {
-          navigate("/messages");
-        }
+
+        handler: async function () {
+          try {
+            // Review doc + payed_coach already created at order creation time.
+            // No need to wait for webhook — just refresh and navigate.
+            await refreshPlayer();
+            navigate("/reviews");
+          } catch (err) {
+            console.error("Post-payment refresh failed:", err);
+            navigate("/reviews");
+          }
+        },
       };
 
       const rzp = new window.Razorpay(options);
       rzp.open();
-    } catch (error) { 
-      console.error("Error making payment: ", error.message);
+    } catch (error) {
+      console.error("Error creating payment order:", error.message);
     }
   };
 
@@ -55,28 +76,19 @@ export function AnimatedModalDemo({coach, player}) {
     "https://i.pinimg.com/736x/76/f3/28/76f3284f77b0091bac48147612218033.jpg",
     "https://i.pinimg.com/736x/24/0c/9b/240c9b396d7a1a60e6338cd496ee151f.jpg",
   ];
+
   return (
-    (<div className="flex text-white items-center justify-center">
+    <div className="w-full">
       <Modal>
-        <ModalTrigger
-          className="bg-white text-black border-[2px] font-semibold md:w-[10vw] flex justify-center group/modal-btn">
-          <span
-            className="group-hover/modal-btn:translate-x-40 text-center transition duration-500">
-            Book a Session
-          </span>
-          <div
-            className="-translate-x-40 group-hover/modal-btn:translate-x-0 flex items-center justify-center absolute inset-0 transition duration-500 text-white z-20">
-            🚀
-          </div>
+        <ModalTrigger className="w-full py-3 rounded-lg bg-[#A01E2E] hover:bg-[#8E1C2A] text-white text-[12.5px] font-semibold tracking-[0.02em] transition-colors duration-200">
+          Book a Session
         </ModalTrigger>
         <ModalBody>
           <ModalContent>
-            <h4
-              className="text-white text-lg md:text-2xl font-bold text-center mb-8">
+            <h4 className="text-white text-lg md:text-2xl font-bold text-center mb-8">
               Book your Session{" "}
-              <span
-                className="px-1 py-0.5 rounded-md text-zinc-900 bg-gray-100 border border-gray-200">
-                With me
+              <span className="px-1 py-0.5 rounded-md text-white/80 bg-white/10 border border-white/10">
+                With {coach?.fullname}
               </span>{" "}
               now! 🚀
             </h4>
@@ -84,53 +96,42 @@ export function AnimatedModalDemo({coach, player}) {
               {images.map((image, idx) => (
                 <motion.div
                   key={"images" + idx}
-                  style={{
-                    rotate: Math.random() * 20 - 10,
-                  }}
-                  whileHover={{
-                    scale: 1.1,
-                    rotate: 0,
-                    zIndex: 100,
-                  }}
-                  whileTap={{
-                    scale: 1.1,
-                    rotate: 0,
-                    zIndex: 100,
-                  }}
-                  className="rounded-xl -mr-4 mt-4 p-1 bg-white dark:bg-neutral-800 dark:border-neutral-700 border border-neutral-100 flex-shrink-0 overflow-hidden">
+                  style={{ rotate: Math.random() * 20 - 10 }}
+                  whileHover={{ scale: 1.1, rotate: 0, zIndex: 100 }}
+                  whileTap={{ scale: 1.1, rotate: 0, zIndex: 100 }}
+                  className="rounded-xl -mr-4 mt-4 p-1 bg-white/5 border border-white/10 flex-shrink-0 overflow-hidden"
+                >
                   <img
                     src={image}
-                    alt="valo images"
+                    alt="valorant gameplay"
                     width="500"
                     height="500"
-                    className="rounded-lg h-20 w-20 md:h-40 md:w-40 object-cover flex-shrink-0" />
+                    className="rounded-lg h-14 w-14 md:h-24 md:w-24 object-cover flex-shrink-0"
+                  />
                 </motion.div>
               ))}
             </div>
-            <div
-              className="py-10 flex flex-wrap gap-x-4 gap-y-6 items-start justify-start max-w-sm mx-auto">
+            <div className="py-4 flex flex-wrap gap-x-4 gap-y-6 items-start justify-start max-w-sm mx-auto">
               <div className="flex items-center justify-center">
-                <VideoIcon className="mr-1 text-neutral-700 dark:text-neutral-300 h-4 w-4" />
-                <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-                  1 live session
-                </span>
+                <VideoIcon className="mr-1 text-white/50 h-4 w-4" />
+                <span className="text-white/60 text-sm">1 live session</span>
               </div>
               <div className="flex items-center justify-center">
-                <Videotape className="mr-1 text-neutral-700 dark:text-neutral-300 h-4 w-4" />
-                <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-                  2 recorded sessions
-                </span>
+                <Videotape className="mr-1 text-white/50 h-4 w-4" />
+                <span className="text-white/60 text-sm">2 recorded sessions</span>
               </div>
             </div>
           </ModalContent>
           <ModalFooter>
-            <button onClick={() => handleBuyClick()}
-              className="bg-white text-black text-sm px-2 py-1 rounded-md border border-black w-28">
-              Book Now
+            <button
+              onClick={handleBuyClick}
+              className="bg-[#A01E2E] hover:bg-[#8E1C2A] text-white text-sm px-5 py-2.5 rounded-lg font-semibold transition-all duration-200 tracking-wide"
+            >
+              Book Now · ₹{coach?.rate}
             </button>
           </ModalFooter>
         </ModalBody>
       </Modal>
-    </div>)
+    </div>
   );
 }

@@ -1,45 +1,40 @@
-const playerModel = require("../models/player.model")
-const coachModel = require("../models/coach.model")
-const jwt = require("jsonwebtoken");
+const jwt         = require("jsonwebtoken");
+const playerModel = require("../models/player.model");
+const coachModel  = require("../models/coach.model");
 
 module.exports.authPlayer = async (req, res, next) => {
-  
   const token = req.cookies.token;
-  if(!token){
-    return res.status(401).json({message: 'Unauthorized'});
-  }
-  
-  try{
+  if (!token) return res.status(401).json({ message: "Unauthorized" });
+
+  try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const player = await playerModel.findById(decoded.id);
-    if (!player) {
-      // console.log('Player not found');
-      return res.status(404).json({ message: 'Player not found' });
-    }
+
+    // Populate payed_coach so the Reviews page can show coach names/pics
+    const player = await playerModel
+      .findById(decoded.id)
+      .populate("payed_coach", "fullname profilePic rank role");
+
+    if (!player) return res.status(404).json({ message: "Player not found" });
+
     req.player = player;
     return next();
-  }catch(error){
-    return res.status(401).json({message: 'Unauthorized'});
+  } catch {
+    return res.status(401).json({ message: "Unauthorized" });
   }
 };
 
 module.exports.authCoach = async (req, res, next) => {
-  
   const token = req.cookies.token;
-  if(!token){
-    return res.status(401).json({message: 'Unauthorized'});
-  }
-  
-  try{
+  if (!token) return res.status(401).json({ message: "Unauthorized" });
+
+  try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const coach = await coachModel.findById(decoded.id);
-    if (!coach) {
-      // console.log('Coach not found');
-      return res.status(404).json({ message: 'Coach not found' });
-    }
+    const coach   = await coachModel.findById(decoded.id);
+    if (!coach) return res.status(404).json({ message: "Coach not found" });
+
     req.coach = coach;
     return next();
-  }catch(error){
-    return res.status(401).json({message: 'Unauthorized'});
+  } catch {
+    return res.status(401).json({ message: "Unauthorized" });
   }
 };

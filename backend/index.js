@@ -7,13 +7,13 @@ const compression = require('compression');
 const cookieParser = require("cookie-parser");
 const playerRouter = require("./routes/player.route");
 const coachRouter = require("./routes/coach.route");
-const blogRouter = require("./routes/blog.route");
 const paymentRouter = require("./routes/payment.route");
 const messageRouter = require("./routes/message.route");
 const chatBotRouter = require("./routes/chatBot.route");
+const reviewRouter = require("./routes/review.route");
 const path = require("path");
 
-const connectToDb = require("./db/db");
+const connectToDb = require("./config/db");
 connectToDb();
 const initializeSocket = require("./utils/socket");
 
@@ -42,10 +42,10 @@ app.get('/health', (req, res) => {
 
 app.use("/player", playerRouter);
 app.use("/coach", coachRouter);
-app.use("/blog", blogRouter);
 app.use("/payment", paymentRouter);
 app.use("/message", messageRouter);
 app.use("/chat-bot", chatBotRouter);
+app.use("/reviews", reviewRouter);
 
 const server = http.createServer(app);
 initializeSocket(server);

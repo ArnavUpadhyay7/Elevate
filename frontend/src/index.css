@@ -1,3 +1,350 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Syne:wght@700;800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --elv-accent-filter: none;
+  --elv-contrast: contrast(1);
+}
+
+.adaptive-accent {
+  filter: var(--elv-accent-filter);
+}
+
+.elv-root {
+  filter: var(--elv-contrast);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.elv-root {
+  font-family:
+    "DM Sans",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Grain: barely-there texture, not perceptible at glance ── */
+.elv-grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.026;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 160px;
+}
+
+/* ── Background: imperceptibly slow drift, pure cool tones ── */
+@keyframes gradientDrift {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 30%;
+  }
+  50% {
+    background-position: 60% 100%;
+  }
+  75% {
+    background-position: 0% 70%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+.elv-bg-drift {
+  background: linear-gradient(
+    160deg,
+    #07090d 0%,
+    #090d12 20%,
+    #080c11 40%,
+    #0a0e14 60%,
+    #07090d 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientDrift 32s linear infinite;
+}
+
+/* ── Headline reveal: pure opacity + Y, no blur (cleaner) ── */
+@keyframes wordReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.word-reveal {
+  display: block;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: wordReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.word-reveal-1 {
+  animation-delay: 0.05s;
+}
+.word-reveal-2 {
+  animation-delay: 0.16s;
+}
+.word-reveal-3 {
+  animation-delay: 0.27s;
+}
+
+/* ── Fade slide up: reduced distance, tighter timing ── */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up-1 {
+  opacity: 0;
+  animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
+}
+.fade-up-2 {
+  opacity: 0;
+  animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+}
+.fade-up-3 {
+  opacity: 0;
+  animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.62s forwards;
+}
+.fade-up-4 {
+  opacity: 0;
+  animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.74s forwards;
+}
+.fade-up-5 {
+  opacity: 0;
+  animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.88s forwards;
+}
+
+/* ── Scroll-triggered sections ── */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Step card: accent line scaleX reveal + gradient hover ── */
+.step-card {
+  position: relative;
+  overflow: hidden;
+}
+.step-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(170, 28, 46, 0.45),
+    transparent
+  );
+  opacity: 0;
+  transform: scaleX(0.3);
+  transform-origin: center;
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.step-card:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+.step-card {
+  transition:
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.step-card:hover {
+  background: linear-gradient(160deg, #0f151f 0%, #0c1118 100%) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  transition:
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+}
+.btn-ghost {
+  transition:
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.22s ease,
+    color 0.22s ease;
+}
+.btn-ghost:hover {
+  transform: translateY(-2px);
+}
+
+/* ── Rank bars: scaleY from bottom, staggered per bar ── */
+@keyframes barGrow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.rank-bar {
+  transform-origin: bottom;
+  transform: scaleY(0);
+}
+.rank-bars-visible .rank-bar {
+  animation: barGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Parallax ── */
+.parallax-bg {
+  will-change: transform;
+}
+
+/* ── Mesh float: longer, gentler ── */
+@keyframes meshFloat {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(0.3deg);
+  }
+}
+.mesh-float {
+  animation: meshFloat 14s ease-in-out infinite;
+}
+
+/* ── Section rules ── */
+.section-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.045) 25%,
+    rgba(255, 255, 255, 0.045) 75%,
+    transparent
+  );
+}
+
+/* ── Stats glass ── */
+.stats-glass {
+  background: rgba(255, 255, 255, 0.022);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.065);
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+}
+.stats-glass:hover {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Stat reveal ── */
+@keyframes statReveal {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.stat-item {
+  animation: statReveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Reduced motion: hard overrides ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .word-reveal,
+  .fade-up-1,
+  .fade-up-2,
+  .fade-up-3,
+  .fade-up-4,
+  .fade-up-5 {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .rank-bar {
+    transform: scaleY(1) !important;
+  }
+  .elv-bg-drift {
+    animation: none !important;
+  }
+  .mesh-float {
+    animation: none !important;
+  }
+}
+
+/* ── CSS custom properties for scroll environment ── */
+:root {
+  --elv-accent-h: 352deg;
+  --elv-accent-s: 67%;
+  --elv-accent-l: 37%;
+  --elv-bg-darken: 0;
+}
+/* Environment-aware accent — eyebrow dots + labels use this */
+.elv-accent-env {
+  color: hsl(var(--elv-accent-h), var(--elv-accent-s), var(--elv-accent-l));
+}
+.elv-accent-env-bg {
+  background: hsl(
+    var(--elv-accent-h),
+    var(--elv-accent-s),
+    var(--elv-accent-l)
+  );
+}
+/* Very subtle background darkening driven by scroll */
+.elv-root::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: rgba(0, 0, 0, var(--elv-bg-darken));
+}

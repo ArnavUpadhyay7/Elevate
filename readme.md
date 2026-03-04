@@ -10,7 +10,7 @@ Live URL - https://elevate-xqw2.onrender.com/
 - **Booking System**: Schedule coaching sessions with real-time availability.
 - **Payments**: Secure transactions for coaching services.
 - **Chat System**: Real-time messaging between players and coaches.
-- **Theme Customization**: Users can change themes in settings.
+- **Video Upload**: Coaches can showcase their skills by uploading their gameplay videos.
 
 ## Tech Stack
 - **Frontend**: React, TailwindCSS, AceternityUI, DaisyUI
