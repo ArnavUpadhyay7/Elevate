@@ -3,21 +3,6 @@ import { axiosInstance } from "../lib/axios";
 import { playerStore, coachStore } from "../store/authStore";
 import ReviewCard from "../components/ReviewCard";
 
-/* ─────────────────────────────────────────────────────────────
-   Reviews page
-   
-   For PLAYERS:
-   - Fetches GET /review/player  → existing review docs
-   - Fetches player.payed_coach  → all coaches they've paid
-   
-   Then merges: if a paid coach has no review doc yet, we show them
-   with a synthetic "no_review" state (shouldn't happen since webhook
-   auto-creates them, but acts as a fallback).
-   
-   For COACHES:
-   - Fetches GET /review/coach → their player submissions
-───────────────────────────────────────────────────────────── */
-
 const Grain = () => (
   <div className="fixed inset-0 pointer-events-none z-[9998] opacity-[0.024]"
     style={{

@@ -51,8 +51,6 @@ export function AnimatedModalDemo({ coach, player }) {
 
         handler: async function () {
           try {
-            // Review doc + payed_coach already created at order creation time.
-            // No need to wait for webhook — just refresh and navigate.
             await refreshPlayer();
             navigate("/reviews");
           } catch (err) {

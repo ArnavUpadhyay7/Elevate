@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+import "lenis/dist/lenis.css";
 import Lenis from "lenis";
+import { setLenis } from "./lenis";
 
 export default function SmoothScroll({ children }) {
   useEffect(() => {
@@ -8,6 +10,9 @@ export default function SmoothScroll({ children }) {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
+
+    setLenis(lenis);
+    window.__lenis = lenis;
 
     lenis.on("scroll", () => {
       window.dispatchEvent(new Event("scroll"));
@@ -19,7 +24,11 @@ export default function SmoothScroll({ children }) {
     }
     requestAnimationFrame(raf);
 
-    return () => lenis.destroy();
+    return () => {
+      lenis.destroy();
+      setLenis(null);
+      window.__lenis = null;
+    };
   }, []);
 
   return children;

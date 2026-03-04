@@ -390,8 +390,9 @@ const ReviewModal = ({ review, role, onClose, onUpdate }) => {
         WebkitBackdropFilter: "blur(20px)",
       }}
       onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div
-        className="relative w-full sm:max-w-[640px] max-h-[92vh] sm:max-h-[88vh] overflow-y-auto rounded-t-3xl sm:rounded-2xl border border-white/[0.07] bg-[#090C12] flex flex-col"
+      <div 
+        data-lenis-prevent
+        className="relative w-full sm:max-w-[640px] max-h-[92vh] sm:max-h-[88vh] overflow-y-auto overscroll-contain rounded-t-3xl sm:rounded-2xl border border-white/[0.07] bg-[#090C12] flex flex-col"
         style={{ scrollbarWidth: "none" }}>
         <div className="absolute top-0 left-[5%] right-[5%] h-px bg-gradient-to-r from-transparent via-[#A01E2E]/40 to-transparent pointer-events-none" />
         <div
