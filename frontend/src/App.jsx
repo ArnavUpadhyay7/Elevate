@@ -2,8 +2,8 @@ import { Toaster } from "react-hot-toast";
 import { SidebarDemo } from "./components/Sidebardemo";
 import { coachStore, playerStore } from "./store/authStore";
 import { useEffect } from "react";
-import { Loader } from "lucide-react";
 import SmoothScroll from "./components/SmoothScroll";
+import Loader from "./components/Loader";
 
 function App() {
   const checkPlayerAuth = playerStore((state) => state.checkPlayerAuth);
@@ -19,7 +19,7 @@ function App() {
   if (isCheckingPlayerAuth || isCheckingCoachAuth) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader className="size-12 animate-spin" />
+        <Loader />
       </div>
     );
   }

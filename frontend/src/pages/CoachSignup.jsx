@@ -3,9 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { coachStore } from "../store/authStore";
 
-/* ─────────────────────────────────────────────────────────────
-   Coaches must be at least Immortal — ladder starts there
-───────────────────────────────────────────────────────────── */
 const RANKS = ["Diamond", "Ascendant", "Immortal", "Immortal 2", "Immortal 3", "Radiant"];
 
 const ROLES = [
@@ -32,9 +29,6 @@ const Field = ({ label, children }) => (
   </div>
 );
 
-/* ─────────────────────────────────────────────────────────────
-   CoachSignup
-───────────────────────────────────────────────────────────── */
 const CoachSignup = () => {
   const navigate = useNavigate();
   const signup   = coachStore((store) => store.signup);

@@ -212,7 +212,7 @@ const UploadModal = ({ review, onClose, onSuccess }) => {
   const canSubmit = clips.length >= 1 && clips.every((c) => c.title.trim());
 
   /* ────────────────────────────────────────────────────────────
-     Upload flow — identical to your uploadGameplayVideo pattern:
+     Upload flow — identical to uploadGameplayVideo pattern:
      
      Per clip:
        POST /reviews/upload-video   (multipart/form-data, field: "video")

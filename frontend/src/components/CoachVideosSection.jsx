@@ -65,9 +65,6 @@ const VolumeIcon = ({ muted }) => muted ? (
   </svg>
 );
 
-/* ─────────────────────────────────────────────────────────────
-   useVideoPlayer — shared playback state hook
-───────────────────────────────────────────────────────────── */
 const useVideoPlayer = (videoRef) => {
   const [playing,  setPlaying]  = useState(false);
   const [progress, setProgress] = useState(0);
@@ -129,9 +126,6 @@ const useVideoPlayer = (videoRef) => {
   return { playing, progress, muted, duration, current, toggle, onTimeUpdate, onLoadedMetadata, onEnded, seek, toggleMute, reset, fmt };
 };
 
-/* ─────────────────────────────────────────────────────────────
-   FullscreenOverlay — cinematic fullscreen player
-───────────────────────────────────────────────────────────── */
 const FullscreenOverlay = ({ video, index, total, onClose, onPrev, onNext, onDelete }) => {
   const videoRef = useRef(null);
   const { playing, progress, muted, current, duration, toggle, onTimeUpdate, onLoadedMetadata, onEnded, seek, toggleMute, fmt } = useVideoPlayer(videoRef);
@@ -466,9 +460,6 @@ const FullscreenOverlay = ({ video, index, total, onClose, onPrev, onNext, onDel
   );
 };
 
-/* ─────────────────────────────────────────────────────────────
-   CarouselThumb — single thumbnail in the carousel strip
-───────────────────────────────────────────────────────────── */
 const CarouselThumb = ({ video, index, isActive, onClick }) => {
   const [hovered, setHovered] = useState(false);
 
@@ -571,9 +562,6 @@ const CarouselThumb = ({ video, index, isActive, onClick }) => {
   );
 };
 
-/* ─────────────────────────────────────────────────────────────
-   MainVideoStage — the large featured video with inline player
-───────────────────────────────────────────────────────────── */
 const MainVideoStage = ({ video, index, total, onExpand, onDelete }) => {
   const videoRef = useRef(null);
   const { playing, progress, muted, current, duration, toggle, onTimeUpdate, onLoadedMetadata, onEnded, seek, toggleMute, fmt } = useVideoPlayer(videoRef);
@@ -803,9 +791,6 @@ const MainVideoStage = ({ video, index, total, onExpand, onDelete }) => {
   );
 };
 
-/* ─────────────────────────────────────────────────────────────
-   UploadZone
-───────────────────────────────────────────────────────────── */
 const UploadZone = ({ uploading, onUpload }) => {
   const [dragging, setDragging] = useState(false);
   const [pct, setPct] = useState(0);
@@ -873,9 +858,6 @@ const UploadZone = ({ uploading, onUpload }) => {
   );
 };
 
-/* ─────────────────────────────────────────────────────────────
-   CoachVideosSection — main export
-───────────────────────────────────────────────────────────── */
 const CoachVideosSection = () => {
   const coach             = coachStore((state) => state.coach);
   const setGameplayVideos = coachStore((state) => state.setGameplayVideos);

@@ -7,9 +7,6 @@ import { useChatStore } from "../store/useChatStore";
 import CoachClipsViewer from "../components/CoachClipsViewer";
 import toast from "react-hot-toast";
 
-/* ─────────────────────────────────────────────────────────────
-   Icons
-───────────────────────────────────────────────────────────── */
 const CheckIcon = () => (
   <svg
     width="10"
@@ -30,9 +27,6 @@ const StarIcon = () => (
   </svg>
 );
 
-/* ─────────────────────────────────────────────────────────────
-   Mock reviews — swap for real API data when ready
-───────────────────────────────────────────────────────────── */
 const MOCK_REVIEWS = [
   {
     id: 1,
@@ -54,9 +48,6 @@ const MOCK_REVIEWS = [
   },
 ];
 
-/* ─────────────────────────────────────────────────────────────
-   CoachProfile
-───────────────────────────────────────────────────────────── */
 const CoachProfile = () => {
   const { setSelectedUser } = useChatStore();
   const player = playerStore((state) => state.player);
@@ -118,8 +109,6 @@ const CoachProfile = () => {
     "Actionable insights to improve decision-making under pressure",
   ];
 
-  /* ── Booking card — extracted so we can render it in both
-        desktop (sticky sidebar) and mobile (inline) ── */
   const BookingCard = () => (
     <div className="relative rounded-xl border border-white/[0.05] bg-white/[0.02] backdrop-blur-xl p-6">
       {/* Accent top line */}
@@ -187,8 +176,7 @@ const CoachProfile = () => {
             Chat Now
           </Link>
         ) : (
-          /* w-full + [&>*]:w-full forces AnimatedModalDemo's inner
-             trigger button to stretch to the card width */
+
           <AnimatedModalDemo coach={coach} player={player} />
         )
       ) : (
@@ -221,9 +209,6 @@ const CoachProfile = () => {
       {/* Top vignette */}
       <div className="absolute top-0 left-0 right-0 h-[280px] bg-gradient-to-b from-black/50 via-[#07090D]/60 to-transparent pointer-events-none" />
 
-      {/* ══════════════════════════════════════
-          HERO
-      ══════════════════════════════════════ */}
       <section className="relative pt-20 pb-8 sm:pt-24 sm:pb-12">
         <div className="max-w-[1240px] mx-auto px-5 sm:px-8 lg:px-12">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-14 lg:items-start">
@@ -368,9 +353,6 @@ const CoachProfile = () => {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          BOTTOM CTA
-      ══════════════════════════════════════ */}
       <section className="pt-14 pb-24 sm:pt-16 sm:pb-28">
         <div className="max-w-[1240px] mx-auto px-5 sm:px-8 lg:px-12">
           <div className="h-px bg-gradient-to-r from-transparent via-white/[0.05] to-transparent mb-14" />

@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import chatbotData from "../lib/dummyReq.json";
 
-/* ─────────────────────────────────────────────────────────────
-   Icons
-───────────────────────────────────────────────────────────── */
 const SendIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
     strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -26,18 +23,12 @@ const BotIcon = () => (
   </svg>
 );
 
-/* ─────────────────────────────────────────────────────────────
-   Initial greeting message
-───────────────────────────────────────────────────────────── */
 const GREETING = {
   question: null,
   answer: "Hey, I'm Zenith — Elevate's assistant. Ask me anything about coaches, ranks, sessions, or how the platform works. I got you. 🎯",
   isGreeting: true,
 };
 
-/* ─────────────────────────────────────────────────────────────
-   ChatBot
-───────────────────────────────────────────────────────────── */
 const ChatBot = ({ onClose }) => {
   const [question,    setQuestion]    = useState("");
   const [loading,     setLoading]     = useState(false);

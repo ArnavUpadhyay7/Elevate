@@ -28,9 +28,6 @@ const rankColor = (rank = "") => {
   return "#4A5568";
 };
 
-/* ─────────────────────────────────────────────────────────────
-   Profile
-───────────────────────────────────────────────────────────── */
 const Profile = () => {
   const player = playerStore((state) => state.player);
   const [coaches,   setCoaches]   = useState([]);
@@ -68,9 +65,6 @@ const Profile = () => {
         }}
       />
 
-      {/* ══════════════════════════════════════
-          HERO — player identity block
-      ══════════════════════════════════════ */}
       <section className="relative pt-20 pb-8 sm:pt-24 sm:pb-12 overflow-hidden">
 
         {/* Blurred player banner as ambient background */}
@@ -279,9 +273,6 @@ const Profile = () => {
   );
 };
 
-/* ─────────────────────────────────────────────────────────────
-   SidePanel — player card + hired coaches
-───────────────────────────────────────────────────────────── */
 const SidePanel = ({ player, rc, coaches, isLoading }) => (
   <div className="flex flex-col gap-4">
 

@@ -1,8 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
-/* ─────────────────────────────────────────────────────────────
-   Icons — identical to CoachVideosSection so they look the same
-───────────────────────────────────────────────────────────── */
 const PlayIcon = ({ size = 20 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="white" stroke="none">
     <polygon points="6 3 20 12 6 21 6 3" />
@@ -105,9 +102,6 @@ const useVideoPlayer = (videoRef) => {
   return { playing, progress, muted, duration, current, toggle, onTimeUpdate, onLoadedMetadata, onEnded, seek, toggleMute, fmt };
 };
 
-/* ─────────────────────────────────────────────────────────────
-   FullscreenOverlay — read-only (no delete, no confirm)
-───────────────────────────────────────────────────────────── */
 const FullscreenOverlay = ({ video, index, total, onClose, onPrev, onNext }) => {
   const videoRef = useRef(null);
   const { playing, progress, muted, current, duration, toggle, onTimeUpdate, onLoadedMetadata, onEnded, seek, toggleMute, fmt } = useVideoPlayer(videoRef);
@@ -423,9 +417,6 @@ const CarouselThumb = ({ video, index, isActive, onClick }) => {
   );
 };
 
-/* ─────────────────────────────────────────────────────────────
-   MainVideoStage — read-only (no delete in controls bar)
-───────────────────────────────────────────────────────────── */
 const MainVideoStage = ({ video, index, total, onExpand }) => {
   const videoRef = useRef(null);
   const { playing, progress, muted, current, duration, toggle, onTimeUpdate, onLoadedMetadata, onEnded, seek, toggleMute, fmt } = useVideoPlayer(videoRef);

@@ -3,15 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { playerStore } from "../store/authStore";
 
-/* ─────────────────────────────────────────────────────────────
-   Rank ladder — lowest to highest
-   Clicking cycles UP; wraps back to Iron at top
-───────────────────────────────────────────────────────────── */
 const RANKS = ["Iron", "Bronze", "Silver", "Gold", "Platinum", "Diamond", "Ascendant", "Immortal", "Radiant"];
 
-/* ─────────────────────────────────────────────────────────────
-   Roles with subtle accent colors
-───────────────────────────────────────────────────────────── */
 const ROLES = [
   { name: "Duelist",   color: "#A01E2E", bg: "rgba(160,30,46,0.12)",  border: "rgba(160,30,46,0.3)"  },
   { name: "Initiator", color: "#C4943A", bg: "rgba(196,148,58,0.10)", border: "rgba(196,148,58,0.28)" },
@@ -31,9 +24,6 @@ const rankColor = (rank) => {
   return "#4A5568";
 };
 
-/* ─────────────────────────────────────────────────────────────
-   Input field — shared style
-───────────────────────────────────────────────────────────── */
 const Field = ({ label, children }) => (
   <div className="flex flex-col gap-1.5">
     <label className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/40">{label}</label>
@@ -43,9 +33,6 @@ const Field = ({ label, children }) => (
 
 const inputCls = "w-full bg-white/[0.03] border border-white/[0.07] rounded-lg py-3 text-[13.5px] text-white placeholder:text-white/20 outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all duration-200";
 
-/* ─────────────────────────────────────────────────────────────
-   Signup
-───────────────────────────────────────────────────────────── */
 const Signup = () => {
   const navigate  = useNavigate();
   const signup    = playerStore((state) => state.signup);
