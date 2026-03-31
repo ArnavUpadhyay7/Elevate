@@ -29,7 +29,7 @@ const Home = () => {
 
   useScrollReveal();
 
-  const { lightRef, light2Ref, headlineRef, accentRef, barsRef, meshRef } =
+  const { lightRef, headlineRef, accentRef, barsRef, meshRef } =
     useAdaptiveDepth();
 
   useScrollEnvironment(processRef);
@@ -81,20 +81,9 @@ const Home = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#07090D] via-transparent to-[#080C12]/60" />
 
-        {/* Adaptive depth — white bloom */}
-        <div
-          ref={lightRef}
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.025) 40%, transparent 72%)",
-            willChange: "background",
-          }}
-          aria-hidden
-        />
         {/* Adaptive depth — red counter-glow */}
         <div
-          ref={light2Ref}
+          ref={lightRef}
           className="absolute inset-0 pointer-events-none"
           style={{
             background:

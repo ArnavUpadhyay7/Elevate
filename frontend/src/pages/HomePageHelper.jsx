@@ -219,7 +219,6 @@ export const HOW_STEPS = [
 
 export const useAdaptiveDepth = () => {
   const lightRef    = useRef(null);
-  const light2Ref   = useRef(null);
   const headlineRef = useRef(null);
   const accentRef   = useRef(null);
   const barsRef     = useRef(null);
@@ -260,16 +259,6 @@ export const useAdaptiveDepth = () => {
         const px = 50 + sX * 42;
         const py = 50 + sY * 36;
         lightRef.current.style.background =
-          `radial-gradient(ellipse 70% 60% at ${px}% ${py}%,
-            rgba(255,255,255,0.07) 0%,
-            rgba(255,255,255,0.025) 40%,
-            transparent 72%)`;
-      }
-
-      if (light2Ref.current) {
-        const px = 50 - mX * 36;
-        const py = 50 - mY * 28;
-        light2Ref.current.style.background =
           `radial-gradient(ellipse 45% 40% at ${px}% ${py}%,
             rgba(160,30,46,0.16) 0%,
             rgba(140,20,36,0.06) 50%,
@@ -313,7 +302,7 @@ export const useAdaptiveDepth = () => {
     };
   }, []);
 
-  return { lightRef, light2Ref, headlineRef, accentRef, barsRef, meshRef };
+  return { lightRef, headlineRef, accentRef, barsRef, meshRef };
 };
 
 export const useScrollEnvironment = (processRef) => {
