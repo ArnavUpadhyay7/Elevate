@@ -1,224 +1,470 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { AnimatedTestimonials } from "../components/AnimatedTestimonials";
 import { testimonials } from "../lib/testimonials";
 import { TimelineDemo } from "../components/TimelineDemo";
 import { IconMessageCircle } from "@tabler/icons-react";
 import ChatBot from "./ChatBot";
-// Home page helper functions ->
 import {
   useScrollReveal,
-  AnimatedStat,
-  RANK_HISTORY,
-  RankBar,
-  AbstractMesh,
   HOW_STEPS,
-  useAdaptiveDepth,
   useScrollEnvironment,
 } from "./HomePageHelper";
 import { Link } from "react-router-dom";
 
-const Home = () => {
-  const [userType, setUserType] = useState(true);
-  const [showChatBot, setShowChatBot] = useState(false);
-  const heroRef = useRef(null);
-  const processRef = useRef(null);
+// ─── Coaches ──────────────────────────────────────────────────────────────────
+const SHOWCASE_COACHES = [
+  {
+    id: 1,
+    name: "AXIOM",
+    label: "DUELIST",
+    rank: "Radiant",
+    rating: "4.9",
+    sessions: "340+",
+    src: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&h=900&fit=crop&crop=faces",
+    bgGradient: "linear-gradient(175deg, #C47B2B 0%, #7A3A08 60%, #3A1A02 100%)",
+    fanRotate: -32,
+    fanOffsetX: -340,
+    fanOffsetY: 0,
+    fanScale: 0.76,
+    zOrder: 1,
+  },
+  {
+    id: 2,
+    name: "VEYRA",
+    label: "CONTROLLER",
+    rank: "Radiant",
+    rating: "4.8",
+    sessions: "210+",
+    src: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=600&h=900&fit=crop&crop=faces",
+    bgGradient: "linear-gradient(175deg, #7B5EC4 0%, #3A2080 60%, #180A40 100%)",
+    fanRotate: -16,
+    fanOffsetX: -170,
+    fanOffsetY: 0,
+    fanScale: 0.88,
+    zOrder: 2,
+  },
+  {
+    id: 3,
+    name: "KESTREL",
+    label: "DUELIST",
+    rank: "Radiant",
+    rating: "5.0",
+    sessions: "480+",
+    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=900&fit=crop&crop=faces",
+    bgGradient: "linear-gradient(175deg, #C0303E 0%, #7A0F1E 60%, #3A0008 100%)",
+    fanRotate: 0,
+    fanOffsetX: 0,
+    fanOffsetY: 0,
+    fanScale: 1,
+    zOrder: 5,
+  },
+  {
+    id: 4,
+    name: "SOLACE",
+    label: "INITIATOR",
+    rank: "Radiant",
+    rating: "4.7",
+    sessions: "190+",
+    src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=900&fit=crop&crop=faces",
+    bgGradient: "linear-gradient(175deg, #2E9A5C 0%, #0F5A2A 60%, #022A10 100%)",
+    fanRotate: 16,
+    fanOffsetX: 170,
+    fanOffsetY: 0,
+    fanScale: 0.88,
+    zOrder: 4,
+  },
+  {
+    id: 5,
+    name: "NYTRO",
+    label: "SENTINEL",
+    rank: "Radiant",
+    rating: "4.6",
+    sessions: "155+",
+    src: "https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?w=600&h=900&fit=crop&crop=faces",
+    bgGradient: "linear-gradient(175deg, #2B6EC4 0%, #0F3A80 60%, #021840 100%)",
+    fanRotate: 32,
+    fanOffsetX: 340,
+    fanOffsetY: 0,
+    fanScale: 0.76,
+    zOrder: 3,
+  },
+];
 
-  useScrollReveal();
+// ─── Single card ──────────────────────────────────────────────────────────────
+const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
+  const [hovered, setHovered] = React.useState(false);
+  if (isMobile && !isFeatured) return null;
 
-  const { lightRef, headlineRef, accentRef, barsRef, meshRef } =
-    useAdaptiveDepth();
+  const CARD_W = isMobile ? 280 : 390;
+  const CARD_H = isMobile ? 420 : 570;
 
-  useScrollEnvironment(processRef);
+  // Cards all share the same bottom anchor; fan is purely rotation + x offset
+  const initial = { x: 0, rotate: 0, scale: 0.6, opacity: 0 };
+  const fanAnimate = {
+    x: isMobile ? 0 : coach.fanOffsetX,
+    rotate: isMobile ? 0 : coach.fanRotate,
+    scale: isMobile ? 0.92 : coach.fanScale,
+    opacity: 1,
+  };
 
-  const toggle = () => setUserType((p) => !p);
+  // Base z from zOrder; hovered card always on top
+  const baseZ = coach.zOrder * 10;
 
   return (
-    <div className="elv-root elv-grain elv-bg-drift min-h-screen bg-[#080C10] text-white">
+    <motion.div
+      key={coach.id}
+      initial={initial}
+      animate={isAnimating ? initial : fanAnimate}
+      transition={{
+        duration: 0.9,
+        delay: isAnimating ? 0 : 0.15 + index * 0.08,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className="absolute bottom-0 left-1/2 select-none"
+      style={{
+        width: CARD_W,
+        height: CARD_H,
+        marginLeft: -CARD_W / 2,
+        transformOrigin: "bottom center",
+        zIndex: hovered ? 100 : baseZ,
+        cursor: "default",
+      }}
+      onHoverStart={() => !isMobile && setHovered(true)}
+      onHoverEnd={() => !isMobile && setHovered(false)}
+    >
+      {/* Lift wrapper — animates independently of the fan rotation */}
+      <motion.div
+        className="w-full h-full"
+        animate={hovered && !isMobile ? { y: -24, scale: 1.03 } : { y: 0, scale: 1 }}
+        transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
+      >
+      <div
+        className="relative w-full h-full overflow-hidden"
+        style={{
+          borderRadius: 22,
+          background: coach.bgGradient,
+          boxShadow: isFeatured
+            ? "0 48px 120px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.11)"
+            : "0 24px 70px rgba(0,0,0,0.80), 0 0 0 1px rgba(255,255,255,0.06)",
+        }}
+      >
+        {/* Noise */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")`,
+            backgroundSize: "300px",
+          }}
+        />
 
-      <span className="fixed left-6 top-8 z-50 font-syne text-[12px] font-black tracking-[0.14em] text-white md:left-24">
-        ELEVATE
-      </span>
+        {/* Wavy contour lines */}
+        <svg className="pointer-events-none absolute inset-0 w-full h-full opacity-[0.08]" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id={`rg-${coach.id}`} cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stopColor="white" stopOpacity="0.6"/>
+              <stop offset="100%" stopColor="white" stopOpacity="0"/>
+            </radialGradient>
+          </defs>
+          {[1,2,3,4,5].map(n => (
+            <ellipse key={n} cx="50%" cy="40%" rx={`${30 + n*12}%`} ry={`${20 + n*8}%`}
+              fill="none" stroke="white" strokeWidth="1" opacity={0.7 - n*0.12}/>
+          ))}
+        </svg>
 
+        {/* Full image */}
+        <img
+          src={coach.src}
+          alt={coach.name}
+          className="absolute inset-0 w-full h-full object-cover object-top"
+          style={{ opacity: 0.80 }}
+          draggable={false}
+        />
+
+        {/* Bottom gradient */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, transparent 25%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.82) 100%)",
+          }}
+        />
+
+        {/* Top-left: role label + name */}
+        <div className="absolute left-[18px] top-[18px] z-10">
+          <div className="mb-[4px] text-[8px] font-bold uppercase tracking-[0.28em] leading-none" style={{ color: "rgba(255,255,255,0.45)" }}>
+            {coach.label}
+          </div>
+          <div
+            className="font-syne font-black uppercase leading-[0.88] text-white"
+            style={{
+              fontSize: isFeatured ? (isMobile ? "26px" : "32px") : "24px",
+              textShadow: "0 2px 18px rgba(0,0,0,0.65)",
+              letterSpacing: "0.025em",
+            }}
+          >
+            {coach.name}
+          </div>
+        </div>
+
+        {/* Top-right: Radiant badge */}
+        <div
+          className="absolute right-[14px] top-[14px] z-10 flex items-center gap-[5px] rounded-full px-[10px] py-[5px]"
+          style={{
+            background: "rgba(160,30,46,0.22)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+            border: "1px solid rgba(160,30,46,0.45)",
+          }}
+        >
+          <span className="block h-[5px] w-[5px] rounded-full bg-[#FF4060] shrink-0" />
+          <span className="font-syne text-[9.5px] font-bold text-[#FF6B7A] uppercase tracking-[0.12em]">Radiant</span>
+        </div>
+
+        {/* Bottom strip */}
+        <div className="absolute bottom-0 inset-x-0 z-10 px-[14px] pb-[14px]">
+          <div
+            className="flex items-center justify-between rounded-[10px] px-3 py-2.5"
+            style={{
+              background: "rgba(0,0,0,0.48)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              border: "1px solid rgba(255,255,255,0.06)",
+            }}
+          >
+            <div>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#FF6B7A]">{coach.sessions} sessions</div>
+              <div className="text-[10px] font-medium text-white/40 mt-[2px]">{coach.label}</div>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-[#FF4060] text-[11px]">★</span>
+              <span className="font-syne text-[13px] font-bold text-white">{coach.rating}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Featured shine */}
+        {isFeatured && (
+          <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 45%)" }} />
+        )}
+      </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+
+
+// ─── Home ─────────────────────────────────────────────────────────────────────
+const Home = () => {
+  const [showChatBot, setShowChatBot] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const processRef = useRef(null);
+  const heroRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const cardsY = useTransform(scrollYProgress, [0, 1], [0, 140]);
+
+  useScrollReveal();
+  useScrollEnvironment(processRef);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => setIsAnimating(false), 120);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <div className="elv-root min-h-screen text-white" style={{ background: "#080C10" }}>
+
+      {/* Chat FAB */}
       <button
         onClick={() => setShowChatBot(true)}
-        className="btn-primary fixed bottom-6 right-6 z-50 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-[#A01E2E] text-white"
-        aria-label="Open chat">
+        className="btn-primary fixed bottom-6 right-6 z-50 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-[#A01E2E] text-white shadow-[0_4px_24px_rgba(160,30,46,0.4)] transition-transform duration-200 hover:scale-105"
+        aria-label="Open chat"
+      >
         <IconMessageCircle size={17} />
       </button>
 
       {showChatBot && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-end z-[60]">
+        <div className="fixed inset-0 z-[60] flex items-center justify-end bg-black/70 backdrop-blur-md">
           <ChatBot onClose={() => setShowChatBot(false)} />
         </div>
       )}
 
+
+      {/* ── HERO ───────────────────────────────────────────────────────────── */}
       <section
         ref={heroRef}
-        className="relative min-h-screen w-full flex items-center overflow-hidden">
-        {/* Background */}
+        className="relative flex min-h-screen w-full flex-col items-center"
+      >
+        {/* Ambient red glow */}
         <div
-          className={`parallax-bg absolute inset-0 scale-[1.12] bg-cover bg-center blur-[16px] brightness-[0.06] saturate-[0.15] grayscale ${userType ? "bg-[url('https://i.pinimg.com/1200x/01/02/ea/0102ea2768a9c06ce53710dcb7064a27.jpg')]" : "bg-[url('https://i.pinimg.com/1200x/e9/3a/cc/e93accfca67cb616635147f584c2bff9.jpg')]"}`}
-        />
-        <div className="absolute inset-0 bg-[#07090D]/95" />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#07090D] via-transparent to-[#080C12]/60" />
-
-        {/* Adaptive depth — red counter-glow */}
-        <div
-          ref={lightRef}
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_45%_40%_at_50%_50%,rgba(160,30,46,0.16)_0%,transparent_78%)] will-change-[background]"
-          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-[12%] h-[500px] w-[700px] -translate-x-1/2 rounded-full"
+          style={{
+            background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(160,30,46,0.18) 0%, transparent 72%)",
+            filter: "blur(50px)",
+          }}
         />
 
-        {/* Content */}
-        <div className="relative z-10 w-full max-w-[1120px] mx-auto px-8 lg:px-12 py-28 flex items-center gap-16 lg:gap-20">
-          {/* LEFT */}
-          <div className="flex-1 max-w-[500px]">
-            {/* Eyebrow */}
-            <div className="fade-up-1 inline-flex items-center gap-[10px] mb-9">
-              <span className="elv-accent-env-bg w-[5px] h-[1px]" />
-              <span className="elv-accent-env text-[10px] font-semibold uppercase tracking-[0.18em]">
-                {userType ? "Performance Coaching" : "Coach Platform"}
-              </span>
-            </div>
+        {/* Grid */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.055]"
+          style={{
+            backgroundImage: "linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px)",
+            backgroundSize: "80px 80px",
+          }}
+        />
 
-            {/* Headline */}
-            <h1
-              ref={headlineRef}
-              className="mb-7 font-syne font-extrabold leading-[0.98] tracking-[0] will-change-transform">
-              {userType ? (
-                <>
-                  <span
-                    className="word-reveal word-reveal-1 text-[clamp(40px,4.4vw,60px)] text-white opacity-[0.88]">
-                    Rank up.
-                  </span>
-                  <span
-                    className="word-reveal word-reveal-2 text-[clamp(44px,5vw,68px)] text-white">
-                    Coached by
-                  </span>
-                  <span
-                    ref={accentRef}
-                    className="word-reveal word-reveal-3 text-[clamp(44px,5vw,68px)] text-[#A01E2E] will-change-[color]">
-                    Radiants.
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span
-                    className="word-reveal word-reveal-1 text-[clamp(40px,4.4vw,60px)] text-white opacity-[0.88]">
-                    Coach.
-                  </span>
-                  <span
-                    className="word-reveal word-reveal-2 text-[clamp(44px,5vw,68px)] text-white">
-                    Earn on your
-                  </span>
-                  <span
-                    ref={accentRef}
-                    className="word-reveal word-reveal-3 text-[clamp(44px,5vw,68px)] text-[#A01E2E] will-change-[color]">
-                    own terms.
-                  </span>
-                </>
-              )}
-            </h1>
+        {/* Text block */}
+        <motion.div
+          style={{ opacity: heroOpacity, y: heroY }}
+          className="relative z-10 flex flex-col items-center px-6 pt-[10vh] text-center"
+        >
+          {/* Eyebrow */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="mb-5 inline-flex items-center gap-2.5 rounded-full border border-[#A01E2E]/25 bg-[#A01E2E]/[0.08] px-4 py-1.5"
+          >
+            <span className="block h-[5px] w-[5px] rounded-full bg-[#A01E2E]" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#A01E2E]">
+              Performance Coaching
+            </span>
+          </motion.div>
 
-            {/* Sub */}
-            <p className="fade-up-2 mb-9 max-w-[340px] text-[13.5px] font-normal leading-[1.74] text-[#4A5568]">
-              {userType
-                ? "VOD reviews from Radiant coaches. Agent-specific feedback. Measurable rank progress."
-                : "Set your rate. Own your schedule. The platform serious coaches use to build and grow."}
-            </p>
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-4 font-syne font-extrabold leading-[0.91] tracking-[-0.01em] uppercase"
+          >
+            <span className="block text-[clamp(36px,5.5vw,74px)] text-white/75">Rank Up.</span>
+            <span className="block text-[clamp(36px,5.5vw,74px)] text-white">Coached by</span>
+            <span
+              className="block text-[clamp(36px,5.5vw,74px)] text-[#A01E2E]"
+              style={{ textShadow: "0 0 60px rgba(160,30,46,0.4), 0 0 20px rgba(200,40,60,0.2)" }}
+            >
+              Radiants.
+            </span>
+          </motion.h1>
 
-            {/* CTAs */}
-            <div className="fade-up-3 flex items-center gap-[10px] mb-10">
-              <Link
-                to={userType ? "/coaches" : "coach-signup"}
-                className="btn-primary cursor-pointer rounded-[6px] bg-[#A01E2E] px-[22px] py-[9px] text-[12.5px] font-semibold text-white">
-                {userType ? "Find a Coach" : "Apply as Coach"}
-              </Link>
-              <button
-                onClick={toggle}
-                className="btn-ghost cursor-pointer rounded-[6px] border border-white/[0.07] bg-white/[0.016] px-[22px] py-[9px] text-[12.5px] font-medium text-[#485160] hover:border-white/[0.13] hover:text-[#7A8694]">
-                {userType ? "Become a Coach" : "Find a Coach"} →
-              </button>
-            </div>
+          {/* Subtext */}
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.35 }}
+            className="mb-7 max-w-[400px] text-[14px] font-normal leading-[1.82] text-[#7A8FA0]"
+          >
+            VOD reviews from Radiant coaches. Agent-specific feedback, structured plans, and measurable rank progress — not guesswork.
+          </motion.p>
 
-            {/* Stats */}
-            <div className="fade-up-4 stats-glass overflow-hidden">
-              <div className="grid grid-cols-3 divide-x divide-white/[0.06]">
-                <AnimatedStat
-                  value={500}
-                  suffix="+"
-                  label="Active Coaches"
-                  delay={720}
-                />
-                <AnimatedStat
-                  value={12000}
-                  suffix="+"
-                  label="Sessions"
-                  delay={870}
-                />
-                <AnimatedStat
-                  value={49}
-                  suffix="★"
-                  label="Avg Rating"
-                  delay={1020}
-                />
-              </div>
-            </div>
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="flex flex-wrap items-center justify-center gap-3"
+          >
+            <Link
+              to="/coaches"
+              className="rounded-[8px] bg-[#A01E2E] px-7 py-[11px] text-[13px] font-semibold text-white shadow-[0_4px_24px_rgba(160,30,46,0.42)] transition-all duration-200 hover:brightness-110 hover:-translate-y-[2px]"
+            >
+              Find a Coach
+            </Link>
+            <Link
+              to="/coach-signup"
+              className="rounded-[8px] border border-white/[0.10] bg-white/[0.04] px-7 py-[11px] text-[13px] font-medium text-[#6A7888] transition-all duration-200 hover:border-white/[0.18] hover:text-[#9AABB8]"
+            >
+              Become a Coach →
+            </Link>
+          </motion.div>
+
+
+        </motion.div>
+
+        {/* ── Card fan ─────────────────────────────────────────────────────── */}
+        <motion.div
+          style={{ y: cardsY }}
+          className="relative z-10 w-full mt-4 flex-1 flex items-end justify-center"
+        >
+          {/* Stage — flush bottom, no extra vertical space */}
+          <div
+            className="relative"
+            style={{
+              width: "100%",
+              maxWidth: isMobile ? "100%" : "1400px",
+              height: isMobile ? "460px" : "600px",
+            }}
+          >
+            {SHOWCASE_COACHES.map((coach, i) => (
+              <ShowcaseCard
+                key={coach.id}
+                coach={coach}
+                index={i}
+                isFeatured={i === 2}
+                isAnimating={isAnimating}
+                isMobile={isMobile}
+              />
+            ))}
           </div>
 
-          {/* RIGHT */}
-          <AbstractMesh meshRef={meshRef} />
-        </div>
+          {/* Fade into next section — soft, not harsh */}
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0"
+            style={{
+              height: "160px",
+              background: "linear-gradient(to top, #080C10 0%, rgba(8,12,16,0.9) 30%, rgba(8,12,16,0.4) 70%, transparent 100%)",
+            }}
+          />
+        </motion.div>
 
-        {/* Rank bar */}
-        <div className="absolute bottom-0 left-0 right-0 z-10">
-          <div className="max-w-[1120px] mx-auto px-8 lg:px-12 pb-8">
-            <div
-              ref={barsRef}
-              className="rank-bars-trigger fade-up-5 rounded-lg border border-white/[0.048] bg-[#07090D]/80 px-5 pb-3 pt-3.5 backdrop-blur-xl will-change-transform">
-              <div className="flex justify-between items-center mb-[10px]">
-                <span className="text-[9.5px] font-medium uppercase tracking-[0.15em] text-[#252E3A]">
-                  Avg. player rank progression · last 6 months
-                </span>
-                <span className="font-syne text-[10.5px] font-black tracking-[0] text-[#A01E2E]">
-                  +4 ranks
-                </span>
-              </div>
-              <div className="flex items-end gap-[3px] h-[30px]">
-                {RANK_HISTORY.map((h, i) => (
-                  <RankBar key={i} h={h} i={i} total={RANK_HISTORY.length} />
-                ))}
-              </div>
-              <div className="flex justify-between mt-[9px]">
-                {["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"].map((m) => (
-                  <span
-                    key={m}
-                    className="text-[8.5px] tracking-[0.07em] text-[#1A222C]">
-                    {m}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Side fades */}
+        {!isMobile && (
+          <>
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-24" style={{ background: "linear-gradient(to right, #080C10, transparent)" }} />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-24" style={{ background: "linear-gradient(to left, #080C10, transparent)" }} />
+          </>
+        )}
       </section>
 
-      <div className="section-rule max-w-[1120px] mx-auto" />
+      {/* ── Scroll bridge + divider — explicit bg so no seam ───────────── */}
+      <div className="bg-[#080C10] flex flex-col items-center pt-6 pb-0">
+        <div className="flex flex-col items-center gap-3 opacity-30">
+          <div className="w-px h-10 bg-gradient-to-b from-transparent to-[#A01E2E]" />
+          <div
+            className="w-5 h-5 rounded-full border border-[#A01E2E]/50 flex items-center justify-center"
+            style={{ background: "rgba(160,30,46,0.1)" }}
+          >
+            <div className="w-[5px] h-[5px] rounded-full bg-[#A01E2E]" />
+          </div>
+          <div className="w-px h-10 bg-gradient-to-b from-[#A01E2E] to-transparent" />
+        </div>
+        <div className="section-rule w-full max-w-[1120px] mx-auto mt-6" />
+      </div>
 
+      {/* ── PROCESS ─────────────────────────────────────────────────────────── */}
       <section
         ref={processRef}
-        className="py-28 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
+        className="py-28 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal"
+      >
         <div className="mb-16">
           <div className="inline-flex items-center gap-[10px] mb-5">
             <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">
-              Process
-            </span>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Process</span>
           </div>
-          <h2 className="mb-4 max-w-[280px] font-syne text-[clamp(24px,2.8vw,38px)] font-extrabold leading-[1.06] tracking-[0] text-white">
-            Structured improvement,
-            <br />
-            not guesswork
+          <h2 className="mb-4 max-w-[280px] font-syne text-[clamp(24px,2.8vw,38px)] font-extrabold leading-[1.06] text-white">
+            Structured improvement,<br />not guesswork
           </h2>
           <p className="max-w-[300px] text-[13px] leading-[1.72] text-[#3E4A58]">
             Built around how elite players actually develop.
@@ -229,21 +475,16 @@ const Home = () => {
           {HOW_STEPS.map(({ num, title, desc, icon }, i) => (
             <div
               key={num}
-              className={`step-card rounded-[8px] border border-white/[0.05] bg-[#0B1017] p-7 hover:-translate-y-[3px] ${i === 1 ? "delay-[35ms]" : i === 2 ? "delay-[70ms]" : ""}`}>
+              className={`step-card rounded-[8px] border border-white/[0.05] bg-[#0B1017] p-7 hover:-translate-y-[3px] transition-transform duration-200 ${
+                i === 1 ? "delay-[35ms]" : i === 2 ? "delay-[70ms]" : ""
+              }`}
+            >
               <div className="flex items-center justify-between mb-8">
-                <span className="font-syne text-[9.5px] font-black tracking-[0.2em] text-[#18222C]">
-                  {num}
-                </span>
-                <span className="text-[#283040] transition-colors duration-300 hover:text-[#A01E2E]">
-                  {icon}
-                </span>
+                <span className="font-syne text-[9.5px] font-black tracking-[0.2em] text-[#18222C]">{num}</span>
+                <span className="text-[#283040] transition-colors duration-300 hover:text-[#A01E2E]">{icon}</span>
               </div>
-              <h3 className="mb-3 font-syne text-[14.5px] font-bold leading-[1.3] tracking-[0] text-white">
-                {title}
-              </h3>
-              <p className="text-[13px] leading-[1.74] text-[#2A3848]">
-                {desc}
-              </p>
+              <h3 className="mb-3 font-syne text-[14.5px] font-bold leading-[1.3] text-white">{title}</h3>
+              <p className="text-[13px] leading-[1.74] text-[#2A3848]">{desc}</p>
             </div>
           ))}
         </div>
@@ -251,21 +492,19 @@ const Home = () => {
 
       <div className="section-rule" />
 
-      <section className="scroll-reveal">
-        <TimelineDemo />
-      </section>
+      {/* ── TIMELINE ──────────────────────────────────────────────────────────── */}
+      <section className="scroll-reveal"><TimelineDemo /></section>
 
       <div className="section-rule" />
 
+      {/* ── TESTIMONIALS ─────────────────────────────────────────────────────── */}
       <section className="py-28 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
         <div className="mb-14">
           <div className="inline-flex items-center gap-[10px] mb-5">
             <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">
-              Results
-            </span>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Results</span>
           </div>
-          <h2 className="mb-3 font-syne text-[clamp(24px,2.8vw,38px)] font-extrabold leading-[1.06] tracking-[0] text-white">
+          <h2 className="mb-3 font-syne text-[clamp(24px,2.8vw,38px)] font-extrabold leading-[1.06] text-white">
             From players who climbed.
           </h2>
           <p className="max-w-[280px] text-[13px] leading-[1.72] text-[#3E4A58]">
@@ -277,45 +516,35 @@ const Home = () => {
 
       <div className="section-rule" />
 
+      {/* ── CTA / FOOTER ─────────────────────────────────────────────────────── */}
       <section className="py-24 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
           <div>
             <div className="inline-flex items-center gap-[10px] mb-5">
               <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">
-                Get started
-              </span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Get started</span>
             </div>
-            <h2 className="mb-3 max-w-[320px] font-syne text-[clamp(24px,2.8vw,42px)] font-extrabold leading-[1.06] tracking-[0] text-white">
-              Stop guessing.
-              <br />
-              Start improving.
+            <h2 className="mb-3 max-w-[320px] font-syne text-[clamp(24px,2.8vw,42px)] font-extrabold leading-[1.06] text-white">
+              Stop guessing.<br />Start improving.
             </h2>
             <p className="max-w-[280px] text-[13px] leading-[1.72] text-[#3E4A58]">
               First session backed by a 100% satisfaction guarantee.
             </p>
           </div>
           <div className="flex items-center gap-[10px] flex-shrink-0">
-            <Link
-              to="/coaches"
-              className="btn-primary cursor-pointer rounded-[6px] bg-[#A01E2E] px-[22px] py-[9px] text-[12.5px] font-semibold text-white">
+            <Link to="/coaches" className="btn-primary cursor-pointer rounded-[6px] bg-[#A01E2E] px-[22px] py-[9px] text-[12.5px] font-semibold text-white">
               Browse Coaches
             </Link>
-            <Link
-              to="/"
-              className="btn-ghost cursor-pointer rounded-[6px] border border-white/[0.07] bg-white/[0.016] px-[22px] py-[9px] text-[12.5px] font-medium text-[#485160] hover:border-white/[0.13]">
+            <Link to="/" className="btn-ghost cursor-pointer rounded-[6px] border border-white/[0.07] bg-white/[0.016] px-[22px] py-[9px] text-[12.5px] font-medium text-[#485160] hover:border-white/[0.13]">
               Learn more
             </Link>
           </div>
         </div>
 
         <div className="mt-16 pt-6 border-t border-white/[0.05] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <span className="font-syne text-[12px] font-black tracking-[0.14em] text-white">
-            ELEVATE
-          </span>
+          <span className="font-syne text-[12px] font-black tracking-[0.14em] text-white">ELEVATE</span>
           <span className="text-[11px] tracking-wide text-[#1E2830]">
-            © {new Date().getFullYear()} Elevate · Not affiliated with Riot
-            Games
+            © {new Date().getFullYear()} Elevate · Not affiliated with Riot Games
           </span>
         </div>
       </section>
