@@ -68,8 +68,7 @@ export const ModalBody = ({ children, className }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 flex items-center justify-center z-[99999] px-4"
-          style={{ backdropFilter: "blur(10px)", backgroundColor: "rgba(0,0,0,0.6)" }}
+          className="elv-blur-backdrop fixed inset-0 z-[99999] flex items-center justify-center px-4"
         >
           <motion.div
             ref={modalRef}

@@ -21,6 +21,19 @@ import { axiosInstance } from "../lib/axios";
 ───────────────────────────────────────────────────────────── */
 
 const MAX_CLIPS = 3;
+const progressClass = (value) => {
+  if (value >= 100) return "w-full";
+  if (value >= 90) return "w-[90%]";
+  if (value >= 80) return "w-4/5";
+  if (value >= 70) return "w-[70%]";
+  if (value >= 60) return "w-3/5";
+  if (value >= 50) return "w-1/2";
+  if (value >= 40) return "w-2/5";
+  if (value >= 30) return "w-[30%]";
+  if (value >= 20) return "w-1/5";
+  if (value >= 10) return "w-[10%]";
+  return "w-[2%]";
+};
 
 const formatBytes = (b) =>
   b < 1024 * 1024 ? `${(b / 1024).toFixed(0)} KB` : `${(b / (1024 * 1024)).toFixed(1)} MB`;
@@ -285,18 +298,15 @@ const UploadModal = ({ review, onClose, onSuccess }) => {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center"
-      style={{ background: "rgba(3,5,8,0.88)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)" }}
+      className="elv-modal-backdrop fixed inset-0 z-[9999] flex items-end justify-center sm:items-center"
       onClick={(e) => { if (e.target === e.currentTarget && !uploading) onClose(); }}
     >
       <div
-        className="relative w-full sm:max-w-[680px] max-h-[92vh] sm:max-h-[88vh] overflow-y-auto rounded-t-3xl sm:rounded-2xl border border-white/[0.07] bg-[#090C12] flex flex-col"
-        style={{ scrollbarWidth: "none" }}
+        className="elv-hide-scrollbar relative flex max-h-[92vh] w-full flex-col overflow-y-auto rounded-t-3xl border border-white/[0.07] bg-[#090C12] sm:max-h-[88vh] sm:max-w-[680px] sm:rounded-2xl"
       >
         {/* Top accent */}
         <div className="absolute top-0 left-[5%] right-[5%] h-px bg-gradient-to-r from-transparent via-[#A01E2E]/45 to-transparent pointer-events-none" />
-        <div className="absolute top-0 left-0 right-0 h-[110px] pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 60% 40% at 50% 0%, rgba(160,30,46,0.07) 0%, transparent 70%)" }} />
+        <div className="elv-ellipse-glow-top pointer-events-none absolute left-0 right-0 top-0 h-[110px]" />
 
         {/* ── Header ── */}
         <div className="relative flex items-start justify-between px-6 pt-6 pb-5 border-b border-white/[0.05]">
@@ -394,7 +404,7 @@ const UploadModal = ({ review, onClose, onSuccess }) => {
           {uploading && (
             <div className="flex items-center gap-3">
               <div className="flex-1 h-1 rounded-full bg-white/[0.06] overflow-hidden">
-                <div className="h-full rounded-full bg-[#A01E2E] transition-all duration-300" style={{ width: `${progress}%` }} />
+                <div className={`h-full rounded-full bg-[#A01E2E] transition-all duration-300 ${progressClass(progress)}`} />
               </div>
               <span className="text-[9.5px] text-white/25 tabular-nums shrink-0 font-medium">{progress}%</span>
               {uploadStep && <span className="text-[9.5px] text-white/20 shrink-0 hidden sm:block">{uploadStep}</span>}

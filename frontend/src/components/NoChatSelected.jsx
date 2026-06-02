@@ -2,21 +2,10 @@ const NoChatSelected = () => (
   <div className="flex-1 flex flex-col items-center justify-center bg-[#07090D] relative overflow-hidden select-none">
 
     {/* Ambient red glow */}
-    <div
-      className="absolute inset-0 pointer-events-none"
-      style={{
-        background: "radial-gradient(ellipse 52% 38% at 50% 54%, rgba(160,30,46,0.055) 0%, transparent 70%)",
-      }}
-    />
+    <div className="elv-ellipse-glow pointer-events-none absolute inset-0" />
 
     {/* Subtle grid pattern */}
-    <div
-      className="absolute inset-0 pointer-events-none opacity-[0.018]"
-      style={{
-        backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
-        backgroundSize: "40px 40px",
-      }}
-    />
+    <div className="elv-grid-bg pointer-events-none absolute inset-0 opacity-[0.018]" />
 
     <div className="relative z-10 text-center px-10 max-w-[300px]">
 

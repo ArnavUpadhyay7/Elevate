@@ -64,30 +64,14 @@ const Coaches = () => {
     <div className="min-h-screen bg-[#07090D] font-['DM_Sans',system-ui,sans-serif] antialiased text-white relative">
 
       {/* Grain overlay */}
-      <div
-        className="fixed inset-0 pointer-events-none z-[9998] opacity-[0.024]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          backgroundRepeat: "repeat",
-          backgroundSize: "160px",
-        }}
-      />
+      <div className="elv-grain-bg pointer-events-none fixed inset-0 z-[9998] opacity-[0.024]" />
 
       <section className="relative flex flex-col justify-center overflow-hidden pt-20 pb-8 sm:pt-24 sm:pb-10">
 
         {/* BG image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center scale-110"
-          style={{
-            backgroundImage: "url('https://i.pinimg.com/1200x/5c/77/b4/5c77b498d943184c08da0b6d9dc174aa.jpg')",
-            filter: "blur(20px) brightness(0.055) saturate(0.12) grayscale(0.55)",
-          }}
-        />
+        <div className="absolute inset-0 scale-110 bg-[url('https://i.pinimg.com/1200x/5c/77/b4/5c77b498d943184c08da0b6d9dc174aa.jpg')] bg-cover bg-center blur-[20px] brightness-[0.055] saturate-[0.12] grayscale" />
         <div className="absolute inset-0 bg-[#07090D]/96" />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 60% 50% at 36% 58%, rgba(255,255,255,0.038) 0%, transparent 68%)" }}
-        />
+        <div className="elv-white-ellipse-glow pointer-events-none absolute inset-0" />
         <div className="absolute bottom-0 left-0 right-0 h-[140px] sm:h-[180px] bg-gradient-to-b from-transparent via-[#07090D]/80 to-[#07090D]" />
 
         {/* Content */}
@@ -194,8 +178,7 @@ const Coaches = () => {
               {filteredCoaches.map((coach, i) => (
                 <div
                   key={coach._id}
-                  className="opacity-0 translate-y-3 animate-[fadeUp_0.5s_cubic-bezier(0.16,1,0.3,1)_forwards]"
-                  style={{ animationDelay: `${Math.min(i * 40, 320)}ms` }}
+                  className={`translate-y-3 opacity-0 animate-[fadeUp_0.5s_cubic-bezier(0.16,1,0.3,1)_forwards] ${i % 8 === 1 ? "[animation-delay:40ms]" : i % 8 === 2 ? "[animation-delay:80ms]" : i % 8 === 3 ? "[animation-delay:120ms]" : i % 8 === 4 ? "[animation-delay:160ms]" : i % 8 === 5 ? "[animation-delay:200ms]" : i % 8 === 6 ? "[animation-delay:240ms]" : i % 8 === 7 ? "[animation-delay:280ms]" : ""}`}
                 >
                   <CoachCard
                     link={`/coach-profile/${coach._id}`}

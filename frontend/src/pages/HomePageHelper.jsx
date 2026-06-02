@@ -57,25 +57,19 @@ export const useCountUp = (target, duration = 1300, delay = 700) => {
 
 export const AnimatedStat = ({ value, suffix, label, delay }) => {
   const count = useCountUp(value, 1400, delay);
+  const delayClass = delay >= 1000 ? "[animation-delay:1020ms]" : delay >= 850 ? "[animation-delay:870ms]" : "[animation-delay:720ms]";
   const display =
     value === 49    ? "4.9"
     : value >= 1000 ? `${Math.floor(count / 1000)}K`
     : String(count);
   return (
     <div
-      className="stat-item flex flex-col gap-[9px] px-6 py-[18px] cursor-default"
-      style={{ animationDelay: `${delay}ms` }}
+      className={`stat-item flex cursor-default flex-col gap-[9px] px-6 py-[18px] ${delayClass}`}
     >
-      <span
-        className="text-[24px] font-black text-white tabular-nums leading-none"
-        style={{ fontFamily: "Syne, sans-serif", letterSpacing: "-0.03em" }}
-      >
+      <span className="font-syne text-[24px] font-black leading-none tracking-[0] text-white tabular-nums">
         {value === 49 ? "4.9" : display}{suffix}
       </span>
-      <span
-        className="text-[9.5px] font-semibold uppercase leading-none"
-        style={{ color: "#384452", letterSpacing: "0.15em" }}
-      >
+      <span className="text-[9.5px] font-semibold uppercase leading-none tracking-[0.15em] text-[#384452]">
         {label}
       </span>
     </div>
@@ -83,35 +77,35 @@ export const AnimatedStat = ({ value, suffix, label, delay }) => {
 };
 
 export const RANK_HISTORY = [14, 18, 16, 22, 20, 26, 24, 30, 28, 34, 33, 38];
+const rankBarHeights = ["h-[35%]", "h-[45%]", "h-[40%]", "h-[55%]", "h-1/2", "h-[65%]", "h-[60%]", "h-[75%]", "h-[70%]", "h-[85%]", "h-[82.5%]", "h-[95%]"];
+const rankBarDelays = ["[animation-delay:0.04s]", "[animation-delay:0.082s]", "[animation-delay:0.124s]", "[animation-delay:0.166s]", "[animation-delay:0.208s]", "[animation-delay:0.25s]", "[animation-delay:0.292s]", "[animation-delay:0.334s]", "[animation-delay:0.376s]", "[animation-delay:0.418s]", "[animation-delay:0.46s]", "[animation-delay:0.502s]"];
+const rankBarColors = [
+  "bg-gradient-to-t from-[#6e121e]/10 to-[#9b1a2a]/10",
+  "bg-gradient-to-t from-[#6e121e]/15 to-[#9b1a2a]/15",
+  "bg-gradient-to-t from-[#6e121e]/20 to-[#9b1a2a]/20",
+  "bg-gradient-to-t from-[#6e121e]/25 to-[#9b1a2a]/25",
+  "bg-gradient-to-t from-[#6e121e]/30 to-[#9b1a2a]/30",
+  "bg-gradient-to-t from-[#6e121e]/35 to-[#9b1a2a]/35",
+  "bg-gradient-to-t from-[#6e121e]/40 to-[#9b1a2a]/40",
+  "bg-gradient-to-t from-[#6e121e]/45 to-[#9b1a2a]/45",
+  "bg-gradient-to-t from-[#6e121e]/50 to-[#9b1a2a]/50",
+  "bg-gradient-to-t from-[#6e121e]/55 to-[#9b1a2a]/55",
+  "bg-gradient-to-t from-[#6e121e]/60 to-[#9b1a2a]/60",
+  "bg-gradient-to-t from-[#8E1C2A] to-[#B0243A] hover:shadow-[0_0_6px_rgba(160,28,44,0.28)]",
+];
 
 export const RankBar = ({ h, i, total }) => {
   const isLast = i === total - 1;
   const [hov, setHov] = useState(false);
   return (
     <div
-      className="rank-bar flex-1 rounded-[2px] relative cursor-default"
+      className={`rank-bar relative flex-1 cursor-default rounded-[2px] transition-shadow duration-300 ${rankBarHeights[i]} ${rankBarDelays[i]} ${rankBarColors[i]}`}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
-      style={{
-        height: `${(h / 40) * 100}%`,
-        animationDelay: `${0.04 + i * 0.042}s`,
-        background: isLast
-          ? "linear-gradient(to top, #8E1C2A, #B0243A)"
-          : `linear-gradient(to top,
-              rgba(110,18,30,${0.07 + i * 0.044}),
-              rgba(155,26,42,${0.10 + i * 0.050}))`,
-        boxShadow: isLast && hov ? "0 0 6px rgba(160,28,44,0.28)" : "none",
-        transition: "box-shadow 0.25s ease",
-      }}
     >
       {hov && (
         <div
-          className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap px-1.5 py-0.5 rounded text-[9px] font-semibold pointer-events-none"
-          style={{
-            background: "rgba(12,16,22,0.92)",
-            border: "1px solid rgba(255,255,255,0.07)",
-            color: "#8A96A6",
-          }}
+          className="pointer-events-none absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded border border-white/[0.07] bg-[#0C1016]/90 px-1.5 py-0.5 text-[9px] font-semibold text-[#8A96A6]"
         >
           {isLast ? "+4 rnk" : `+${Math.round((h - RANK_HISTORY[0]) * 0.4)} RR`}
         </div>
@@ -123,15 +117,7 @@ export const RankBar = ({ h, i, total }) => {
 export const AbstractMesh = ({ meshRef }) => (
   <div
     ref={meshRef}
-    className="mesh-float w-full max-w-[380px] fade-up-4 hidden lg:block flex-shrink-0"
-    style={{
-      opacity: 0.22,
-      maskImage: "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
-      WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
-      // ↑ FIX 2: Added WebkitMaskImage — Safari/Chrome require the prefixed
-      //   version or maskImage won't apply, making the mesh show hard edges.
-      willChange: "transform",
-    }}
+    className="mesh-float fade-up-4 hidden w-full max-w-[380px] flex-shrink-0 opacity-[0.22] will-change-transform [mask-image:linear-gradient(to_right,transparent_0%,black_20%,black_80%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_20%,black_80%,transparent_100%)] lg:block"
     aria-hidden
   >
     <svg viewBox="0 0 420 380" fill="none" xmlns="http://www.w3.org/2000/svg">

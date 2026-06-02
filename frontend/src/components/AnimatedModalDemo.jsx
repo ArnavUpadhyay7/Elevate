@@ -94,10 +94,9 @@ export function AnimatedModalDemo({ coach, player }) {
               {images.map((image, idx) => (
                 <motion.div
                   key={"images" + idx}
-                  style={{ rotate: Math.random() * 20 - 10 }}
                   whileHover={{ scale: 1.1, rotate: 0, zIndex: 100 }}
                   whileTap={{ scale: 1.1, rotate: 0, zIndex: 100 }}
-                  className="rounded-xl -mr-4 mt-4 p-1 bg-white/5 border border-white/10 flex-shrink-0 overflow-hidden"
+                  className={`-mr-4 mt-4 flex-shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5 p-1 ${idx % 3 === 0 ? "-rotate-6" : idx % 3 === 1 ? "rotate-3" : "-rotate-2"}`}
                 >
                   <img
                     src={image}

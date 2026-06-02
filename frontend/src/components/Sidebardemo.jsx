@@ -207,10 +207,7 @@ export const Logo = ({ setOpen }) => (
         <path d="M6 1L11 10H1L6 1Z" fill="white" fillOpacity="0.9" />
       </svg>
     </div>
-    <span
-      className="text-[14px] font-black text-white tracking-[0.16em] uppercase leading-none"
-      style={{ fontFamily: "Syne, sans-serif" }}
-    >
+    <span className="font-syne text-[14px] font-black uppercase leading-none tracking-[0.16em] text-white">
       ELEVATE
     </span>
   </Link>

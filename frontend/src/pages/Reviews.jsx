@@ -4,12 +4,7 @@ import { playerStore, coachStore } from "../store/authStore";
 import ReviewCard from "../components/ReviewCard";
 
 const Grain = () => (
-  <div className="fixed inset-0 pointer-events-none z-[9998] opacity-[0.024]"
-    style={{
-      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E")`,
-      backgroundRepeat: "repeat", backgroundSize: "160px",
-    }}
-  />
+  <div className="elv-grain-bg pointer-events-none fixed inset-0 z-[9998] opacity-[0.024]" />
 );
 
 const LoadingScreen = () => (
@@ -18,10 +13,8 @@ const LoadingScreen = () => (
     <div className="text-center">
       <p className="mb-5 text-[10px] tracking-[0.18em] uppercase text-[#A01E2E] animate-pulse">Loading Reviews</p>
       <div className="relative w-[200px] h-[2px] bg-white/[0.07] rounded-full mx-auto overflow-hidden">
-        <div className="absolute inset-y-0 left-0 w-[45%] rounded-full"
-          style={{ background: "linear-gradient(90deg,transparent,#A01E2E,transparent)", animation: "scanSweep 1.6s linear infinite" }} />
+        <div className="absolute inset-y-0 left-0 w-[45%] animate-scanSweep rounded-full bg-gradient-to-r from-transparent via-[#A01E2E] to-transparent" />
       </div>
-      <style>{`@keyframes scanSweep{0%{transform:translateX(-100%)}100%{transform:translateX(320%)}}`}</style>
     </div>
   </div>
 );
@@ -146,8 +139,7 @@ const Reviews = () => {
     <div className="min-h-screen bg-[#07090D] text-white font-['DM_Sans',system-ui,sans-serif] antialiased relative">
       <Grain />
       <div className="absolute top-0 left-0 right-0 h-[280px] bg-gradient-to-b from-black/50 via-[#07090D]/60 to-transparent pointer-events-none" />
-      <div className="absolute top-0 left-0 right-0 h-[360px] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 55% 32% at 50% 0%, rgba(160,30,46,0.055) 0%, transparent 70%)" }} />
+      <div className="elv-ellipse-glow-top pointer-events-none absolute left-0 right-0 top-0 h-[360px]" />
 
       <section className="relative pt-20 sm:pt-24 pb-28">
         <div className="max-w-[820px] mx-auto px-5 sm:px-8 lg:px-6">

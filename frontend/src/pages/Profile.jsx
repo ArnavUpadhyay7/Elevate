@@ -19,13 +19,13 @@ const ArrowIcon = () => (
 
 const rankColor = (rank = "") => {
   const r = rank.toLowerCase();
-  if (r.includes("radiant"))  return "#A01E2E";
-  if (r.includes("immortal")) return "#7B6FA0";
-  if (r.includes("diamond"))  return "#4F8CC9";
-  if (r.includes("platinum")) return "#3FA89A";
-  if (r.includes("gold"))     return "#C4943A";
-  if (r.includes("silver"))   return "#8A9BAE";
-  return "#4A5568";
+  if (r.includes("radiant")) return { text: "text-[#A01E2E]", bg: "bg-[#A01E2E]", ring: "ring-[#A01E2E]/35", line: "via-[#A01E2E]/35", glow: "bg-[radial-gradient(ellipse_55%_45%_at_70%_60%,rgba(160,30,46,0.10)_0%,transparent_70%)]" };
+  if (r.includes("immortal")) return { text: "text-[#7B6FA0]", bg: "bg-[#7B6FA0]", ring: "ring-[#7B6FA0]/35", line: "via-[#7B6FA0]/35", glow: "bg-[radial-gradient(ellipse_55%_45%_at_70%_60%,rgba(123,111,160,0.10)_0%,transparent_70%)]" };
+  if (r.includes("diamond")) return { text: "text-[#4F8CC9]", bg: "bg-[#4F8CC9]", ring: "ring-[#4F8CC9]/35", line: "via-[#4F8CC9]/35", glow: "bg-[radial-gradient(ellipse_55%_45%_at_70%_60%,rgba(79,140,201,0.10)_0%,transparent_70%)]" };
+  if (r.includes("platinum")) return { text: "text-[#3FA89A]", bg: "bg-[#3FA89A]", ring: "ring-[#3FA89A]/35", line: "via-[#3FA89A]/35", glow: "bg-[radial-gradient(ellipse_55%_45%_at_70%_60%,rgba(63,168,154,0.10)_0%,transparent_70%)]" };
+  if (r.includes("gold")) return { text: "text-[#C4943A]", bg: "bg-[#C4943A]", ring: "ring-[#C4943A]/35", line: "via-[#C4943A]/35", glow: "bg-[radial-gradient(ellipse_55%_45%_at_70%_60%,rgba(196,148,58,0.10)_0%,transparent_70%)]" };
+  if (r.includes("silver")) return { text: "text-[#8A9BAE]", bg: "bg-[#8A9BAE]", ring: "ring-[#8A9BAE]/35", line: "via-[#8A9BAE]/35", glow: "bg-[radial-gradient(ellipse_55%_45%_at_70%_60%,rgba(138,155,174,0.10)_0%,transparent_70%)]" };
+  return { text: "text-[#4A5568]", bg: "bg-[#4A5568]", ring: "ring-[#4A5568]/35", line: "via-[#4A5568]/35", glow: "bg-[radial-gradient(ellipse_55%_45%_at_70%_60%,rgba(74,85,104,0.10)_0%,transparent_70%)]" };
 };
 
 const Profile = () => {
@@ -56,36 +56,22 @@ const Profile = () => {
     <div className="min-h-screen bg-[#07090D] text-white font-['DM_Sans',system-ui,sans-serif] antialiased relative">
 
       {/* Grain overlay */}
-      <div
-        className="fixed inset-0 pointer-events-none z-[9998] opacity-[0.024]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          backgroundRepeat: "repeat",
-          backgroundSize: "160px",
-        }}
-      />
+      <div className="elv-grain-bg pointer-events-none fixed inset-0 z-[9998] opacity-[0.024]" />
 
       <section className="relative pt-20 pb-8 sm:pt-24 sm:pb-12 overflow-hidden">
 
         {/* Blurred player banner as ambient background */}
         {player?.playerBanner && (
-          <div
-            className="absolute inset-0 bg-cover bg-center scale-110"
-            style={{
-              backgroundImage: `url('${player.playerBanner}')`,
-              filter: "blur(28px) brightness(0.08) saturate(0.3)",
-            }}
+          <img
+            src={player.playerBanner}
+            alt=""
+            className="absolute inset-0 h-full w-full scale-110 object-cover blur-[28px] brightness-[0.08] saturate-[0.3]"
           />
         )}
         <div className="absolute inset-0 bg-[#07090D]/92" />
 
         {/* Rank-tinted ambient glow — unique per player rank */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(ellipse 55% 45% at 70% 60%, ${rc}18 0%, transparent 70%)`,
-          }}
-        />
+        <div className={`pointer-events-none absolute inset-0 ${rc.glow}`} />
 
         {/* Bottom fade */}
         <div className="absolute bottom-0 left-0 right-0 h-[160px] bg-gradient-to-b from-transparent to-[#07090D]" />
@@ -113,10 +99,7 @@ const Profile = () => {
                     className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border border-white/10"
                   />
                   {/* Rank ring glow */}
-                  <div
-                    className="absolute inset-0 rounded-full"
-                    style={{ boxShadow: `0 0 0 2px ${rc}55` }}
-                  />
+                  <div className={`absolute inset-0 rounded-full ring-2 ${rc.ring}`} />
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 mb-1.5 flex-wrap">
@@ -129,14 +112,8 @@ const Profile = () => {
                   </div>
                   {/* Rank pill */}
                   <div className="inline-flex items-center gap-1.5 mt-0.5">
-                    <span
-                      className="w-1.5 h-1.5 rounded-full shrink-0"
-                      style={{ background: rc }}
-                    />
-                    <span
-                      className="text-[10.5px] font-semibold uppercase tracking-[0.16em]"
-                      style={{ color: rc }}
-                    >
+                    <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${rc.bg}`} />
+                    <span className={`text-[10.5px] font-semibold uppercase tracking-[0.16em] ${rc.text}`}>
                       {player?.rank || "Unranked"}
                     </span>
                     {player?.role && (
@@ -280,24 +257,22 @@ const SidePanel = ({ player, rc, coaches, isLoading }) => (
     <div className="relative rounded-xl border border-white/[0.05] bg-white/[0.02] backdrop-blur-xl p-6 overflow-hidden">
 
       {/* Rank accent top line */}
-      <div
-        className="absolute top-0 left-[10%] right-[10%] h-px"
-        style={{ background: `linear-gradient(90deg, transparent, ${rc}55, transparent)` }}
-      />
+      <div className={`absolute left-[10%] right-[10%] top-0 h-px bg-gradient-to-r from-transparent to-transparent ${rc.line}`} />
 
       {/* Player banner thumbnail */}
       {player?.playerBanner && (
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-[0.04]"
-          style={{ backgroundImage: `url('${player.playerBanner}')` }}
+        <img
+          src={player.playerBanner}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-[0.04]"
         />
       )}
 
       <div className="relative">
         {/* Eyebrow */}
         <div className="flex items-center gap-2 mb-4">
-          <span className="w-1.5 h-1.5 rounded-full" style={{ background: rc }} />
-          <span className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: rc }}>
+          <span className={`h-1.5 w-1.5 rounded-full ${rc.bg}`} />
+          <span className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${rc.text}`}>
             {player?.rank || "Unranked"}
           </span>
         </div>
@@ -309,7 +284,7 @@ const SidePanel = ({ player, rc, coaches, isLoading }) => (
             alt={player?.fullname}
             className="w-14 h-14 rounded-full object-cover border border-white/10"
           />
-          <div className="absolute inset-0 rounded-full" style={{ boxShadow: `0 0 0 2px ${rc}44` }} />
+          <div className={`absolute inset-0 rounded-full ring-2 ${rc.ring}`} />
         </div>
 
         {/* Name */}

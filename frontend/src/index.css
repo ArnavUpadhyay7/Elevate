@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Syne:wght@700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Syne:wght@700;800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,6 +10,74 @@
 
 .adaptive-accent {
   filter: var(--elv-accent-filter);
+}
+
+.elv-grain-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 160px;
+}
+
+.elv-red-glow {
+  background: radial-gradient(circle, rgba(160, 30, 46, 0.06) 0%, transparent 70%);
+}
+
+.elv-red-glow-strong {
+  background: radial-gradient(circle, rgba(160, 30, 46, 0.08) 0%, transparent 70%);
+}
+
+.elv-ellipse-glow {
+  background: radial-gradient(ellipse 52% 38% at 50% 54%, rgba(160, 30, 46, 0.055) 0%, transparent 70%);
+}
+
+.elv-ellipse-glow-top {
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(160, 30, 46, 0.07) 0%, transparent 70%);
+}
+
+.elv-white-ellipse-glow {
+  background: radial-gradient(ellipse 60% 50% at 36% 58%, rgba(255, 255, 255, 0.038) 0%, transparent 68%);
+}
+
+.elv-grid-bg {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.elv-loader-grid {
+  background-image: linear-gradient(#ff4655 1px, transparent 1px),
+    linear-gradient(90deg, #ff4655 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.elv-auth-art {
+  background-image: url("https://i.pinimg.com/1200x/5c/77/b4/5c77b498d943184c08da0b6d9dc174aa.jpg");
+  filter: brightness(0.35) saturate(0.6);
+}
+
+.elv-hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.elv-hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.elv-chat-shell {
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.elv-modal-backdrop {
+  background: rgba(3, 5, 8, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.elv-blur-backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .elv-root {

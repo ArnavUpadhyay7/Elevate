@@ -383,25 +383,13 @@ const ReviewModal = ({ review, role, onClose, onUpdate }) => {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center"
-      style={{
-        background: "rgba(3,5,8,0.90)",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-      }}
+      className="elv-modal-backdrop fixed inset-0 z-[9999] flex items-end justify-center sm:items-center"
       onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div 
         data-lenis-prevent
-        className="relative w-full sm:max-w-[640px] max-h-[92vh] sm:max-h-[88vh] overflow-y-auto overscroll-contain rounded-t-3xl sm:rounded-2xl border border-white/[0.07] bg-[#090C12] flex flex-col"
-        style={{ scrollbarWidth: "none" }}>
+        className="elv-hide-scrollbar relative flex max-h-[92vh] w-full flex-col overflow-y-auto overscroll-contain rounded-t-3xl border border-white/[0.07] bg-[#090C12] sm:max-h-[88vh] sm:max-w-[640px] sm:rounded-2xl">
         <div className="absolute top-0 left-[5%] right-[5%] h-px bg-gradient-to-r from-transparent via-[#A01E2E]/40 to-transparent pointer-events-none" />
-        <div
-          className="absolute top-0 left-0 right-0 h-[100px] pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 55% 35% at 50% 0%, rgba(160,30,46,0.065) 0%, transparent 70%)",
-          }}
-        />
+        <div className="elv-ellipse-glow-top pointer-events-none absolute left-0 right-0 top-0 h-[100px]" />
 
         {/* Header */}
         <div className="relative flex items-start justify-between px-6 pt-6 pb-5 border-b border-white/[0.05]">

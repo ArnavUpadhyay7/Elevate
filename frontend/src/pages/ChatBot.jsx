@@ -87,25 +87,11 @@ const ChatBot = ({ onClose }) => {
 
   return (
     <div
-      className="fixed bottom-6 right-6 z-[9999] flex flex-col font-['DM_Sans',system-ui,sans-serif] antialiased"
-      style={{
-        width: "360px",
-        maxHeight: "calc(100vh - 48px)",
-        background: "#0B1017",
-        border: "1px solid rgba(255,255,255,0.06)",
-        borderRadius: "14px",
-        boxShadow: "0 24px 64px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.03)",
-        overflow: "hidden",
-      }}
+      className="elv-chat-shell fixed bottom-6 right-6 z-[9999] flex max-h-[calc(100vh-48px)] w-[360px] flex-col overflow-hidden rounded-[14px] border border-white/[0.06] bg-[#0B1017] font-sans antialiased"
     >
       {/* Grain overlay */}
       <div
-        className="absolute inset-0 pointer-events-none z-10 opacity-[0.025]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          backgroundRepeat: "repeat",
-          backgroundSize: "160px",
-        }}
+        className="elv-grain-bg pointer-events-none absolute inset-0 z-10 opacity-[0.025]"
       />
 
       {/* ── Header ── */}
@@ -140,17 +126,8 @@ const ChatBot = ({ onClose }) => {
       {/* ── Chat history ── */}
       <div
         ref={chatContainerRef}
-        className="flex-1 overflow-y-auto p-4 space-y-4"
-        style={{
-          maxHeight: "calc(100vh - 48px - 56px - 64px)",
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-        }}
+        className="elv-hide-scrollbar max-h-[calc(100vh-168px)] flex-1 space-y-4 overflow-y-auto p-4"
       >
-        <style>{`
-          div::-webkit-scrollbar { display: none; }
-        `}</style>
-
         {chatHistory.map((chat, index) => (
           <div key={index} className="flex flex-col gap-2.5">
 
@@ -158,12 +135,7 @@ const ChatBot = ({ onClose }) => {
             {chat.question && (
               <div className="flex justify-end">
                 <div
-                  className="text-[12.5px] text-white/85 leading-relaxed rounded-xl px-3.5 py-2.5 max-w-[80%]"
-                  style={{
-                    background: "rgba(160,30,46,0.18)",
-                    border: "1px solid rgba(160,30,46,0.25)",
-                    borderBottomRightRadius: "4px",
-                  }}
+                  className="max-w-[80%] rounded-xl rounded-br text-[12.5px] leading-relaxed text-white/85 border border-[#A01E2E]/25 bg-[#A01E2E]/20 px-3.5 py-2.5"
                 >
                   {chat.question}
                 </div>
@@ -174,18 +146,12 @@ const ChatBot = ({ onClose }) => {
             {chat.answer !== null ? (
               <div className="flex justify-start items-end gap-2">
                 <div
-                  className="flex items-center justify-center w-5 h-5 rounded-full shrink-0 mb-0.5"
-                  style={{ background: "rgba(160,30,46,0.12)", border: "1px solid rgba(160,30,46,0.2)" }}
+                  className="mb-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[#A01E2E]/20 bg-[#A01E2E]/[0.12]"
                 >
                   <BotIcon />
                 </div>
                 <div
-                  className="text-[12.5px] text-white/65 leading-relaxed rounded-xl px-3.5 py-2.5 max-w-[80%]"
-                  style={{
-                    background: "rgba(255,255,255,0.025)",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                    borderBottomLeftRadius: "4px",
-                  }}
+                  className="max-w-[80%] rounded-xl rounded-bl border border-white/[0.06] bg-white/[0.025] px-3.5 py-2.5 text-[12.5px] leading-relaxed text-white/65"
                 >
                   {chat.answer}
                 </div>
@@ -194,20 +160,17 @@ const ChatBot = ({ onClose }) => {
               /* Typing indicator */
               <div className="flex justify-start items-end gap-2">
                 <div
-                  className="flex items-center justify-center w-5 h-5 rounded-full shrink-0"
-                  style={{ background: "rgba(160,30,46,0.12)", border: "1px solid rgba(160,30,46,0.2)" }}
+                  className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[#A01E2E]/20 bg-[#A01E2E]/[0.12]"
                 >
                   <BotIcon />
                 </div>
                 <div
-                  className="flex items-center gap-1.5 px-4 py-3 rounded-xl"
-                  style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)", borderBottomLeftRadius: "4px" }}
+                  className="flex items-center gap-1.5 rounded-xl rounded-bl border border-white/[0.06] bg-white/[0.025] px-4 py-3"
                 >
                   {[0, 1, 2].map((i) => (
                     <span
                       key={i}
                       className="w-1 h-1 rounded-full bg-white/30 animate-bounce"
-                      style={{ animationDelay: `${i * 150}ms` }}
                     />
                   ))}
                 </div>
@@ -220,8 +183,7 @@ const ChatBot = ({ onClose }) => {
 
       {/* ── Input row ── */}
       <div
-        className="shrink-0 flex items-center gap-2 px-3 py-3 border-t border-white/[0.05]"
-        style={{ background: "#0B1017" }}
+        className="flex shrink-0 items-center gap-2 border-t border-white/[0.05] bg-[#0B1017] px-3 py-3"
       >
         <input
           ref={inputRef}
@@ -235,10 +197,7 @@ const ChatBot = ({ onClose }) => {
         <button
           onClick={askAI}
           disabled={loading || !question.trim()}
-          className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0 transition-all duration-200 disabled:opacity-30"
-          style={{ background: "#A01E2E" }}
-          onMouseEnter={(e) => e.currentTarget.style.background = "#8E1C2A"}
-          onMouseLeave={(e) => e.currentTarget.style.background = "#A01E2E"}
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#A01E2E] transition-all duration-200 hover:bg-[#8E1C2A] disabled:opacity-30"
         >
           <SendIcon />
         </button>

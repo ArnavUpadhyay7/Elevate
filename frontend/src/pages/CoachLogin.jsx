@@ -21,17 +21,13 @@ const CoachLogin = () => {
     <div className="min-h-screen bg-[#07090D] text-white font-['DM_Sans',system-ui,sans-serif] antialiased flex">
 
       {/* Grain */}
-      <div className="fixed inset-0 pointer-events-none z-[9998] opacity-[0.024]"
-        style={{ backgroundImage:`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundRepeat:"repeat", backgroundSize:"160px" }}
-      />
+      <div className="elv-grain-bg pointer-events-none fixed inset-0 z-[9998] opacity-[0.024]" />
 
       {/* ── LEFT — form ── */}
       <div className="flex-1 flex flex-col justify-center items-center px-6 sm:px-12 py-16 relative">
 
         {/* Ambient glow — slightly gold to differentiate from player login */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full pointer-events-none"
-          style={{ background:"radial-gradient(circle, rgba(160,30,46,0.08) 0%, transparent 70%)" }}
-        />
+        <div className="elv-red-glow-strong pointer-events-none absolute left-1/2 top-1/3 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full" />
 
         <div className="w-full max-w-sm relative">
 
@@ -96,9 +92,7 @@ const CoachLogin = () => {
 
       {/* ── RIGHT — cinematic panel ── */}
       <div className="hidden lg:flex flex-1 relative overflow-hidden items-end">
-        <div className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage:"url('https://i.pinimg.com/1200x/5c/77/b4/5c77b498d943184c08da0b6d9dc174aa.jpg')", filter:"brightness(0.35) saturate(0.6)" }}
-        />
+        <div className="elv-auth-art absolute inset-0 bg-cover bg-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#07090D] via-[#07090D]/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#07090D] via-transparent to-transparent" />
         <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#A01E2E]/40 to-transparent" />

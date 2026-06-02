@@ -5,6 +5,17 @@ export default function Loader() {
   const [phase, setPhase] = useState(0);
 
   const phases = ["INITIALIZING", "JUST A MOMENT", "LOADING ROSTER"];
+  const progressScale =
+    progress < 10 ? "scale-x-[0.05]" :
+    progress < 20 ? "scale-x-[0.15]" :
+    progress < 30 ? "scale-x-[0.25]" :
+    progress < 40 ? "scale-x-[0.35]" :
+    progress < 50 ? "scale-x-[0.45]" :
+    progress < 60 ? "scale-x-[0.55]" :
+    progress < 70 ? "scale-x-[0.65]" :
+    progress < 80 ? "scale-x-[0.75]" :
+    progress < 90 ? "scale-x-[0.85]" :
+    progress < 100 ? "scale-x-[0.95]" : "scale-x-100";
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,12 +41,7 @@ export default function Loader() {
 
       {/* Subtle grid background */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage:
-            "linear-gradient(#ff4655 1px, transparent 1px), linear-gradient(90deg, #ff4655 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
+        className="elv-loader-grid absolute inset-0 opacity-[0.04]"
       />
 
       {/* Top-left corner bracket */}
@@ -49,14 +55,12 @@ export default function Loader() {
         {/* Logo / wordmark */}
         <div className="flex flex-col items-center gap-1">
           <span
-            className="text-white tracking-[0.35em] text-xs font-medium uppercase"
-            style={{ fontFamily: "'Barlow Condensed', 'Arial Narrow', sans-serif" }}
+            className="font-barlow text-xs font-medium uppercase tracking-[0.35em] text-white"
           >
             COACHING ROSTER
           </span>
           <h1
-            className="text-5xl font-black uppercase text-white leading-none tracking-tight"
-            style={{ fontFamily: "'Barlow Condensed', 'Arial Narrow', sans-serif" }}
+            className="font-barlow text-5xl font-black uppercase leading-none tracking-tight text-white"
           >
             ELEV<span className="text-[#ff4655]">A</span>TE
           </h1>
@@ -80,13 +84,12 @@ export default function Loader() {
               strokeLinecap="square"
               strokeDasharray={`${2 * Math.PI * 42}`}
               strokeDashoffset={`${2 * Math.PI * 42 * (1 - progress / 100)}`}
-              style={{ transition: "stroke-dashoffset 0.05s linear" }}
+              className="transition-[stroke-dashoffset] duration-75 ease-linear"
             />
           </svg>
           {/* Percentage text */}
           <span
-            className="text-white text-lg font-bold tabular-nums"
-            style={{ fontFamily: "'Barlow Condensed', 'Arial Narrow', sans-serif" }}
+            className="font-barlow text-lg font-bold tabular-nums text-white"
           >
             {progress}
           </span>
@@ -96,26 +99,19 @@ export default function Loader() {
         <div className="w-full flex flex-col gap-2">
           <div className="w-full h-[2px] bg-[#1a1a1a] relative overflow-hidden">
             <div
-              className="absolute left-0 top-0 h-full bg-[#ff4655]"
-              style={{
-                width: `${progress}%`,
-                transition: "width 0.05s linear",
-                boxShadow: "0 0 8px #ff4655",
-              }}
+              className={`absolute left-0 top-0 h-full origin-left bg-[#ff4655] shadow-[0_0_8px_#ff4655] transition-transform duration-75 ease-linear ${progressScale}`}
             />
           </div>
 
           {/* Phase label */}
           <div className="flex justify-between items-center">
             <span
-              className="text-[#ff4655] text-[10px] tracking-[0.25em] font-semibold uppercase"
-              style={{ fontFamily: "'Barlow Condensed', 'Arial Narrow', sans-serif" }}
+              className="font-barlow text-[10px] font-semibold uppercase tracking-[0.25em] text-[#ff4655]"
             >
               {phases[phase]}
             </span>
             <span
-              className="text-[#3a3a3a] text-[10px] tracking-widest font-medium"
-              style={{ fontFamily: "'Barlow Condensed', 'Arial Narrow', sans-serif" }}
+              className="font-barlow text-[10px] font-medium tracking-widest text-[#3a3a3a]"
             >
               {progress}%
             </span>
@@ -127,23 +123,11 @@ export default function Loader() {
           {[0, 1, 2, 3].map((i) => (
             <span
               key={i}
-              className="block w-1 h-1 rounded-full bg-[#ff4655]"
-              style={{
-                animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite`,
-                opacity: 0.3,
-              }}
+              className={`block h-1 w-1 rounded-full bg-[#ff4655] opacity-30 animate-dotPulse ${i === 1 ? "[animation-delay:0.2s]" : i === 2 ? "[animation-delay:0.4s]" : i === 3 ? "[animation-delay:0.6s]" : ""}`}
             />
           ))}
         </div>
       </div>
-
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&display=swap');
-        @keyframes pulse {
-          0%, 100% { opacity: 0.2; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.4); }
-        }
-      `}</style>
     </div>
   );
 }

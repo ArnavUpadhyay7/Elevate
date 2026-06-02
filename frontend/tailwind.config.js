@@ -7,12 +7,29 @@ export default {
   ],
   theme: {
     extend: {
-      keyframes: {
-      fadeUp: {
-        from: { opacity: '0', transform: 'translateY(12px)' },
-        to:   { opacity: '1', transform: 'translateY(0)' },
+      fontFamily: {
+        sans: ["DM Sans", "system-ui", "sans-serif"],
+        syne: ["Syne", "sans-serif"],
+        barlow: ["Barlow Condensed", "Arial Narrow", "sans-serif"],
       },
-    }
+      keyframes: {
+        fadeUp: {
+          from: { opacity: '0', transform: 'translateY(12px)' },
+          to:   { opacity: '1', transform: 'translateY(0)' },
+        },
+        scanSweep: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(320%)' },
+        },
+        dotPulse: {
+          '0%, 100%': { opacity: '0.2', transform: 'scale(1)' },
+          '50%': { opacity: '1', transform: 'scale(1.4)' },
+        },
+      },
+      animation: {
+        scanSweep: "scanSweep 1.6s linear infinite",
+        dotPulse: "dotPulse 1.2s ease-in-out infinite",
+      },
     },
   },
   plugins: [daisyui],

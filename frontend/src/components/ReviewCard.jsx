@@ -5,34 +5,28 @@ import ReviewModal from "./ReviewModal";
 
 const RANK_COLORS = {
   diamond: {
-    border: "rgba(140,100,255,0.42)",
-    glow: "rgba(140,100,255,0.09)",
-    text: "#8c64ff",
+    card: "border-[#8c64ff]/40 shadow-[0_0_10px_rgba(140,100,255,0.09),inset_0_0_12px_rgba(140,100,255,0.09)]",
+    text: "text-[#8c64ff]",
   },
   ascendant: {
-    border: "rgba(60,200,100,0.40)",
-    glow: "rgba(60,200,100,0.08)",
-    text: "#3cc864",
+    card: "border-[#3cc864]/40 shadow-[0_0_10px_rgba(60,200,100,0.08),inset_0_0_12px_rgba(60,200,100,0.08)]",
+    text: "text-[#3cc864]",
   },
   immortal: {
-    border: "rgba(200,60,80,0.42)",
-    glow: "rgba(200,60,80,0.09)",
-    text: "#c83c50",
+    card: "border-[#c83c50]/40 shadow-[0_0_10px_rgba(200,60,80,0.09),inset_0_0_12px_rgba(200,60,80,0.09)]",
+    text: "text-[#c83c50]",
   },
   "immortal 2": {
-    border: "rgba(220,70,90,0.45)",
-    glow: "rgba(220,70,90,0.10)",
-    text: "#dc465a",
+    card: "border-[#dc465a]/45 shadow-[0_0_10px_rgba(220,70,90,0.10),inset_0_0_12px_rgba(220,70,90,0.10)]",
+    text: "text-[#dc465a]",
   },
   "immortal 3": {
-    border: "rgba(240,80,100,0.48)",
-    glow: "rgba(240,80,100,0.12)",
-    text: "#f05064",
+    card: "border-[#f05064]/50 shadow-[0_0_10px_rgba(240,80,100,0.12),inset_0_0_12px_rgba(240,80,100,0.12)]",
+    text: "text-[#f05064]",
   },
   radiant: {
-    border: "rgba(255,220,80,0.52)",
-    glow: "rgba(255,220,80,0.12)",
-    text: "#ffdc50",
+    card: "border-[#ffdc50]/50 shadow-[0_0_10px_rgba(255,220,80,0.12),inset_0_0_12px_rgba(255,220,80,0.12)]",
+    text: "text-[#ffdc50]",
   },
 };
 
@@ -173,14 +167,9 @@ const ReviewCard = ({ review, role, onUpdate }) => {
 
       <div
         onClick={handleClick}
-        style={{
-          borderColor: rs?.border,
-          boxShadow: rs
-            ? `0 0 10px ${rs.glow}, inset 0 0 12px ${rs.glow}`
-            : undefined,
-        }}
         className={[
           "group relative rounded-2xl border overflow-hidden transition-all duration-200",
+          rs?.card || "",
           clickAction
             ? "border-white/[0.05] bg-white/[0.012] hover:border-white/[0.10] hover:bg-white/[0.022] cursor-pointer hover:-translate-y-0.5"
             : "border-white/[0.04] bg-white/[0.008] cursor-default",
@@ -230,7 +219,7 @@ const ReviewCard = ({ review, role, onUpdate }) => {
                   {person?.fullname || "—"}
                 </p>
                 {person?.rank && (
-                  <span style={{ color: rs?.text || "rgba(255,255,255,0.18)" }} className="text-[9px] font-semibold uppercase tracking-[0.11em] text-white/18 shrink-0 hidden sm:block">
+                  <span className={`hidden shrink-0 text-[9px] font-semibold uppercase tracking-[0.11em] sm:block ${rs?.text || "text-white/20"}`}>
                     {person.rank}
                   </span>
                 )}
@@ -245,7 +234,7 @@ const ReviewCard = ({ review, role, onUpdate }) => {
             <div className="flex items-center gap-2 shrink-0">
               <StatusBadge status={status} />
               {subtext?.cta && (
-                <span style={{ color: rs?.text || "#A01E2E" }} className="hidden sm:flex items-center gap-1 text-[10px] font-semibold text-[#A01E2E]/70 group-hover:text-[#A01E2E] transition-colors duration-200 tracking-wide">
+                <span className={`hidden items-center gap-1 text-[10px] font-semibold tracking-wide transition-colors duration-200 sm:flex ${rs?.text || "text-[#A01E2E]/70 group-hover:text-[#A01E2E]"}`}>
                   {subtext.cta}
                   <svg
                     width="10"

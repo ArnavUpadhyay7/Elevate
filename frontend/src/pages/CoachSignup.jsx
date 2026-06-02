@@ -6,19 +6,21 @@ import { coachStore } from "../store/authStore";
 const RANKS = ["Diamond", "Ascendant", "Immortal", "Immortal 2", "Immortal 3", "Radiant"];
 
 const ROLES = [
-  { name: "Duelist",    color: "#A01E2E", bg: "rgba(160,30,46,0.12)",  border: "rgba(160,30,46,0.3)"  },
-  { name: "Initiator",  color: "#C4943A", bg: "rgba(196,148,58,0.10)", border: "rgba(196,148,58,0.28)" },
-  { name: "Sentinel",   color: "#3F8CC9", bg: "rgba(63,140,201,0.10)", border: "rgba(63,140,201,0.28)" },
-  { name: "Controller", color: "#3FA89A", bg: "rgba(63,168,154,0.10)", border: "rgba(63,168,154,0.28)" },
+  { name: "Duelist", color: "text-[#A01E2E]", bg: "bg-[#A01E2E]/[0.12]", border: "border-[#A01E2E]/30", bar: "bg-[#A01E2E]" },
+  { name: "Initiator", color: "text-[#C4943A]", bg: "bg-[#C4943A]/10", border: "border-[#C4943A]/30", bar: "bg-[#C4943A]" },
+  { name: "Sentinel", color: "text-[#3F8CC9]", bg: "bg-[#3F8CC9]/10", border: "border-[#3F8CC9]/30", bar: "bg-[#3F8CC9]" },
+  { name: "Controller", color: "text-[#3FA89A]", bg: "bg-[#3FA89A]/10", border: "border-[#3FA89A]/30", bar: "bg-[#3FA89A]" },
 ];
 
 const rankColor = (rank) => {
   const r = rank.toLowerCase();
-  if (r.includes("radiant"))   return "#A01E2E";
-  if (r.includes("immortal"))  return "#7B6FA0";
-  if (r.includes("ascendant")) return "#4F9A8C";
-  return "#4F8CC9"; // diamond
+  if (r.includes("radiant")) return { text: "text-[#A01E2E]", bg: "bg-[#A01E2E]", soft: "bg-[#A01E2E]/[0.05]", border: "border-[#A01E2E]/35" };
+  if (r.includes("immortal")) return { text: "text-[#7B6FA0]", bg: "bg-[#7B6FA0]", soft: "bg-[#7B6FA0]/[0.05]", border: "border-[#7B6FA0]/35" };
+  if (r.includes("ascendant")) return { text: "text-[#4F9A8C]", bg: "bg-[#4F9A8C]", soft: "bg-[#4F9A8C]/[0.05]", border: "border-[#4F9A8C]/35" };
+  return { text: "text-[#4F8CC9]", bg: "bg-[#4F8CC9]", soft: "bg-[#4F8CC9]/[0.05]", border: "border-[#4F8CC9]/35" };
 };
+
+const rankProgress = ["w-[16.666%]", "w-[33.333%]", "w-1/2", "w-[66.666%]", "w-[83.333%]", "w-full"];
 
 const inputCls = "w-full bg-white/[0.03] border border-white/[0.07] rounded-lg py-3 text-[13.5px] text-white placeholder:text-white/20 outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all duration-200";
 
@@ -64,16 +66,12 @@ const CoachSignup = () => {
     <div className="min-h-screen bg-[#07090D] text-white font-['DM_Sans',system-ui,sans-serif] antialiased flex">
 
       {/* Grain */}
-      <div className="fixed inset-0 pointer-events-none z-[9998] opacity-[0.024]"
-        style={{ backgroundImage:`url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundRepeat:"repeat", backgroundSize:"160px" }}
-      />
+      <div className="elv-grain-bg pointer-events-none fixed inset-0 z-[9998] opacity-[0.024]" />
 
       {/* ── LEFT — form ── */}
       <div className="flex-1 flex flex-col justify-center items-center px-6 sm:px-12 py-14 relative overflow-y-auto">
 
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
-          style={{ background:"radial-gradient(circle, rgba(160,30,46,0.06) 0%, transparent 70%)" }}
-        />
+        <div className="elv-red-glow pointer-events-none absolute left-1/2 top-1/3 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full" />
 
         <div className="w-full max-w-sm relative">
 
@@ -127,16 +125,13 @@ const CoachSignup = () => {
               <div className="flex-1 flex flex-col gap-1.5">
                 <label className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/40">Peak Rank</label>
                 <button type="button" onClick={cycleRank}
-                  className="group relative flex flex-col items-start justify-between rounded-lg border px-4 py-3 transition-all duration-300 text-left"
-                  style={{ borderColor:`${rc}55`, background:`${rc}0D` }}>
-                  <span className="font-['Syne',sans-serif] font-extrabold text-[14px] tracking-tight leading-none transition-all duration-300"
-                    style={{ color: rc }}>
+                  className={`group relative flex flex-col items-start justify-between rounded-lg border px-4 py-3 text-left transition-all duration-300 ${rc.border} ${rc.soft}`}>
+                  <span className={`font-['Syne',sans-serif] text-[14px] font-extrabold leading-none tracking-tight transition-all duration-300 ${rc.text}`}>
                     {currentRank}
                   </span>
                   {/* Progress bar */}
                   <div className="mt-2.5 w-full h-px bg-white/[0.06] rounded-full overflow-hidden">
-                    <div className="h-full rounded-full transition-all duration-500"
-                      style={{ width:`${((rankIdx + 1) / RANKS.length) * 100}%`, background: rc }} />
+                    <div className={`h-full rounded-full transition-all duration-500 ${rankProgress[rankIdx]} ${rc.bg}`} />
                   </div>
                   <span className="mt-1.5 text-[9px] uppercase tracking-[0.12em] text-white/25 group-hover:text-white/40 transition-colors">
                     Tap to rank up ↑
@@ -148,16 +143,13 @@ const CoachSignup = () => {
               <div className="flex-1 flex flex-col gap-1.5">
                 <label className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/40">Main Role</label>
                 <button type="button" onClick={cycleRole}
-                  className="group relative flex flex-col items-start justify-between rounded-lg border px-4 py-3 transition-all duration-300 text-left"
-                  style={{ borderColor: currentRole.border, background: currentRole.bg }}>
-                  <span className="font-['Syne',sans-serif] font-extrabold text-[14px] tracking-tight leading-none transition-all duration-300"
-                    style={{ color: currentRole.color }}>
+                  className={`group relative flex flex-col items-start justify-between rounded-lg border px-4 py-3 text-left transition-all duration-300 ${currentRole.border} ${currentRole.bg}`}>
+                  <span className={`font-['Syne',sans-serif] text-[14px] font-extrabold leading-none tracking-tight transition-all duration-300 ${currentRole.color}`}>
                     {currentRole.name}
                   </span>
                   <div className="mt-2.5 flex gap-1">
                     {ROLES.map((r, i) => (
-                      <div key={r.name} className="w-4 h-px rounded-full transition-all duration-300"
-                        style={{ background: i === roleIdx ? currentRole.color : "rgba(255,255,255,0.08)" }} />
+                      <div key={r.name} className={`h-px w-4 rounded-full transition-all duration-300 ${i === roleIdx ? currentRole.bar : "bg-white/[0.08]"}`} />
                     ))}
                   </div>
                   <span className="mt-1.5 text-[9px] uppercase tracking-[0.12em] text-white/25 group-hover:text-white/40 transition-colors">
@@ -217,9 +209,7 @@ const CoachSignup = () => {
 
       {/* ── RIGHT — cinematic panel ── */}
       <div className="hidden lg:flex flex-1 relative overflow-hidden items-end">
-        <div className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage:"url('https://i.pinimg.com/1200x/5c/77/b4/5c77b498d943184c08da0b6d9dc174aa.jpg')", filter:"brightness(0.35) saturate(0.6)" }}
-        />
+        <div className="elv-auth-art absolute inset-0 bg-cover bg-center" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#07090D] via-[#07090D]/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#07090D] via-transparent to-transparent" />
         <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#A01E2E]/40 to-transparent" />
