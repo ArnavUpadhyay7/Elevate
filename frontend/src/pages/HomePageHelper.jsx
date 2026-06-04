@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 // ─── Scroll reveal ────────────────────────────────────────────────────────────
 export const useScrollReveal = () => {

@@ -1,15 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { AnimatedTestimonials } from "../components/AnimatedTestimonials";
 import { testimonials } from "../lib/testimonials";
 import { TimelineDemo } from "../components/TimelineDemo";
 import { IconMessageCircle } from "@tabler/icons-react";
 import ChatBot from "./ChatBot";
-import {
-  useScrollReveal,
-  HOW_STEPS,
-  useScrollEnvironment,
-} from "./HomePageHelper";
+import { useScrollReveal, useScrollEnvironment } from "./HomePageHelper";
+import { ProcessSection } from "../components/landing/ProcessSection";
 import { Link } from "react-router-dom";
 
 // ─── Coaches ──────────────────────────────────────────────────────────────────
@@ -99,7 +96,6 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
   const CARD_W = isMobile ? 280 : 390;
   const CARD_H = isMobile ? 420 : 570;
 
-  // Cards all share the same bottom anchor; fan is purely rotation + x offset
   const initial = { x: 0, rotate: 0, scale: 0.6, opacity: 0 };
   const fanAnimate = {
     x: isMobile ? 0 : coach.fanOffsetX,
@@ -108,7 +104,6 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
     opacity: 1,
   };
 
-  // Base z from zOrder; hovered card always on top
   const baseZ = coach.zOrder * 10;
 
   return (
@@ -133,7 +128,6 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
       onHoverStart={() => !isMobile && setHovered(true)}
       onHoverEnd={() => !isMobile && setHovered(false)}
     >
-      {/* Lift wrapper — animates independently of the fan rotation */}
       <motion.div
         className="w-full h-full"
         animate={hovered && !isMobile ? { y: -24, scale: 1.03 } : { y: 0, scale: 1 }}
@@ -149,7 +143,6 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
             : "0 24px 70px rgba(0,0,0,0.80), 0 0 0 1px rgba(255,255,255,0.06)",
         }}
       >
-        {/* Noise */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.07]"
           style={{
@@ -157,8 +150,6 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
             backgroundSize: "300px",
           }}
         />
-
-        {/* Wavy contour lines */}
         <svg className="pointer-events-none absolute inset-0 w-full h-full opacity-[0.08]" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
           <defs>
             <radialGradient id={`rg-${coach.id}`} cx="50%" cy="40%" r="60%">
@@ -171,8 +162,6 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
               fill="none" stroke="white" strokeWidth="1" opacity={0.7 - n*0.12}/>
           ))}
         </svg>
-
-        {/* Full image */}
         <img
           src={coach.src}
           alt={coach.name}
@@ -180,16 +169,12 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
           style={{ opacity: 0.80 }}
           draggable={false}
         />
-
-        {/* Bottom gradient */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background: "linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, transparent 25%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.82) 100%)",
           }}
         />
-
-        {/* Top-left: role label + name */}
         <div className="absolute left-[18px] top-[18px] z-10">
           <div className="mb-[4px] text-[8px] font-bold uppercase tracking-[0.28em] leading-none" style={{ color: "rgba(255,255,255,0.45)" }}>
             {coach.label}
@@ -205,8 +190,6 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
             {coach.name}
           </div>
         </div>
-
-        {/* Top-right: Radiant badge */}
         <div
           className="absolute right-[14px] top-[14px] z-10 flex items-center gap-[5px] rounded-full px-[10px] py-[5px]"
           style={{
@@ -219,8 +202,6 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
           <span className="block h-[5px] w-[5px] rounded-full bg-[#FF4060] shrink-0" />
           <span className="font-syne text-[9.5px] font-bold text-[#FF6B7A] uppercase tracking-[0.12em]">Radiant</span>
         </div>
-
-        {/* Bottom strip */}
         <div className="absolute bottom-0 inset-x-0 z-10 px-[14px] pb-[14px]">
           <div
             className="flex items-center justify-between rounded-[10px] px-3 py-2.5"
@@ -241,8 +222,6 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
             </div>
           </div>
         </div>
-
-        {/* Featured shine */}
         {isFeatured && (
           <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 45%)" }} />
         )}
@@ -251,8 +230,6 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
     </motion.div>
   );
 };
-
-
 
 // ─── Home ─────────────────────────────────────────────────────────────────────
 const Home = () => {
@@ -300,13 +277,11 @@ const Home = () => {
         </div>
       )}
 
-
       {/* ── HERO ───────────────────────────────────────────────────────────── */}
       <section
         ref={heroRef}
         className="relative flex min-h-screen w-full flex-col items-center"
       >
-        {/* Ambient red glow */}
         <div
           className="pointer-events-none absolute left-1/2 top-[12%] h-[500px] w-[700px] -translate-x-1/2 rounded-full"
           style={{
@@ -314,8 +289,6 @@ const Home = () => {
             filter: "blur(50px)",
           }}
         />
-
-        {/* Grid */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.055]"
           style={{
@@ -324,12 +297,10 @@ const Home = () => {
           }}
         />
 
-        {/* Text block */}
         <motion.div
           style={{ opacity: heroOpacity, y: heroY }}
           className="relative z-10 flex flex-col items-center px-6 pt-[10vh] text-center"
         >
-          {/* Eyebrow */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -342,7 +313,6 @@ const Home = () => {
             </span>
           </motion.div>
 
-          {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
@@ -359,7 +329,6 @@ const Home = () => {
             </span>
           </motion.h1>
 
-          {/* Subtext */}
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -369,7 +338,6 @@ const Home = () => {
             VOD reviews from Radiant coaches. Agent-specific feedback, structured plans, and measurable rank progress — not guesswork.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -389,8 +357,6 @@ const Home = () => {
               Become a Coach →
             </Link>
           </motion.div>
-
-
         </motion.div>
 
         {/* ── Card fan ─────────────────────────────────────────────────────── */}
@@ -398,7 +364,6 @@ const Home = () => {
           style={{ y: cardsY }}
           className="relative z-10 w-full mt-4 flex-1 flex items-end justify-center"
         >
-          {/* Stage — flush bottom, no extra vertical space */}
           <div
             className="relative"
             style={{
@@ -419,7 +384,6 @@ const Home = () => {
             ))}
           </div>
 
-          {/* Fade into next section — soft, not harsh */}
           <div
             className="pointer-events-none absolute inset-x-0 bottom-0"
             style={{
@@ -429,7 +393,6 @@ const Home = () => {
           />
         </motion.div>
 
-        {/* Side fades */}
         {!isMobile && (
           <>
             <div className="pointer-events-none absolute inset-y-0 left-0 w-24" style={{ background: "linear-gradient(to right, #080C10, transparent)" }} />
@@ -438,7 +401,7 @@ const Home = () => {
         )}
       </section>
 
-      {/* ── Scroll bridge + divider — explicit bg so no seam ───────────── */}
+      {/* ── Scroll bridge ──────────────────────────────────────────────────── */}
       <div className="bg-[#080C10] flex flex-col items-center pt-6 pb-0">
         <div className="flex flex-col items-center gap-3 opacity-30">
           <div className="w-px h-10 bg-gradient-to-b from-transparent to-[#A01E2E]" />
@@ -453,42 +416,8 @@ const Home = () => {
         <div className="section-rule w-full max-w-[1120px] mx-auto mt-6" />
       </div>
 
-      {/* ── PROCESS ─────────────────────────────────────────────────────────── */}
-      <section
-        ref={processRef}
-        className="py-28 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal"
-      >
-        <div className="mb-16">
-          <div className="inline-flex items-center gap-[10px] mb-5">
-            <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Process</span>
-          </div>
-          <h2 className="mb-4 max-w-[280px] font-syne text-[clamp(24px,2.8vw,38px)] font-extrabold leading-[1.06] text-white">
-            Structured improvement,<br />not guesswork
-          </h2>
-          <p className="max-w-[300px] text-[13px] leading-[1.72] text-[#3E4A58]">
-            Built around how elite players actually develop.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[10px]">
-          {HOW_STEPS.map(({ num, title, desc, icon }, i) => (
-            <div
-              key={num}
-              className={`step-card rounded-[8px] border border-white/[0.05] bg-[#0B1017] p-7 hover:-translate-y-[3px] transition-transform duration-200 ${
-                i === 1 ? "delay-[35ms]" : i === 2 ? "delay-[70ms]" : ""
-              }`}
-            >
-              <div className="flex items-center justify-between mb-8">
-                <span className="font-syne text-[9.5px] font-black tracking-[0.2em] text-[#18222C]">{num}</span>
-                <span className="text-[#283040] transition-colors duration-300 hover:text-[#A01E2E]">{icon}</span>
-              </div>
-              <h3 className="mb-3 font-syne text-[14.5px] font-bold leading-[1.3] text-white">{title}</h3>
-              <p className="text-[13px] leading-[1.74] text-[#2A3848]">{desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* ── PROCESS (redesigned) ─────────────────────────────────────────────── */}
+      <ProcessSection processRef={processRef} />
 
       <div className="section-rule" />
 
