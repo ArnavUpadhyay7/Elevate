@@ -26,7 +26,7 @@ export const Timeline = ({ data }) => {
         {data.map((item, index) => (
           <div key={index} className="flex justify-start pt-16 md:pt-24 md:gap-10">
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="h-9 w-9 absolute left-0 rounded-full bg-[#0B1017] border border-white/[0.07] flex items-center justify-center shrink-0">
+              <div className="h-9 w-9 absolute left-0 rounded-full bg-[var(--elv-bg-elevated)] border border-white/[0.07] flex items-center justify-center shrink-0">
                 <div className="h-2 w-2 rounded-full bg-[#A01E2E]" />
               </div>
               <h3 className="hidden md:block font-['Syne',sans-serif] font-extrabold md:pl-16 text-2xl md:text-3xl lg:text-4xl tracking-tight text-white/20 leading-tight">

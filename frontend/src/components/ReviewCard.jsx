@@ -193,10 +193,10 @@ const ReviewCard = ({ review, role, onUpdate }) => {
                 className="w-11 h-11 rounded-full object-cover border border-white/[0.09]"
               />
               {status === "under_review" && (
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-amber-400 border-2 border-[#07090D] animate-pulse" />
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-amber-400 border-2 border-[var(--elv-bg)] animate-pulse" />
               )}
               {status === "completed" && (
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#07090D] flex items-center justify-center">
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[var(--elv-bg)] flex items-center justify-center">
                   <svg
                     width="5"
                     height="5"

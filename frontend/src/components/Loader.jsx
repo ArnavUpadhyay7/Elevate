@@ -37,7 +37,7 @@ export default function Loader() {
   }, [progress]);
 
   return (
-    <div className="fixed inset-0 bg-[#0a0a0a] flex flex-col items-center justify-center z-50 overflow-hidden">
+    <div className="fixed inset-0 bg-[var(--elv-bg)] flex flex-col items-center justify-center z-50 overflow-hidden">
 
       {/* Subtle grid background */}
       <div

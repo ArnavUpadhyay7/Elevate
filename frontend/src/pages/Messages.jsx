@@ -12,7 +12,7 @@ const Messages = () => {
   const player = playerStore((state) => state.player);
 
   return (
-    <div className="w-full h-screen bg-[#07090D] font-['DM_Sans',system-ui,sans-serif] flex items-center justify-center p-4 sm:p-6">
+    <div className="w-full h-screen bg-[var(--elv-bg)] font-['DM_Sans',system-ui,sans-serif] flex items-center justify-center p-4 sm:p-6">
 
       {/* Grain overlay */}
       <div className="elv-grain-bg pointer-events-none fixed inset-0 z-[9997] opacity-[0.024]" />

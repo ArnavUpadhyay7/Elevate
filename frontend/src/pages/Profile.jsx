@@ -53,7 +53,7 @@ const Profile = () => {
   const rc = rankColor(player?.rank || "");
 
   return (
-    <div className="min-h-screen bg-[#07090D] text-white font-['DM_Sans',system-ui,sans-serif] antialiased relative">
+    <div className="min-h-screen bg-[var(--elv-bg)] text-white font-['DM_Sans',system-ui,sans-serif] antialiased relative">
 
       {/* Grain overlay */}
       <div className="elv-grain-bg pointer-events-none fixed inset-0 z-[9998] opacity-[0.024]" />
@@ -68,13 +68,13 @@ const Profile = () => {
             className="absolute inset-0 h-full w-full scale-110 object-cover blur-[28px] brightness-[0.08] saturate-[0.3]"
           />
         )}
-        <div className="absolute inset-0 bg-[#07090D]/92" />
+        <div className="absolute inset-0 bg-[var(--elv-bg)]/92" />
 
         {/* Rank-tinted ambient glow — unique per player rank */}
         <div className={`pointer-events-none absolute inset-0 ${rc.glow}`} />
 
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-[160px] bg-gradient-to-b from-transparent to-[#07090D]" />
+        <div className="absolute bottom-0 left-0 right-0 h-[160px] bg-gradient-to-b from-transparent to-[var(--elv-bg)]" />
 
         <div className="relative z-10 max-w-[1240px] mx-auto px-5 sm:px-8 lg:px-12">
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 lg:items-start">

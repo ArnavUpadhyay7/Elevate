@@ -61,7 +61,7 @@ const Coaches = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#07090D] font-['DM_Sans',system-ui,sans-serif] antialiased text-white relative">
+    <div className="min-h-screen bg-[var(--elv-bg)] font-['DM_Sans',system-ui,sans-serif] antialiased text-white relative">
 
       {/* Grain overlay */}
       <div className="elv-grain-bg pointer-events-none fixed inset-0 z-[9998] opacity-[0.024]" />
@@ -70,9 +70,9 @@ const Coaches = () => {
 
         {/* BG image */}
         <div className="absolute inset-0 scale-110 bg-[url('https://i.pinimg.com/1200x/5c/77/b4/5c77b498d943184c08da0b6d9dc174aa.jpg')] bg-cover bg-center blur-[20px] brightness-[0.055] saturate-[0.12] grayscale" />
-        <div className="absolute inset-0 bg-[#07090D]/96" />
+        <div className="absolute inset-0 bg-[var(--elv-bg)]/96" />
         <div className="elv-white-ellipse-glow pointer-events-none absolute inset-0" />
-        <div className="absolute bottom-0 left-0 right-0 h-[140px] sm:h-[180px] bg-gradient-to-b from-transparent via-[#07090D]/80 to-[#07090D]" />
+        <div className="absolute bottom-0 left-0 right-0 h-[140px] sm:h-[180px] bg-gradient-to-b from-transparent via-[var(--elv-bg)]/80 to-[var(--elv-bg)]" />
 
         {/* Content */}
         <div className="relative z-10 max-w-[1240px] mx-auto px-5 sm:px-8 lg:px-12 w-full">

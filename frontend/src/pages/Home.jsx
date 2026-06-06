@@ -1,13 +1,30 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { lazy, Suspense, useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { AnimatedTestimonials } from "../components/AnimatedTestimonials";
 import { testimonials } from "../lib/testimonials";
-import { TimelineDemo } from "../components/TimelineDemo";
 import { IconMessageCircle } from "@tabler/icons-react";
-import ChatBot from "./ChatBot";
 import { useScrollReveal, useScrollEnvironment } from "./HomePageHelper";
-import { ProcessSection } from "../components/landing/ProcessSection";
 import { Link } from "react-router-dom";
+
+const ChatBot = lazy(() => import("./ChatBot"));
+const AnimatedTestimonials = lazy(() =>
+  import("../components/AnimatedTestimonials").then((module) => ({
+    default: module.AnimatedTestimonials,
+  }))
+);
+const TimelineDemo = lazy(() =>
+  import("../components/TimelineDemo").then((module) => ({
+    default: module.TimelineDemo,
+  }))
+);
+const ProcessSection = lazy(() =>
+  import("../components/landing/ProcessSection").then((module) => ({
+    default: module.ProcessSection,
+  }))
+);
+
+const SectionPlaceholder = ({ className = "" }) => (
+  <div className={`bg-[var(--elv-bg)] ${className}`} aria-hidden="true" />
+);
 
 // ─── Coaches ──────────────────────────────────────────────────────────────────
 const SHOWCASE_COACHES = [
@@ -236,6 +253,7 @@ const Home = () => {
   const [showChatBot, setShowChatBot] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [renderDeferredSections, setRenderDeferredSections] = useState(false);
   const processRef = useRef(null);
   const heroRef = useRef(null);
 
@@ -259,8 +277,15 @@ const Home = () => {
     return () => clearTimeout(t);
   }, []);
 
+  useEffect(() => {
+    const schedule = window.requestIdleCallback ?? ((cb) => window.setTimeout(cb, 900));
+    const cancel = window.cancelIdleCallback ?? window.clearTimeout;
+    const id = schedule(() => setRenderDeferredSections(true), { timeout: 1600 });
+    return () => cancel(id);
+  }, []);
+
   return (
-    <div className="elv-root min-h-screen text-white" style={{ background: "#080C10" }}>
+    <div className="elv-root min-h-screen bg-[var(--elv-bg)] text-white">
 
       {/* Chat FAB */}
       <button
@@ -273,7 +298,9 @@ const Home = () => {
 
       {showChatBot && (
         <div className="fixed inset-0 z-[60] flex items-center justify-end bg-black/70 backdrop-blur-md">
-          <ChatBot onClose={() => setShowChatBot(false)} />
+          <Suspense fallback={null}>
+            <ChatBot onClose={() => setShowChatBot(false)} />
+          </Suspense>
         </div>
       )}
 
@@ -388,21 +415,21 @@ const Home = () => {
             className="pointer-events-none absolute inset-x-0 bottom-0"
             style={{
               height: "160px",
-              background: "linear-gradient(to top, #080C10 0%, rgba(8,12,16,0.9) 30%, rgba(8,12,16,0.4) 70%, transparent 100%)",
+              background: "linear-gradient(to top, var(--elv-bg) 0%, rgba(8,10,14,0.9) 30%, rgba(8,10,14,0.4) 70%, transparent 100%)",
             }}
           />
         </motion.div>
 
         {!isMobile && (
           <>
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-24" style={{ background: "linear-gradient(to right, #080C10, transparent)" }} />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-24" style={{ background: "linear-gradient(to left, #080C10, transparent)" }} />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-24" style={{ background: "linear-gradient(to right, var(--elv-bg), transparent)" }} />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-24" style={{ background: "linear-gradient(to left, var(--elv-bg), transparent)" }} />
           </>
         )}
       </section>
 
       {/* ── Scroll bridge ──────────────────────────────────────────────────── */}
-      <div className="bg-[#080C10] flex flex-col items-center pt-6 pb-0">
+      <div className="bg-[var(--elv-bg)] flex flex-col items-center pt-6 pb-0">
         <div className="flex flex-col items-center gap-3 opacity-30">
           <div className="w-px h-10 bg-gradient-to-b from-transparent to-[#A01E2E]" />
           <div
@@ -416,34 +443,40 @@ const Home = () => {
         <div className="section-rule w-full max-w-[1120px] mx-auto mt-6" />
       </div>
 
-      {/* ── PROCESS (redesigned) ─────────────────────────────────────────────── */}
-      <ProcessSection processRef={processRef} />
+      {renderDeferredSections ? (
+        <Suspense fallback={<SectionPlaceholder className="min-h-[360px]" />}>
+          {/* ── PROCESS (redesigned) ─────────────────────────────────────────────── */}
+          <ProcessSection processRef={processRef} />
 
-      <div className="section-rule" />
+          <div className="section-rule" />
 
-      {/* ── TIMELINE ──────────────────────────────────────────────────────────── */}
-      <section className="scroll-reveal"><TimelineDemo /></section>
+          {/* ── TIMELINE ──────────────────────────────────────────────────────────── */}
+          <section className="scroll-reveal"><TimelineDemo /></section>
 
-      <div className="section-rule" />
+          <div className="section-rule" />
 
-      {/* ── TESTIMONIALS ─────────────────────────────────────────────────────── */}
-      <section className="py-28 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
-        <div className="mb-14">
-          <div className="inline-flex items-center gap-[10px] mb-5">
-            <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Results</span>
-          </div>
-          <h2 className="mb-3 font-syne text-[clamp(24px,2.8vw,38px)] font-extrabold leading-[1.06] text-white">
-            From players who climbed.
-          </h2>
-          <p className="max-w-[280px] text-[13px] leading-[1.72] text-[#3E4A58]">
-            Real results from players who committed to the process.
-          </p>
-        </div>
-        <AnimatedTestimonials testimonials={testimonials} />
-      </section>
+          {/* ── TESTIMONIALS ─────────────────────────────────────────────────────── */}
+          <section className="py-28 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
+            <div className="mb-14">
+              <div className="inline-flex items-center gap-[10px] mb-5">
+                <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Results</span>
+              </div>
+              <h2 className="mb-3 font-syne text-[clamp(24px,2.8vw,38px)] font-extrabold leading-[1.06] text-white">
+                From players who climbed.
+              </h2>
+              <p className="max-w-[280px] text-[13px] leading-[1.72] text-[#3E4A58]">
+                Real results from players who committed to the process.
+              </p>
+            </div>
+            <AnimatedTestimonials testimonials={testimonials} />
+          </section>
 
-      <div className="section-rule" />
+          <div className="section-rule" />
+        </Suspense>
+      ) : (
+        <SectionPlaceholder className="min-h-[320px]" />
+      )}
 
       {/* ── CTA / FOOTER ─────────────────────────────────────────────────────── */}
       <section className="py-24 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">

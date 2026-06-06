@@ -79,7 +79,7 @@ const CoachProfile = () => {
   /* ── Loader ── */
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#07090D] flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--elv-bg)] flex items-center justify-center">
         <div className="text-center">
           <div className="mb-5 text-[10px] tracking-[0.18em] uppercase text-[#A01E2E]">
             Loading Profile
@@ -94,7 +94,7 @@ const CoachProfile = () => {
 
   if (!coach) {
     return (
-      <div className="min-h-screen bg-[#07090D] flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--elv-bg)] flex items-center justify-center">
         <p className="text-white/30 text-sm tracking-widest uppercase">
           Coach not found
         </p>
@@ -195,12 +195,12 @@ const CoachProfile = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#07090D] text-white font-['DM_Sans',system-ui,sans-serif] antialiased relative">
+    <div className="min-h-screen bg-[var(--elv-bg)] text-white font-['DM_Sans',system-ui,sans-serif] antialiased relative">
       {/* Grain overlay */}
       <div className="elv-grain-bg pointer-events-none fixed inset-0 z-[9998] opacity-[0.024]" />
 
       {/* Top vignette */}
-      <div className="absolute top-0 left-0 right-0 h-[280px] bg-gradient-to-b from-black/50 via-[#07090D]/60 to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-[280px] bg-gradient-to-b from-black/50 via-[var(--elv-bg)]/60 to-transparent pointer-events-none" />
 
       <section className="relative pt-20 pb-8 sm:pt-24 sm:pb-12">
         <div className="max-w-[1240px] mx-auto px-5 sm:px-8 lg:px-12">

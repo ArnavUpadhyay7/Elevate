@@ -12,12 +12,34 @@ import { axiosInstance } from "../lib/axios";
 import { useNavigate } from "react-router-dom";
 import { playerStore } from "../store/authStore";
 
+const loadRazorpay = () => {
+  if (window.Razorpay) return Promise.resolve();
+
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[src="https://checkout.razorpay.com/v1/checkout.js"]');
+    if (existing) {
+      existing.addEventListener("load", resolve, { once: true });
+      existing.addEventListener("error", reject, { once: true });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.onload = resolve;
+    script.onerror = () => reject(new Error("Failed to load Razorpay checkout"));
+    document.head.appendChild(script);
+  });
+};
+
 export function AnimatedModalDemo({ coach, player }) {
   const navigate = useNavigate();
   const refreshPlayer = playerStore((state) => state.refreshPlayer);
 
   const handleBuyClick = async () => {
     try {
+      await loadRazorpay();
+
       const order = await axiosInstance.post(
         "/payment/create",
         {

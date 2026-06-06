@@ -18,7 +18,7 @@ const CoachLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#07090D] text-white font-['DM_Sans',system-ui,sans-serif] antialiased flex">
+    <div className="min-h-screen bg-[var(--elv-bg)] text-white font-['DM_Sans',system-ui,sans-serif] antialiased flex">
 
       {/* Grain */}
       <div className="elv-grain-bg pointer-events-none fixed inset-0 z-[9998] opacity-[0.024]" />
@@ -93,8 +93,8 @@ const CoachLogin = () => {
       {/* ── RIGHT — cinematic panel ── */}
       <div className="hidden lg:flex flex-1 relative overflow-hidden items-end">
         <div className="elv-auth-art absolute inset-0 bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#07090D] via-[#07090D]/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#07090D] via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--elv-bg)] via-[var(--elv-bg)]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--elv-bg)] via-transparent to-transparent" />
         <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#A01E2E]/40 to-transparent" />
 
         <div className="relative z-10 p-14 pb-16 max-w-sm">

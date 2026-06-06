@@ -2,13 +2,12 @@ import { useState } from "react";
 import { Send } from "lucide-react";
 import { createSocketConnection } from "../lib/socket";
 
-const socket = createSocketConnection();
-
 const MessageInput = ({ role, senderId, receiverId }) => {
   const [text, setText] = useState("");
 
   const handleSendMessage = (e) => {
     e.preventDefault();
+    const socket = createSocketConnection();
 
     if (!socket.connected) {
       console.log("Socket not connected");

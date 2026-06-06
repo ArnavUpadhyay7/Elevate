@@ -4,7 +4,7 @@ const Thumb = ({ video, index, active, onClick }) => (
   <button
     type="button"
     onClick={onClick}
-    className={`relative aspect-video w-24 shrink-0 overflow-hidden rounded-md border bg-[#080C10] transition-colors duration-200 ${active ? "border-[#A01E2E]/60" : "border-white/[0.07] hover:border-white/15"}`}
+    className={`relative aspect-video w-24 shrink-0 overflow-hidden rounded-md border bg-[var(--elv-bg)] transition-colors duration-200 ${active ? "border-[#A01E2E]/60" : "border-white/[0.07] hover:border-white/15"}`}
   >
     <video src={video.url} preload="metadata" className="h-full w-full object-cover opacity-60" />
     <span className="absolute bottom-1 right-1 rounded bg-black/70 px-1.5 py-0.5 text-[9px] text-white/45">
@@ -15,7 +15,7 @@ const Thumb = ({ video, index, active, onClick }) => (
 
 const VideoStage = ({ video, index, total }) => (
   <div className="overflow-hidden rounded-[10px] bg-[#050709]">
-    <div className="relative bg-[#080C10]">
+    <div className="relative bg-[var(--elv-bg)]">
       <div className="pointer-events-none absolute left-[8%] right-[8%] top-0 z-10 h-px bg-gradient-to-r from-transparent via-[#A01E2E]/40 to-transparent" />
       <video
         src={video.url}

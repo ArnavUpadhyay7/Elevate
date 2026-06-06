@@ -12,6 +12,15 @@ export default {
         syne: ["Syne", "sans-serif"],
         barlow: ["Barlow Condensed", "Arial Narrow", "sans-serif"],
       },
+      colors: {
+        elevate: {
+          bg: "var(--elv-bg)",
+          panel: "var(--elv-bg-elevated)",
+          muted: "var(--elv-bg-muted)",
+          red: "var(--elv-red)",
+          "red-hover": "var(--elv-red-hover)",
+        },
+      },
       keyframes: {
         fadeUp: {
           from: { opacity: '0', transform: 'translateY(12px)' },
@@ -31,6 +40,22 @@ export default {
         dotPulse: "dotPulse 1.2s ease-in-out infinite",
       },
     },
+  },
+  daisyui: {
+    themes: [
+      {
+        elevate: {
+          primary: "#A01E2E",
+          secondary: "#111722",
+          accent: "#C3293B",
+          neutral: "#0D1118",
+          "base-100": "#080A0E",
+          "base-200": "#0D1118",
+          "base-300": "#141B26",
+          "base-content": "#E8EEF5",
+        },
+      },
+    ],
   },
   plugins: [daisyui],
 }

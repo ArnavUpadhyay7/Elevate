@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import {
   IconArrowLeft,
@@ -9,10 +9,11 @@ import {
   IconUserBolt,
   IconWritingSign,
 } from "@tabler/icons-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "../lib/utils";
 import { Routes, Route } from "react-router-dom";
 import { coachStore, playerStore } from "../store/authStore";
+import Loader from "./Loader";
 
 const Home         = lazy(() => import("../pages/Home"));
 const Profile      = lazy(() => import("../pages/Profile"));
@@ -29,7 +30,7 @@ const Reviews     = lazy(() => import("../pages/Reviews"));
 const PageWrapper = ({ children }) => (
   <Suspense
     fallback={
-      <div className="flex min-h-screen w-full items-center justify-center bg-[#07090D]">
+      <div className="flex min-h-screen w-full items-center justify-center bg-[var(--elv-bg)]">
         <div className="text-center">
           <div className="mb-5 text-[10px] tracking-[0.18em] uppercase text-[#A01E2E]">
             Loading
@@ -50,6 +51,43 @@ const NavIcon = ({ children }) => (
     {children}
   </span>
 );
+
+const AuthRoute = ({ children, allow }) => {
+  const location = useLocation();
+  const player = playerStore((state) => state.player);
+  const coach = coachStore((state) => state.coach);
+  const isCheckingPlayerAuth = playerStore((state) => state.isCheckingPlayerAuth);
+  const isCheckingCoachAuth = coachStore((state) => state.isCheckingCoachAuth);
+  const hasCheckedPlayerAuth = playerStore((state) => state.hasCheckedPlayerAuth);
+  const hasCheckedCoachAuth = coachStore((state) => state.hasCheckedCoachAuth);
+
+  const isHydrating =
+    isCheckingPlayerAuth ||
+    isCheckingCoachAuth ||
+    !hasCheckedPlayerAuth ||
+    !hasCheckedCoachAuth;
+
+  const allowed =
+    allow === "any"
+      ? Boolean(player || coach)
+      : allow === "player"
+        ? Boolean(player)
+        : Boolean(coach);
+
+  if (!allowed && isHydrating) {
+    return (
+      <div className="min-h-screen bg-[var(--elv-bg)]">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (!allowed) {
+    return <Navigate to={allow === "coach" ? "/coach-login" : "/login"} replace state={{ from: location }} />;
+  }
+
+  return children;
+};
 
 export function SidebarDemo() {
   const navigate = useNavigate();
@@ -100,9 +138,9 @@ export function SidebarDemo() {
   ].filter(Boolean);
 
   return (
-    <div className={cn("flex flex-col md:flex-row w-full min-h-screen bg-[#07090D]")}>
+    <div className={cn("flex flex-col md:flex-row w-full min-h-screen bg-[var(--elv-bg)]")}>
       <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between gap-10 fixed z-50 bg-[#07090D] border-r border-white/[0.04]">
+        <SidebarBody className="justify-between gap-10 fixed z-50 bg-[var(--elv-bg)] border-r border-white/[0.04]">
 
           {/* ── TOP: logo + nav links ── */}
           <div className="flex flex-col overflow-x-hidden">
@@ -175,7 +213,7 @@ const UserCard = ({ open, name, role, pic, isCoach }) => (
         className="h-7 w-7 rounded-full object-cover border border-white/10"
       />
       {/* Online dot */}
-      <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#A01E2E] border border-[#07090D]" />
+      <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#A01E2E] border border-[var(--elv-bg)]" />
     </div>
 
     {/* Name + role — only visible when expanded */}
@@ -228,15 +266,15 @@ const Dashboard = () => (
     <Routes>
       <Route path="/"                element={<PageWrapper><Home /></PageWrapper>} />
       <Route path="/coaches"         element={<PageWrapper><Coaches /></PageWrapper>} />
-      <Route path="/profile"         element={<PageWrapper><Profile /></PageWrapper>} />
+      <Route path="/profile"         element={<PageWrapper><AuthRoute allow="player"><Profile /></AuthRoute></PageWrapper>} />
       <Route path="/coach-profile/:id" element={<PageWrapper><CoachProfile /></PageWrapper>} />
       <Route path="/login"           element={<PageWrapper><Login /></PageWrapper>} />
       <Route path="/signup"          element={<PageWrapper><Signup /></PageWrapper>} />
       <Route path="/coach-login"     element={<PageWrapper><CoachLogin /></PageWrapper>} />
       <Route path="/coach-signup"    element={<PageWrapper><CoachSignup /></PageWrapper>} />
-      <Route path="/dashboard"       element={<PageWrapper><CoachDashboard /></PageWrapper>} />
-      <Route path="/messages"        element={<PageWrapper><Messages /></PageWrapper>} />
-      <Route path="/reviews"        element={<PageWrapper><Reviews /></PageWrapper>} />
+      <Route path="/dashboard"       element={<PageWrapper><AuthRoute allow="coach"><CoachDashboard /></AuthRoute></PageWrapper>} />
+      <Route path="/messages"        element={<PageWrapper><AuthRoute allow="any"><Messages /></AuthRoute></PageWrapper>} />
+      <Route path="/reviews"        element={<PageWrapper><AuthRoute allow="any"><Reviews /></AuthRoute></PageWrapper>} />
     </Routes>
   </div>
 );

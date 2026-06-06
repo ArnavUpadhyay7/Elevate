@@ -9,11 +9,10 @@ import { axiosInstance } from "../lib/axios";
 
 const PlayerChatContainer = () => {
   const { selectedUser } = useChatStore();
-  const [roomMessages, setRoomMessages] = useState({});
   const [messages, setMessages] = useState([]);
   const player = playerStore((state) => state.player);
 
-  const socket = createSocketConnection(); // ✅ singleton socket
+  const socketRef = useRef(null);
   const bottomRef = useRef(null);
 
   // Scroll to bottom
@@ -26,8 +25,8 @@ const PlayerChatContainer = () => {
   // SOCKET LOGIC
   useEffect(() => {
     if (!player || !selectedUser) return;
-
-    const roomId = [player._id, selectedUser._id].sort().join("_");
+    const socket = socketRef.current ?? createSocketConnection();
+    socketRef.current = socket;
 
     const handleJoin = () => {
       socket.emit("joinChat", {
@@ -37,31 +36,19 @@ const PlayerChatContainer = () => {
     };
 
     const handleMessage = ({ text, senderId, createdAt }) => {
-      setRoomMessages((prev) => {
-        const updatedMessages = {
-          ...prev,
-          [roomId]: [
-            ...(prev[roomId] || []),
-            { text, senderId, createdAt },
-          ],
-        };
+      setMessages((prevMessages) => {
+        const newMessage = { text, senderId, createdAt };
 
-        setMessages((prevMessages) => {
-          const newMessage = { text, senderId, createdAt };
-
-          if (
-            !prevMessages.some(
-              (msg) =>
-                msg.createdAt === createdAt &&
-                msg.senderId === senderId
-            )
-          ) {
-            return [...prevMessages, newMessage];
-          }
-          return prevMessages;
-        });
-
-        return updatedMessages;
+        if (
+          !prevMessages.some(
+            (msg) =>
+              msg.createdAt === createdAt &&
+              msg.senderId === senderId
+          )
+        ) {
+          return [...prevMessages, newMessage];
+        }
+        return prevMessages;
       });
     };
 
@@ -75,7 +62,7 @@ const PlayerChatContainer = () => {
       socket.off("connect", handleJoin);
       socket.off("messageReceived", handleMessage);
     };
-  }, [player, selectedUser, socket]);
+  }, [player, selectedUser]);
 
   // FETCH OLD MESSAGES
   useEffect(() => {

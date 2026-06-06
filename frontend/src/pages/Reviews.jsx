@@ -8,7 +8,7 @@ const Grain = () => (
 );
 
 const LoadingScreen = () => (
-  <div className="min-h-screen bg-[#07090D] flex items-center justify-center">
+  <div className="min-h-screen bg-[var(--elv-bg)] flex items-center justify-center">
     <Grain />
     <div className="text-center">
       <p className="mb-5 text-[10px] tracking-[0.18em] uppercase text-[#A01E2E] animate-pulse">Loading Reviews</p>
@@ -106,7 +106,7 @@ const Reviews = () => {
 
   if (!role) {
     return (
-      <div className="min-h-screen bg-[#07090D] flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--elv-bg)] flex items-center justify-center">
         <Grain />
         <div className="text-center max-w-xs">
           <div className="w-5 h-px bg-[#A01E2E] mx-auto mb-5" />
@@ -136,9 +136,9 @@ const Reviews = () => {
   const totalActive = groups.awaiting_upload.length + groups.under_review.length;
 
   return (
-    <div className="min-h-screen bg-[#07090D] text-white font-['DM_Sans',system-ui,sans-serif] antialiased relative">
+    <div className="min-h-screen bg-[var(--elv-bg)] text-white font-['DM_Sans',system-ui,sans-serif] antialiased relative">
       <Grain />
-      <div className="absolute top-0 left-0 right-0 h-[280px] bg-gradient-to-b from-black/50 via-[#07090D]/60 to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-[280px] bg-gradient-to-b from-black/50 via-[var(--elv-bg)]/60 to-transparent pointer-events-none" />
       <div className="elv-ellipse-glow-top pointer-events-none absolute left-0 right-0 top-0 h-[360px]" />
 
       <section className="relative pt-20 sm:pt-24 pb-28">

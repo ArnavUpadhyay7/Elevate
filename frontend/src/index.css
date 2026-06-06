@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Syne:wght@700;800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,10 +5,140 @@
 :root {
   --elv-accent-filter: none;
   --elv-contrast: contrast(1);
+  --elv-bg: #080a0e;
+  --elv-bg-elevated: #0d1118;
+  --elv-bg-muted: #111722;
+  --elv-surface: rgba(255, 255, 255, 0.026);
+  --elv-surface-strong: rgba(255, 255, 255, 0.052);
+  --elv-border: rgba(255, 255, 255, 0.075);
+  --elv-border-strong: rgba(255, 255, 255, 0.13);
+  --elv-text: rgba(255, 255, 255, 0.88);
+  --elv-text-muted: rgba(180, 194, 210, 0.48);
+  --elv-text-faint: rgba(180, 194, 210, 0.25);
+  --elv-red: #a01e2e;
+  --elv-red-hover: #c3293b;
+  --elv-red-soft: rgba(160, 30, 46, 0.14);
+  --elv-red-selection: rgba(160, 30, 46, 0.56);
 }
 
 .adaptive-accent {
   filter: var(--elv-accent-filter);
+}
+
+html {
+  background: var(--elv-bg);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse 70% 44% at 50% -18%, rgba(160, 30, 46, 0.12), transparent 64%),
+    linear-gradient(180deg, #090b10 0%, var(--elv-bg) 34%, #06080b 100%);
+  color: var(--elv-text);
+  font-family:
+    "DM Sans",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--elv-red-selection);
+  color: #ffffff;
+}
+
+input::selection,
+textarea::selection {
+  background: rgba(195, 41, 59, 0.68);
+  color: #ffffff;
+}
+
+input,
+textarea,
+select {
+  color-scheme: dark;
+  accent-color: var(--elv-red);
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+textarea,
+select,
+.input,
+.textarea,
+.select {
+  border-color: var(--elv-border) !important;
+  background-color: rgba(255, 255, 255, 0.032) !important;
+  color: var(--elv-text) !important;
+  border-radius: 8px;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):focus,
+textarea:focus,
+select:focus,
+.input:focus,
+.textarea:focus,
+.select:focus {
+  border-color: rgba(195, 41, 59, 0.54) !important;
+  background-color: rgba(255, 255, 255, 0.052) !important;
+  box-shadow:
+    0 0 0 1px rgba(160, 30, 46, 0.26),
+    0 0 0 4px rgba(160, 30, 46, 0.08);
+  outline: none;
+}
+
+select,
+.elv-select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, 0.72) 50%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72) 50%, transparent 50%);
+  background-position:
+    calc(100% - 17px) 50%,
+    calc(100% - 12px) 50%;
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 2.4rem;
+}
+
+select option {
+  background: var(--elv-bg-elevated);
+  color: var(--elv-text);
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: rgba(160, 30, 46, 0.22);
+}
+
+.btn-primary {
+  background-color: var(--elv-red) !important;
+  color: white !important;
+  box-shadow:
+    0 10px 28px rgba(160, 30, 46, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.btn-primary:hover {
+  background-color: var(--elv-red-hover) !important;
+}
+
+.elv-panel {
+  border: 1px solid var(--elv-border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.038), rgba(255, 255, 255, 0.018)),
+    var(--elv-bg-elevated);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .elv-grain-bg {
@@ -82,15 +211,6 @@
 
 .elv-root {
   filter: var(--elv-contrast);
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-.elv-root {
   font-family:
     "DM Sans",
     system-ui,
@@ -98,6 +218,12 @@
     sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 /* ── Grain: barely-there texture, not perceptible at glance ── */
@@ -134,11 +260,11 @@
 .elv-bg-drift {
   background: linear-gradient(
     160deg,
-    #07090d 0%,
-    #090d12 20%,
+    #080a0e 0%,
+    #0b1017 20%,
     #080c11 40%,
-    #0a0e14 60%,
-    #07090d 100%
+    #10131b 60%,
+    #07080b 100%
   );
   background-size: 400% 400%;
   animation: gradientDrift 32s linear infinite;

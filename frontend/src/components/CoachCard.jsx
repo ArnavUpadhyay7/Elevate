@@ -16,7 +16,7 @@ const CoachCard = ({ link, fullname, coachBanner, about, rate, rank, role }) => 
   return (
     <Link
       to={link}
-      className="group relative block overflow-hidden rounded-[10px] border border-white/[0.05] bg-[#0B1017] font-sans antialiased no-underline transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform before:absolute before:left-[8%] before:right-[8%] before:top-0 before:h-px before:origin-center before:scale-x-[0.3] before:bg-gradient-to-r before:from-transparent before:via-[#A01E2E]/40 before:to-transparent before:opacity-0 before:transition-all before:duration-300 hover:-translate-y-[3px] hover:border-white/[0.09] hover:bg-[linear-gradient(160deg,#0F151F_0%,#0C1118_100%)] hover:shadow-[0_14px_44px_rgba(0,0,0,0.52),0_1px_0_rgba(255,255,255,0.04)] hover:before:scale-x-100 hover:before:opacity-100"
+      className="group relative block overflow-hidden rounded-[10px] border border-white/[0.05] bg-[var(--elv-bg-elevated)] font-sans antialiased no-underline transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform before:absolute before:left-[8%] before:right-[8%] before:top-0 before:h-px before:origin-center before:scale-x-[0.3] before:bg-gradient-to-r before:from-transparent before:via-[#A01E2E]/40 before:to-transparent before:opacity-0 before:transition-all before:duration-300 hover:-translate-y-[3px] hover:border-white/[0.09] hover:bg-[linear-gradient(160deg,#0F151F_0%,#0C1118_100%)] hover:shadow-[0_14px_44px_rgba(0,0,0,0.52),0_1px_0_rgba(255,255,255,0.04)] hover:before:scale-x-100 hover:before:opacity-100"
     >
       <div className="relative h-[178px] overflow-hidden">
         <img
@@ -24,17 +24,17 @@ const CoachCard = ({ link, fullname, coachBanner, about, rate, rank, role }) => 
           src={coachBanner || "https://i.pinimg.com/1200x/8a/a6/14/8aa61454976eb18a034fa52f16c1ed70.jpg"}
           alt={fullname ? `${fullname} banner` : "Coach banner"}
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent from-[44%] to-[#0B1017]/95" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent from-[44%] to-[var(--elv-bg-elevated)]/95" />
 
         {rank && (
-          <div className={`absolute left-2.5 top-2.5 flex items-center gap-[5px] rounded border border-white/[0.06] bg-[#07090D]/75 px-2 py-[3px] text-[9px] font-bold uppercase leading-none tracking-[0.18em] backdrop-blur ${rk.color}`}>
+          <div className={`absolute left-2.5 top-2.5 flex items-center gap-[5px] rounded border border-white/[0.06] bg-[var(--elv-bg)]/75 px-2 py-[3px] text-[9px] font-bold uppercase leading-none tracking-[0.18em] backdrop-blur ${rk.color}`}>
             {rk.dot && <span className="block h-[5px] w-[5px] shrink-0 rounded-full bg-[#A01E2E]" />}
             {rank}
           </div>
         )}
 
         {role && (
-          <div className="absolute right-2.5 top-2.5 rounded border border-white/[0.055] bg-[#07090D]/75 px-2 py-[3px] text-[9px] font-semibold uppercase leading-none tracking-[0.14em] text-[#364858] backdrop-blur">
+          <div className="absolute right-2.5 top-2.5 rounded border border-white/[0.055] bg-[var(--elv-bg)]/75 px-2 py-[3px] text-[9px] font-semibold uppercase leading-none tracking-[0.14em] text-[#364858] backdrop-blur">
             {role}
           </div>
         )}

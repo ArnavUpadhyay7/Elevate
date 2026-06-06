@@ -87,7 +87,7 @@ const ChatBot = ({ onClose }) => {
 
   return (
     <div
-      className="elv-chat-shell fixed bottom-6 right-6 z-[9999] flex max-h-[calc(100vh-48px)] w-[360px] flex-col overflow-hidden rounded-[14px] border border-white/[0.06] bg-[#0B1017] font-sans antialiased"
+      className="elv-chat-shell fixed bottom-6 right-6 z-[9999] flex max-h-[calc(100vh-48px)] w-[360px] flex-col overflow-hidden rounded-[14px] border border-white/[0.06] bg-[var(--elv-bg-elevated)] font-sans antialiased"
     >
       {/* Grain overlay */}
       <div
@@ -183,7 +183,7 @@ const ChatBot = ({ onClose }) => {
 
       {/* ── Input row ── */}
       <div
-        className="flex shrink-0 items-center gap-2 border-t border-white/[0.05] bg-[#0B1017] px-3 py-3"
+        className="flex shrink-0 items-center gap-2 border-t border-white/[0.05] bg-[var(--elv-bg-elevated)] px-3 py-3"
       >
         <input
           ref={inputRef}

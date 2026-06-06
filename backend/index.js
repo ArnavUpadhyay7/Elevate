@@ -11,6 +11,7 @@ const paymentRouter = require("./routes/payment.route");
 const messageRouter = require("./routes/message.route");
 const chatBotRouter = require("./routes/chatBot.route");
 const reviewRouter = require("./routes/review.route");
+const authRouter = require("./routes/auth.route");
 const path = require("path");
 
 const connectToDb = require("./config/db");
@@ -40,6 +41,7 @@ app.get('/health', (req, res) => {
   res.status(200).json({ message: 'Server is healthy' });
 });
 
+app.use("/auth", authRouter);
 app.use("/player", playerRouter);
 app.use("/coach", coachRouter);
 app.use("/payment", paymentRouter);

@@ -9,11 +9,10 @@ import { axiosInstance } from "../lib/axios";
 
 const CoachChatContainer = () => {
   const { selectedUser } = useChatStore();
-  const [roomMessages, setRoomMessages] = useState({});
   const [messages, setMessages] = useState([]);
   const coach = coachStore((state) => state.coach);
 
-  const socket = createSocketConnection(); // ✅ singleton socket
+  const socketRef = useRef(null);
   const bottomRef = useRef(null);
 
   // Auto scroll
@@ -26,8 +25,8 @@ const CoachChatContainer = () => {
   // SOCKET LOGIC
   useEffect(() => {
     if (!coach || !selectedUser) return;
-
-    const roomId = [coach._id, selectedUser._id].sort().join("_");
+    const socket = socketRef.current ?? createSocketConnection();
+    socketRef.current = socket;
 
     const handleJoin = () => {
       socket.emit("joinChat", {
@@ -37,31 +36,19 @@ const CoachChatContainer = () => {
     };
 
     const handleMessage = ({ text, senderId, createdAt }) => {
-      setRoomMessages((prev) => {
-        const updatedMessages = {
-          ...prev,
-          [roomId]: [
-            ...(prev[roomId] || []),
-            { text, senderId, createdAt },
-          ],
-        };
+      setMessages((prevMessages) => {
+        const newMessage = { text, senderId, createdAt };
 
-        setMessages((prevMessages) => {
-          const newMessage = { text, senderId, createdAt };
-
-          if (
-            !prevMessages.some(
-              (msg) =>
-                msg.createdAt === createdAt &&
-                msg.senderId === senderId
-            )
-          ) {
-            return [...prevMessages, newMessage];
-          }
-          return prevMessages;
-        });
-
-        return updatedMessages;
+        if (
+          !prevMessages.some(
+            (msg) =>
+              msg.createdAt === createdAt &&
+              msg.senderId === senderId
+          )
+        ) {
+          return [...prevMessages, newMessage];
+        }
+        return prevMessages;
       });
     };
 
@@ -75,7 +62,7 @@ const CoachChatContainer = () => {
       socket.off("connect", handleJoin);
       socket.off("messageReceived", handleMessage);
     };
-  }, [coach, selectedUser, socket]);
+  }, [coach, selectedUser]);
 
   // FETCH OLD MESSAGES
   useEffect(() => {

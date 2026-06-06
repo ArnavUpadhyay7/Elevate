@@ -1,5 +1,5 @@
 const NoChatSelected = () => (
-  <div className="flex-1 flex flex-col items-center justify-center bg-[#07090D] relative overflow-hidden select-none">
+  <div className="flex-1 flex flex-col items-center justify-center bg-[var(--elv-bg)] relative overflow-hidden select-none">
 
     {/* Ambient red glow */}
     <div className="elv-ellipse-glow pointer-events-none absolute inset-0" />
