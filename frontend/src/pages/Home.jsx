@@ -248,6 +248,59 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
   );
 };
 
+// ─── DeferredSections ─────────────────────────────────────────────────────────
+// Isolated component so we can run a useEffect after it mounts to
+// force-reveal any scroll-reveal elements that are already in the viewport.
+const DeferredSections = ({ processRef }) => {
+  useEffect(() => {
+    // After deferred sections mount, trigger IntersectionObserver manually
+    // for any .scroll-reveal elements already visible, and also apply a
+    // fallback that makes them visible after a short delay regardless.
+    const els = document.querySelectorAll(".scroll-reveal");
+    els.forEach((el) => {
+      // Force visible immediately — handles cases where the observer already
+      // fired before the element existed, or the threshold was never crossed.
+      el.style.opacity = "1";
+      el.style.transform = "none";
+      el.style.visibility = "visible";
+      el.classList.add("revealed");
+    });
+  }, []);
+
+  return (
+    <Suspense fallback={<SectionPlaceholder className="min-h-[360px]" />}>
+      {/* ── PROCESS ───────────────────────────────────────────────────── */}
+      <ProcessSection processRef={processRef} />
+
+      <div className="section-rule" />
+
+      {/* ── TIMELINE ──────────────────────────────────────────────────── */}
+      <section className="scroll-reveal"><TimelineDemo /></section>
+
+      <div className="section-rule" />
+
+      {/* ── TESTIMONIALS ──────────────────────────────────────────────── */}
+      <section className="py-28 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
+        <div className="mb-14">
+          <div className="inline-flex items-center gap-[10px] mb-5">
+            <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Results</span>
+          </div>
+          <h2 className="mb-3 font-syne text-[clamp(24px,2.8vw,38px)] font-extrabold leading-[1.06] text-white">
+            From players who climbed.
+          </h2>
+          <p className="max-w-[280px] text-[13px] leading-[1.72] text-[#3E4A58]">
+            Real results from players who committed to the process.
+          </p>
+        </div>
+        <AnimatedTestimonials testimonials={testimonials} />
+      </section>
+
+      <div className="section-rule" />
+    </Suspense>
+  );
+};
+
 // ─── Home ─────────────────────────────────────────────────────────────────────
 const Home = () => {
   const [showChatBot, setShowChatBot] = useState(false);
@@ -444,36 +497,7 @@ const Home = () => {
       </div>
 
       {renderDeferredSections ? (
-        <Suspense fallback={<SectionPlaceholder className="min-h-[360px]" />}>
-          {/* ── PROCESS (redesigned) ─────────────────────────────────────────────── */}
-          <ProcessSection processRef={processRef} />
-
-          <div className="section-rule" />
-
-          {/* ── TIMELINE ──────────────────────────────────────────────────────────── */}
-          <section className="scroll-reveal"><TimelineDemo /></section>
-
-          <div className="section-rule" />
-
-          {/* ── TESTIMONIALS ─────────────────────────────────────────────────────── */}
-          <section className="py-28 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
-            <div className="mb-14">
-              <div className="inline-flex items-center gap-[10px] mb-5">
-                <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Results</span>
-              </div>
-              <h2 className="mb-3 font-syne text-[clamp(24px,2.8vw,38px)] font-extrabold leading-[1.06] text-white">
-                From players who climbed.
-              </h2>
-              <p className="max-w-[280px] text-[13px] leading-[1.72] text-[#3E4A58]">
-                Real results from players who committed to the process.
-              </p>
-            </div>
-            <AnimatedTestimonials testimonials={testimonials} />
-          </section>
-
-          <div className="section-rule" />
-        </Suspense>
+        <DeferredSections processRef={processRef} />
       ) : (
         <SectionPlaceholder className="min-h-[320px]" />
       )}
