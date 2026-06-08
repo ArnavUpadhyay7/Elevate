@@ -150,121 +150,143 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
         animate={hovered && !isMobile ? { y: -24, scale: 1.03 } : { y: 0, scale: 1 }}
         transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
-      <div
-        className="relative w-full h-full overflow-hidden"
-        style={{
-          borderRadius: 22,
-          background: coach.bgGradient,
-          boxShadow: isFeatured
-            ? "0 48px 120px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.11)"
-            : "0 24px 70px rgba(0,0,0,0.80), 0 0 0 1px rgba(255,255,255,0.06)",
-        }}
-      >
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          className="relative w-full h-full overflow-hidden"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")`,
-            backgroundSize: "300px",
-          }}
-        />
-        <svg className="pointer-events-none absolute inset-0 w-full h-full opacity-[0.08]" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <radialGradient id={`rg-${coach.id}`} cx="50%" cy="40%" r="60%">
-              <stop offset="0%" stopColor="white" stopOpacity="0.6"/>
-              <stop offset="100%" stopColor="white" stopOpacity="0"/>
-            </radialGradient>
-          </defs>
-          {[1,2,3,4,5].map(n => (
-            <ellipse key={n} cx="50%" cy="40%" rx={`${30 + n*12}%`} ry={`${20 + n*8}%`}
-              fill="none" stroke="white" strokeWidth="1" opacity={0.7 - n*0.12}/>
-          ))}
-        </svg>
-        <img
-          src={coach.src}
-          alt={coach.name}
-          className="absolute inset-0 w-full h-full object-cover object-top"
-          style={{ opacity: 0.80 }}
-          draggable={false}
-        />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, transparent 25%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.82) 100%)",
-          }}
-        />
-        <div className="absolute left-[18px] top-[18px] z-10">
-          <div className="mb-[4px] text-[8px] font-bold uppercase tracking-[0.28em] leading-none" style={{ color: "rgba(255,255,255,0.45)" }}>
-            {coach.label}
-          </div>
-          <div
-            className="font-syne font-black uppercase leading-[0.88] text-white"
-            style={{
-              fontSize: isFeatured ? (isMobile ? "26px" : "32px") : "24px",
-              textShadow: "0 2px 18px rgba(0,0,0,0.65)",
-              letterSpacing: "0.025em",
-            }}
-          >
-            {coach.name}
-          </div>
-        </div>
-        <div
-          className="absolute right-[14px] top-[14px] z-10 flex items-center gap-[5px] rounded-full px-[10px] py-[5px]"
-          style={{
-            background: "rgba(160,30,46,0.22)",
-            backdropFilter: "blur(10px)",
-            WebkitBackdropFilter: "blur(10px)",
-            border: "1px solid rgba(160,30,46,0.45)",
+            borderRadius: 22,
+            background: coach.bgGradient,
+            boxShadow: isFeatured
+              ? "0 48px 120px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.11)"
+              : "0 24px 70px rgba(0,0,0,0.80), 0 0 0 1px rgba(255,255,255,0.06)",
           }}
         >
-          <span className="block h-[5px] w-[5px] rounded-full bg-[#FF4060] shrink-0" />
-          <span className="font-syne text-[9.5px] font-bold text-[#FF6B7A] uppercase tracking-[0.12em]">Radiant</span>
-        </div>
-        <div className="absolute bottom-0 inset-x-0 z-10 px-[14px] pb-[14px]">
           <div
-            className="flex items-center justify-between rounded-[10px] px-3 py-2.5"
+            className="pointer-events-none absolute inset-0 opacity-[0.07]"
             style={{
-              background: "rgba(0,0,0,0.48)",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-              border: "1px solid rgba(255,255,255,0.06)",
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")`,
+              backgroundSize: "300px",
             }}
-          >
-            <div>
-              <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#FF6B7A]">{coach.sessions} sessions</div>
-              <div className="text-[10px] font-medium text-white/40 mt-[2px]">{coach.label}</div>
+          />
+          <svg className="pointer-events-none absolute inset-0 w-full h-full opacity-[0.08]" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <radialGradient id={`rg-${coach.id}`} cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stopColor="white" stopOpacity="0.6"/>
+                <stop offset="100%" stopColor="white" stopOpacity="0"/>
+              </radialGradient>
+            </defs>
+            {[1,2,3,4,5].map(n => (
+              <ellipse key={n} cx="50%" cy="40%" rx={`${30 + n*12}%`} ry={`${20 + n*8}%`}
+                fill="none" stroke="white" strokeWidth="1" opacity={0.7 - n*0.12}/>
+            ))}
+          </svg>
+          <img
+            src={coach.src}
+            alt={coach.name}
+            className="absolute inset-0 w-full h-full object-cover object-top"
+            style={{ opacity: 0.80 }}
+            draggable={false}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, transparent 25%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.82) 100%)",
+            }}
+          />
+          <div className="absolute left-[18px] top-[18px] z-10">
+            <div className="mb-[4px] text-[8px] font-bold uppercase tracking-[0.28em] leading-none" style={{ color: "rgba(255,255,255,0.45)" }}>
+              {coach.label}
             </div>
-            <div className="flex items-center gap-1">
-              <span className="text-[#FF4060] text-[11px]">★</span>
-              <span className="font-syne text-[13px] font-bold text-white">{coach.rating}</span>
+            <div
+              className="font-syne font-black uppercase leading-[0.88] text-white"
+              style={{
+                fontSize: isFeatured ? (isMobile ? "26px" : "32px") : "24px",
+                textShadow: "0 2px 18px rgba(0,0,0,0.65)",
+                letterSpacing: "0.025em",
+              }}
+            >
+              {coach.name}
             </div>
           </div>
+          <div
+            className="absolute right-[14px] top-[14px] z-10 flex items-center gap-[5px] rounded-full px-[10px] py-[5px]"
+            style={{
+              background: "rgba(160,30,46,0.22)",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              border: "1px solid rgba(160,30,46,0.45)",
+            }}
+          >
+            <span className="block h-[5px] w-[5px] rounded-full bg-[#FF4060] shrink-0" />
+            <span className="font-syne text-[9.5px] font-bold text-[#FF6B7A] uppercase tracking-[0.12em]">Radiant</span>
+          </div>
+          <div className="absolute bottom-0 inset-x-0 z-10 px-[14px] pb-[14px]">
+            <div
+              className="flex items-center justify-between rounded-[10px] px-3 py-2.5"
+              style={{
+                background: "rgba(0,0,0,0.48)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                border: "1px solid rgba(255,255,255,0.06)",
+              }}
+            >
+              <div>
+                <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#FF6B7A]">{coach.sessions} sessions</div>
+                <div className="text-[10px] font-medium text-white/40 mt-[2px]">{coach.label}</div>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="text-[#FF4060] text-[11px]">★</span>
+                <span className="font-syne text-[13px] font-bold text-white">{coach.rating}</span>
+              </div>
+            </div>
+          </div>
+          {isFeatured && (
+            <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 45%)" }} />
+          )}
         </div>
-        {isFeatured && (
-          <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 45%)" }} />
-        )}
-      </div>
       </motion.div>
     </motion.div>
   );
 };
 
+// ─── Reusable reveal hook that can be called on demand ────────────────────────
+const attachScrollObserver = () => {
+  const els = document.querySelectorAll(".scroll-reveal:not(.observed)");
+  if (!els.length) return;
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("visible");
+          obs.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.08, rootMargin: "0px 0px -24px 0px" }
+  );
+  els.forEach((el) => {
+    el.classList.add("observed");
+    obs.observe(el);
+  });
+};
+
 // ─── DeferredSections ─────────────────────────────────────────────────────────
-// Isolated component so we can run a useEffect after it mounts to
-// force-reveal any scroll-reveal elements that are already in the viewport.
 const DeferredSections = ({ processRef }) => {
   useEffect(() => {
-    // After deferred sections mount, trigger IntersectionObserver manually
-    // for any .scroll-reveal elements already visible, and also apply a
-    // fallback that makes them visible after a short delay regardless.
+    // Force-reveal any already-visible scroll-reveal elements, then
+    // attach a fresh observer for those still below the fold.
     const els = document.querySelectorAll(".scroll-reveal");
     els.forEach((el) => {
-      // Force visible immediately — handles cases where the observer already
-      // fired before the element existed, or the threshold was never crossed.
-      el.style.opacity = "1";
-      el.style.transform = "none";
-      el.style.visibility = "visible";
-      el.classList.add("revealed");
+      const rect = el.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (inView) {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+        el.style.visibility = "visible";
+        el.classList.add("visible", "observed");
+      }
     });
+    // Re-attach observer for below-fold elements
+    attachScrollObserver();
   }, []);
 
   return (
@@ -297,6 +319,40 @@ const DeferredSections = ({ processRef }) => {
       </section>
 
       <div className="section-rule" />
+
+      {/* ── CTA / FOOTER ── moved inside DeferredSections so the observer
+           mounts alongside the content and picks it up correctly ───────── */}
+      <section className="py-24 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+          <div>
+            <div className="inline-flex items-center gap-[10px] mb-5">
+              <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Get started</span>
+            </div>
+            <h2 className="mb-3 max-w-[320px] font-syne text-[clamp(24px,2.8vw,42px)] font-extrabold leading-[1.06] text-white">
+              Stop guessing.<br />Start improving.
+            </h2>
+            <p className="max-w-[280px] text-[13px] leading-[1.72] text-[#3E4A58]">
+              First session backed by a 100% satisfaction guarantee.
+            </p>
+          </div>
+          <div className="flex items-center gap-[10px] flex-shrink-0">
+            <Link to="/coaches" className="btn-primary cursor-pointer rounded-[6px] bg-[#A01E2E] px-[22px] py-[9px] text-[12.5px] font-semibold text-white">
+              Browse Coaches
+            </Link>
+            <Link to="/" className="btn-ghost cursor-pointer rounded-[6px] border border-white/[0.07] bg-white/[0.016] px-[22px] py-[9px] text-[12.5px] font-medium text-[#485160] hover:border-white/[0.13]">
+              Learn more
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-16 pt-6 border-t border-white/[0.05] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <span className="font-syne text-[12px] font-black tracking-[0.14em] text-white">ELEVATE</span>
+          <span className="text-[11px] tracking-wide text-[#1E2830]">
+            © {new Date().getFullYear()} Elevate · Not affiliated with Riot Games
+          </span>
+        </div>
+      </section>
     </Suspense>
   );
 };
@@ -501,39 +557,6 @@ const Home = () => {
       ) : (
         <SectionPlaceholder className="min-h-[320px]" />
       )}
-
-      {/* ── CTA / FOOTER ─────────────────────────────────────────────────────── */}
-      <section className="py-24 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
-          <div>
-            <div className="inline-flex items-center gap-[10px] mb-5">
-              <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Get started</span>
-            </div>
-            <h2 className="mb-3 max-w-[320px] font-syne text-[clamp(24px,2.8vw,42px)] font-extrabold leading-[1.06] text-white">
-              Stop guessing.<br />Start improving.
-            </h2>
-            <p className="max-w-[280px] text-[13px] leading-[1.72] text-[#3E4A58]">
-              First session backed by a 100% satisfaction guarantee.
-            </p>
-          </div>
-          <div className="flex items-center gap-[10px] flex-shrink-0">
-            <Link to="/coaches" className="btn-primary cursor-pointer rounded-[6px] bg-[#A01E2E] px-[22px] py-[9px] text-[12.5px] font-semibold text-white">
-              Browse Coaches
-            </Link>
-            <Link to="/" className="btn-ghost cursor-pointer rounded-[6px] border border-white/[0.07] bg-white/[0.016] px-[22px] py-[9px] text-[12.5px] font-medium text-[#485160] hover:border-white/[0.13]">
-              Learn more
-            </Link>
-          </div>
-        </div>
-
-        <div className="mt-16 pt-6 border-t border-white/[0.05] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <span className="font-syne text-[12px] font-black tracking-[0.14em] text-white">ELEVATE</span>
-          <span className="text-[11px] tracking-wide text-[#1E2830]">
-            © {new Date().getFullYear()} Elevate · Not affiliated with Riot Games
-          </span>
-        </div>
-      </section>
     </div>
   );
 };
