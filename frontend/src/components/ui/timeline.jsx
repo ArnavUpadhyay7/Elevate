@@ -13,9 +13,9 @@ export const Timeline = ({ data }) => {
       <div className="max-w-[1240px] mx-auto py-16 px-5 sm:px-8 lg:px-12">
         <div className="w-6 h-px bg-[#A01E2E] mb-4" />
         <h2 className="font-['Syne',sans-serif] font-extrabold text-[clamp(28px,4.5vw,52px)] tracking-tight leading-[1.0] text-white mb-4">
-          Elevate your game.
+          How it works
         </h2>
-        <p className="text-[13.5px] text-white/40 max-w-sm leading-relaxed">
+        <p className="text-[15px] text-white/40 max-w-sm leading-relaxed">
           Follow these expert-crafted steps to take your gameplay to the next
           level. Unlock your true potential and dominate every match.
         </p>
