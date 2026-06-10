@@ -5,28 +5,21 @@ import { setLenis } from "./lenis";
 
 export default function SmoothScroll({ children }) {
   useEffect(() => {
-    if (import.meta.env.DEV) return;
-
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      autoRaf: true,
     });
 
     setLenis(lenis);
     window.__lenis = lenis;
 
-    lenis.on("scroll", () => {
-      window.dispatchEvent(new Event("scroll"));
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    const onScroll = () => window.dispatchEvent(new Event("scroll"));
+    lenis.on("scroll", onScroll);
 
     return () => {
+      lenis.off("scroll", onScroll);
       lenis.destroy();
       setLenis(null);
       window.__lenis = null;
