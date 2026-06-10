@@ -27,11 +27,13 @@
 
 html {
   background: var(--elv-bg);
+  overflow-x: clip;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
+  overflow-x: clip;
   background:
     radial-gradient(ellipse 70% 44% at 50% -18%, rgba(160, 30, 46, 0.12), transparent 64%),
     linear-gradient(180deg, #090b10 0%, var(--elv-bg) 34%, #06080b 100%);
@@ -209,8 +211,18 @@ button {
   -webkit-backdrop-filter: blur(10px);
 }
 
+/* Lenis: single scroll container — avoid duplicate scrollbars */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+html.lenis body {
+  overflow: hidden;
+}
+
 .elv-root {
-  filter: var(--elv-contrast);
+  position: relative;
+  z-index: 0;
   font-family:
     "DM Sans",
     system-ui,
@@ -331,13 +343,17 @@ button {
 
 /* ── Scroll-triggered sections ── */
 .scroll-reveal {
-  opacity: 0;
-  transform: translateY(12px);
+  opacity: 1;
+  transform: translateY(0);
   transition:
     opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.scroll-reveal.visible {
+.scroll-reveal.scroll-reveal--animate {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.scroll-reveal.scroll-reveal--animate.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -536,9 +552,9 @@ button {
 /* Very subtle background darkening driven by scroll */
 .elv-root::after {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
   background: rgba(0, 0, 0, var(--elv-bg-darken));
 }

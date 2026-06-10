@@ -261,7 +261,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="elv-root min-h-screen bg-[var(--elv-bg)] text-white">
+    <div className="elv-root relative z-[1] min-h-screen w-full min-w-0 max-w-full bg-[var(--elv-bg)] text-white">
 
       {/* Chat FAB */}
       <button
@@ -283,7 +283,7 @@ const Home = () => {
       {/* ── HERO ───────────────────────────────────────────────────────────── */}
       <section
         ref={heroRef}
-        className="relative flex min-h-screen w-full flex-col items-center"
+        className="relative flex min-h-screen w-full min-w-0 max-w-full flex-col items-center overflow-x-clip"
       >
         <div
           className="pointer-events-none absolute left-1/2 top-[12%] h-[500px] w-[700px] -translate-x-1/2 rounded-full"
@@ -302,7 +302,7 @@ const Home = () => {
 
         <motion.div
           style={{ opacity: heroOpacity, y: heroY }}
-          className="relative z-10 flex flex-col items-center px-6 pt-[10vh] text-center"
+          className="relative z-10 flex w-full min-w-0 flex-col items-center px-4 pt-[10vh] text-center sm:px-6"
         >
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -365,12 +365,11 @@ const Home = () => {
         {/* ── Card fan ─────────────────────────────────────────────────────── */}
         <motion.div
           style={{ y: cardsY }}
-          className="relative z-10 w-full mt-4 flex-1 flex items-end justify-center"
+          className="relative z-10 mt-4 flex w-full min-w-0 flex-1 items-end justify-center overflow-hidden"
         >
           <div
-            className="relative"
+            className="relative w-full max-w-full overflow-hidden"
             style={{
-              width: "100%",
               maxWidth: isMobile ? "100%" : "1400px",
               height: isMobile ? "460px" : "600px",
             }}
@@ -423,11 +422,11 @@ const Home = () => {
 
       <div className="section-rule" />
 
-      <section className="scroll-reveal"><TimelineDemo /></section>
+      <section className="scroll-reveal scroll-reveal--animate relative z-[1] min-w-0 max-w-full"><TimelineDemo /></section>
 
       <div className="section-rule" />
 
-      <section className="py-28 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
+      <section className="scroll-reveal scroll-reveal--animate relative z-[1] mx-auto min-w-0 max-w-[1120px] px-4 py-20 sm:px-6 md:px-8 lg:px-12 md:py-28">
         <div className="mb-14">
           <div className="inline-flex items-center gap-[10px] mb-5">
             <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
@@ -445,8 +444,8 @@ const Home = () => {
 
       <div className="section-rule" />
 
-      <section className="py-24 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+      <section className="scroll-reveal scroll-reveal--animate relative z-[1] mx-auto min-w-0 max-w-[1120px] px-4 py-20 sm:px-6 md:px-8 lg:px-12 md:py-24">
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div className="inline-flex items-center gap-[10px] mb-5">
               <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
@@ -459,7 +458,7 @@ const Home = () => {
               First session backed by a 100% satisfaction guarantee.
             </p>
           </div>
-          <div className="flex items-center gap-[10px] flex-shrink-0">
+          <div className="flex w-full flex-wrap items-center gap-[10px] sm:w-auto sm:flex-shrink-0">
             <Link to="/coaches" className="btn-primary cursor-pointer rounded-[6px] bg-[#A01E2E] px-[22px] py-[9px] text-[12.5px] font-semibold text-white">
               Browse Coaches
             </Link>

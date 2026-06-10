@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "lenis/dist/lenis.css";
 import Lenis from "lenis";
-import { setLenis } from "./lenis";
+import { setLenis, refreshLenis } from "./lenis";
 
 export default function SmoothScroll({ children }) {
   useEffect(() => {
@@ -18,11 +18,21 @@ export default function SmoothScroll({ children }) {
     const onScroll = () => window.dispatchEvent(new Event("scroll"));
     lenis.on("scroll", onScroll);
 
+    const onLayoutChange = () => refreshLenis();
+    window.addEventListener("load", onLayoutChange);
+    document.fonts?.ready?.then(onLayoutChange);
+
+    const resizeObs = new ResizeObserver(() => refreshLenis());
+    resizeObs.observe(document.body);
+
     return () => {
+      resizeObs.disconnect();
+      window.removeEventListener("load", onLayoutChange);
       lenis.off("scroll", onScroll);
       lenis.destroy();
       setLenis(null);
       window.__lenis = null;
+      document.body.style.overflow = "";
     };
   }, []);
 

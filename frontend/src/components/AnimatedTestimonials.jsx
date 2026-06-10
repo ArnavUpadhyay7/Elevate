@@ -32,10 +32,10 @@ export const AnimatedTestimonials = ({
   };
   return (
     (<div
-      className="max-w-xs md:max-w-3xl mx-auto antialiased font-sans px-4 md:px-8 lg:px-12 py-20">
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-20">
+      className="mx-auto w-full min-w-0 max-w-full px-0 antialiased font-sans md:max-w-3xl md:px-4">
+      <div className="relative grid min-w-0 grid-cols-1 gap-10 md:grid-cols-2 md:gap-16">
         <div>
-          <div className="relative h-80 w-full">
+          <div className="relative h-56 w-full min-w-0 sm:h-72 md:h-80">
             <AnimatePresence>
               {testimonials.map((testimonial, index) => (
                 <motion.div
@@ -97,13 +97,13 @@ export const AnimatedTestimonials = ({
               duration: 0.2,
               ease: "easeInOut",
             }}>
-            <h3 className="text-2xl font-bold">
+            <h3 className="font-teko text-2xl font-bold text-white">
               {testimonials[active].name}
             </h3>
-            <p className="text-sm">
+            <p className="text-sm text-white/50">
               {testimonials[active].designation}
             </p>
-            <motion.p className="text-lg mt-2 md:mt-8">
+            <motion.p className="mt-2 text-base leading-relaxed text-white/70 md:mt-6 md:text-lg">
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -131,13 +131,13 @@ export const AnimatedTestimonials = ({
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
               onClick={handlePrev}
-              className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button">
+              className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] group/button">
               <IconArrowLeft
                 className="h-5 w-5 dark:text-neutral-400 group-hover/button:rotate-12 transition-transform duration-300" />
             </button>
             <button
               onClick={handleNext}
-              className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button">
+              className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] group/button">
               <IconArrowRight
                 className="h-5 w-5 dark:text-neutral-400 group-hover/button:-rotate-12 transition-transform duration-300" />
             </button>

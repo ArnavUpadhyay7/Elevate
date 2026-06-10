@@ -138,12 +138,12 @@ export function SidebarDemo() {
   ].filter(Boolean);
 
   return (
-    <div className={cn("flex flex-col md:flex-row w-full min-h-screen bg-[var(--elv-bg)]")}>
+    <div className={cn("flex flex-col md:flex-row w-full min-h-screen min-w-0 max-w-full bg-[var(--elv-bg)]")}>
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10 fixed z-50 bg-[var(--elv-bg)] border-r border-white/[0.04]">
 
           {/* ── TOP: logo + nav links ── */}
-          <div className="flex flex-col overflow-x-hidden">
+          <div className="flex flex-col min-w-0">
 
             {/* Logo */}
             {open ? (
@@ -218,7 +218,7 @@ const UserCard = ({ open, name, role, pic, isCoach }) => (
 
     {/* Name + role — only visible when expanded */}
     {open && (
-      <div className="min-w-0 flex-1 overflow-hidden">
+      <div className="min-w-0 flex-1">
         <p className="text-[12px] font-semibold text-white/80 truncate leading-tight">
           {name}
         </p>
@@ -262,7 +262,7 @@ export const LogoIcon = () => (
 );
 
 const Dashboard = () => (
-  <div className="w-full">
+  <div className="w-full min-w-0 max-w-full flex-1 md:pl-[60px]">
     <Routes>
       <Route path="/"                element={<Home />} />
       <Route path="/coaches"         element={<PageWrapper><Coaches /></PageWrapper>} />

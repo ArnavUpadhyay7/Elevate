@@ -19,7 +19,7 @@ function App() {
 
   return (
     <SmoothScroll>
-      <div className="min-h-screen w-full">
+      <div className="min-h-screen w-full min-w-0 max-w-full">
         <Toaster position="top-center" />
         <SidebarDemo />
       </div>

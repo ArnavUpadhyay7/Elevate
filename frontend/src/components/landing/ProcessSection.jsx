@@ -1,5 +1,4 @@
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -67,18 +66,13 @@ const StatusBadge = ({ step }) => (
 
 // ─── Hero Card ────────────────────────────────────────────────────────────────
 
-const HeroCard = ({ step }) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-
-  return (
+const HeroCard = ({ step }) => (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative w-full overflow-hidden rounded-2xl cursor-default"
-      style={{ minHeight: 480, border: "1px solid rgba(255,255,255,0.08)" }}
+      className="group relative w-full min-w-0 overflow-hidden rounded-2xl cursor-default"
+      style={{ minHeight: "min(480px, 70vh)", border: "1px solid rgba(255,255,255,0.08)" }}
     >
       {/* Border turns red on hover via a positioned overlay */}
       <div
@@ -97,7 +91,7 @@ const HeroCard = ({ step }) => {
       <div className="absolute inset-0 bg-gradient-to-r from-[#080C10]/50 via-transparent to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col justify-between p-10 lg:p-14" style={{ minHeight: 480 }}>
+      <div className="relative z-10 flex flex-col justify-between p-6 sm:p-8 lg:p-14" style={{ minHeight: "min(480px, 70vh)" }}>
         {/* Top row */}
         <div className="flex items-center justify-between">
           <span className="font-syne text-[10px] font-black tracking-[0.26em] uppercase text-[#A01E2E]/90">
@@ -127,25 +121,19 @@ const HeroCard = ({ step }) => {
         </div>
       </div>
     </motion.div>
-  );
-};
+);
 
 // ─── Small Card ───────────────────────────────────────────────────────────────
 // All 3 start equally dim. The hovered one gets full brightness + red border.
 // Siblings stay dim because they're not hovered.
 
-const SmallCard = ({ step, index }) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-30px" });
-
-  return (
+const SmallCard = ({ step, index }) => (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 22 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay: index * 0.09, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative overflow-hidden rounded-2xl cursor-default"
-      style={{ minHeight: 380, border: "1px solid rgba(255,255,255,0.08)" }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.65, delay: 0.12 + index * 0.09, ease: [0.16, 1, 0.3, 1] }}
+      className="group relative min-w-0 overflow-hidden rounded-2xl cursor-default"
+      style={{ minHeight: "min(380px, 55vh)", border: "1px solid rgba(255,255,255,0.08)" }}
     >
       {/* Border turns red on hover */}
       <div
@@ -165,7 +153,7 @@ const SmallCard = ({ step, index }) => {
       <div className="absolute inset-0 bg-gradient-to-t from-[#080C10] via-[#080C10]/50 to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col justify-between p-8" style={{ minHeight: 380 }}>
+      <div className="relative z-10 flex flex-col justify-between p-6 sm:p-8" style={{ minHeight: "min(380px, 55vh)" }}>
         {/* Top */}
         <div className="flex items-center justify-between">
           <span className="font-syne text-[10px] font-black tracking-[0.22em] uppercase text-[#A01E2E]/80">
@@ -196,30 +184,25 @@ const SmallCard = ({ step, index }) => {
         </div>
       </div>
     </motion.div>
-  );
-};
+);
 
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export const ProcessSection = ({ processRef }) => {
-  const headerRef = useRef(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-30px" });
-
   const [heroStep, ...bottomSteps] = STEPS;
 
   return (
     <section
       ref={processRef}
-      className="relative py-24 lg:py-32 px-6 lg:px-12"
+      className="relative z-[1] min-w-0 max-w-full px-4 py-20 sm:px-6 md:px-8 lg:px-12 lg:py-32"
       style={{ background: "var(--elv-bg)" }}
     >
-      <div className="max-w-[1100px] mx-auto">
+      <div className="mx-auto min-w-0 max-w-[1100px]">
 
         {/* Header */}
         <motion.div
-          ref={headerRef}
           initial={{ opacity: 0, y: 16 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-10"
         >

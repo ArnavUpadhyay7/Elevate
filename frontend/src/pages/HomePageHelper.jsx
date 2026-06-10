@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
+import { refreshLenis } from "../components/lenis";
 
 // ─── Scroll reveal ────────────────────────────────────────────────────────────
 export const useScrollReveal = () => {
   useEffect(() => {
+    const getEls = () => document.querySelectorAll(".scroll-reveal--animate");
+
     const revealIfVisible = (el) => {
       if (el.classList.contains("visible")) return;
       const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
-        el.classList.add("visible", "observed");
+      if (rect.top < window.innerHeight * 0.98 && rect.bottom > 0) {
+        el.classList.add("visible");
       }
+    };
+
+    const checkVisible = () => {
+      getEls().forEach(revealIfVisible);
     };
 
     const obs = new IntersectionObserver(
@@ -20,12 +27,11 @@ export const useScrollReveal = () => {
           }
         });
       },
-      { threshold: 0.06, rootMargin: "0px 0px -16px 0px" }
+      { threshold: 0.01, rootMargin: "0px 0px 8% 0px" }
     );
 
-    const attachAll = () => {
-      document.querySelectorAll(".scroll-reveal:not(.observed)").forEach((el) => {
-        el.classList.add("observed");
+    const observeAll = () => {
+      getEls().forEach((el) => {
         revealIfVisible(el);
         if (!el.classList.contains("visible")) {
           obs.observe(el);
@@ -33,17 +39,35 @@ export const useScrollReveal = () => {
       });
     };
 
-    attachAll();
+    observeAll();
 
-    const mutationObs = new MutationObserver(attachAll);
-    mutationObs.observe(document.body, { childList: true, subtree: true });
+    let scrollRaf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(scrollRaf);
+      scrollRaf = requestAnimationFrame(checkVisible);
+    };
 
-    window.addEventListener("scroll", attachAll, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+
+    const onLayoutChange = () => {
+      refreshLenis();
+      requestAnimationFrame(observeAll);
+    };
+    window.addEventListener("load", onLayoutChange);
+    document.fonts?.ready?.then(onLayoutChange);
+
+    const fallbackTimer = setTimeout(() => {
+      getEls().forEach((el) => el.classList.add("visible"));
+    }, 1500);
 
     return () => {
+      clearTimeout(fallbackTimer);
+      cancelAnimationFrame(scrollRaf);
       obs.disconnect();
-      mutationObs.disconnect();
-      window.removeEventListener("scroll", attachAll);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("load", onLayoutChange);
     };
   }, []);
 };
