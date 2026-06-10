@@ -3,7 +3,14 @@ import { useEffect, useState } from "react";
 // ─── Scroll reveal ────────────────────────────────────────────────────────────
 export const useScrollReveal = () => {
   useEffect(() => {
-    const els = document.querySelectorAll(".scroll-reveal");
+    const revealIfVisible = (el) => {
+      if (el.classList.contains("visible")) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
+        el.classList.add("visible", "observed");
+      }
+    };
+
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -13,10 +20,31 @@ export const useScrollReveal = () => {
           }
         });
       },
-      { threshold: 0.10, rootMargin: "0px 0px -32px 0px" }
+      { threshold: 0.06, rootMargin: "0px 0px -16px 0px" }
     );
-    els.forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
+
+    const attachAll = () => {
+      document.querySelectorAll(".scroll-reveal:not(.observed)").forEach((el) => {
+        el.classList.add("observed");
+        revealIfVisible(el);
+        if (!el.classList.contains("visible")) {
+          obs.observe(el);
+        }
+      });
+    };
+
+    attachAll();
+
+    const mutationObs = new MutationObserver(attachAll);
+    mutationObs.observe(document.body, { childList: true, subtree: true });
+
+    window.addEventListener("scroll", attachAll, { passive: true });
+
+    return () => {
+      obs.disconnect();
+      mutationObs.disconnect();
+      window.removeEventListener("scroll", attachAll);
+    };
   }, []);
 };
 

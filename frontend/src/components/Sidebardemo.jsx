@@ -14,8 +14,8 @@ import { cn } from "../lib/utils";
 import { Routes, Route } from "react-router-dom";
 import { coachStore, playerStore } from "../store/authStore";
 import Loader from "./Loader";
+import Home from "../pages/Home";
 
-const Home         = lazy(() => import("../pages/Home"));
 const Profile      = lazy(() => import("../pages/Profile"));
 const Coaches      = lazy(() => import("../pages/Coaches"));
 const Login        = lazy(() => import("../pages/Login"));
@@ -264,7 +264,7 @@ export const LogoIcon = () => (
 const Dashboard = () => (
   <div className="w-full">
     <Routes>
-      <Route path="/"                element={<PageWrapper><Home /></PageWrapper>} />
+      <Route path="/"                element={<Home />} />
       <Route path="/coaches"         element={<PageWrapper><Coaches /></PageWrapper>} />
       <Route path="/profile"         element={<PageWrapper><AuthRoute allow="player"><Profile /></AuthRoute></PageWrapper>} />
       <Route path="/coach-profile/:id" element={<PageWrapper><CoachProfile /></PageWrapper>} />

@@ -4,7 +4,7 @@ import { BASE_URL } from "../constants";
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
-  timeout: 5000,
+  timeout: import.meta.env.DEV ? 2500 : 5000,
 });
 
 if (import.meta.env.DEV) {

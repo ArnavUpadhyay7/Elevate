@@ -4,27 +4,11 @@ import { testimonials } from "../lib/testimonials";
 import { IconMessageCircle } from "@tabler/icons-react";
 import { useScrollReveal, useScrollEnvironment } from "./HomePageHelper";
 import { Link } from "react-router-dom";
+import { AnimatedTestimonials } from "../components/AnimatedTestimonials";
+import { TimelineDemo } from "../components/TimelineDemo";
+import { ProcessSection } from "../components/landing/ProcessSection";
 
 const ChatBot = lazy(() => import("./ChatBot"));
-const AnimatedTestimonials = lazy(() =>
-  import("../components/AnimatedTestimonials").then((module) => ({
-    default: module.AnimatedTestimonials,
-  }))
-);
-const TimelineDemo = lazy(() =>
-  import("../components/TimelineDemo").then((module) => ({
-    default: module.TimelineDemo,
-  }))
-);
-const ProcessSection = lazy(() =>
-  import("../components/landing/ProcessSection").then((module) => ({
-    default: module.ProcessSection,
-  }))
-);
-
-const SectionPlaceholder = ({ className = "" }) => (
-  <div className={`bg-[var(--elv-bg)] ${className}`} aria-hidden="true" />
-);
 
 // ─── Coaches ──────────────────────────────────────────────────────────────────
 const SHOWCASE_COACHES = [
@@ -248,121 +232,11 @@ const ShowcaseCard = ({ coach, index, isFeatured, isAnimating, isMobile }) => {
   );
 };
 
-// ─── Reusable reveal hook that can be called on demand ────────────────────────
-const attachScrollObserver = () => {
-  const els = document.querySelectorAll(".scroll-reveal:not(.observed)");
-  if (!els.length) return;
-  const obs = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add("visible");
-          obs.unobserve(e.target);
-        }
-      });
-    },
-    { threshold: 0.08, rootMargin: "0px 0px -24px 0px" }
-  );
-  els.forEach((el) => {
-    el.classList.add("observed");
-    obs.observe(el);
-  });
-};
-
-// ─── DeferredSections ─────────────────────────────────────────────────────────
-const DeferredSections = ({ processRef }) => {
-  useEffect(() => {
-    // Force-reveal any already-visible scroll-reveal elements, then
-    // attach a fresh observer for those still below the fold.
-    const els = document.querySelectorAll(".scroll-reveal");
-    els.forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight && rect.bottom > 0;
-      if (inView) {
-        el.style.opacity = "1";
-        el.style.transform = "none";
-        el.style.visibility = "visible";
-        el.classList.add("visible", "observed");
-      }
-    });
-    // Re-attach observer for below-fold elements
-    attachScrollObserver();
-  }, []);
-
-  return (
-    <Suspense fallback={<SectionPlaceholder className="min-h-[360px]" />}>
-      {/* ── PROCESS ───────────────────────────────────────────────────── */}
-      <ProcessSection processRef={processRef} />
-
-      <div className="section-rule" />
-
-      {/* ── TIMELINE ──────────────────────────────────────────────────── */}
-      <section className="scroll-reveal"><TimelineDemo /></section>
-
-      <div className="section-rule" />
-
-      {/* ── TESTIMONIALS ──────────────────────────────────────────────── */}
-      <section className="py-28 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
-        <div className="mb-14">
-          <div className="inline-flex items-center gap-[10px] mb-5">
-            <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Results</span>
-          </div>
-          <h2 className="mb-3 font-syne text-[clamp(24px,2.8vw,38px)] font-extrabold leading-[1.06] text-white">
-            From players who climbed.
-          </h2>
-          <p className="max-w-[280px] text-[13px] leading-[1.72] text-[#3E4A58]">
-            Real results from players who committed to the process.
-          </p>
-        </div>
-        <AnimatedTestimonials testimonials={testimonials} />
-      </section>
-
-      <div className="section-rule" />
-
-      {/* ── CTA / FOOTER ── moved inside DeferredSections so the observer
-           mounts alongside the content and picks it up correctly ───────── */}
-      <section className="py-24 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
-          <div>
-            <div className="inline-flex items-center gap-[10px] mb-5">
-              <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Get started</span>
-            </div>
-            <h2 className="mb-3 max-w-[320px] font-syne text-[clamp(24px,2.8vw,42px)] font-extrabold leading-[1.06] text-white">
-              Stop guessing.<br />Start improving.
-            </h2>
-            <p className="max-w-[280px] text-[13px] leading-[1.72] text-[#3E4A58]">
-              First session backed by a 100% satisfaction guarantee.
-            </p>
-          </div>
-          <div className="flex items-center gap-[10px] flex-shrink-0">
-            <Link to="/coaches" className="btn-primary cursor-pointer rounded-[6px] bg-[#A01E2E] px-[22px] py-[9px] text-[12.5px] font-semibold text-white">
-              Browse Coaches
-            </Link>
-            <Link to="/" className="btn-ghost cursor-pointer rounded-[6px] border border-white/[0.07] bg-white/[0.016] px-[22px] py-[9px] text-[12.5px] font-medium text-[#485160] hover:border-white/[0.13]">
-              Learn more
-            </Link>
-          </div>
-        </div>
-
-        <div className="mt-16 pt-6 border-t border-white/[0.05] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <span className="font-syne text-[12px] font-black tracking-[0.14em] text-white">ELEVATE</span>
-          <span className="text-[11px] tracking-wide text-[#1E2830]">
-            © {new Date().getFullYear()} Elevate · Not affiliated with Riot Games
-          </span>
-        </div>
-      </section>
-    </Suspense>
-  );
-};
-
 // ─── Home ─────────────────────────────────────────────────────────────────────
 const Home = () => {
   const [showChatBot, setShowChatBot] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  const [renderDeferredSections, setRenderDeferredSections] = useState(false);
   const processRef = useRef(null);
   const heroRef = useRef(null);
 
@@ -384,13 +258,6 @@ const Home = () => {
   useEffect(() => {
     const t = setTimeout(() => setIsAnimating(false), 120);
     return () => clearTimeout(t);
-  }, []);
-
-  useEffect(() => {
-    const schedule = window.requestIdleCallback ?? ((cb) => window.setTimeout(cb, 900));
-    const cancel = window.cancelIdleCallback ?? window.clearTimeout;
-    const id = schedule(() => setRenderDeferredSections(true), { timeout: 1600 });
-    return () => cancel(id);
   }, []);
 
   return (
@@ -552,11 +419,63 @@ const Home = () => {
         <div className="section-rule w-full max-w-[1120px] mx-auto mt-6" />
       </div>
 
-      {renderDeferredSections ? (
-        <DeferredSections processRef={processRef} />
-      ) : (
-        <SectionPlaceholder className="min-h-[320px]" />
-      )}
+      <ProcessSection processRef={processRef} />
+
+      <div className="section-rule" />
+
+      <section className="scroll-reveal"><TimelineDemo /></section>
+
+      <div className="section-rule" />
+
+      <section className="py-28 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
+        <div className="mb-14">
+          <div className="inline-flex items-center gap-[10px] mb-5">
+            <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Results</span>
+          </div>
+          <h2 className="mb-3 font-syne text-[clamp(24px,2.8vw,38px)] font-extrabold leading-[1.06] text-white">
+            From players who climbed.
+          </h2>
+          <p className="max-w-[280px] text-[13px] leading-[1.72] text-[#3E4A58]">
+            Real results from players who committed to the process.
+          </p>
+        </div>
+        <AnimatedTestimonials testimonials={testimonials} />
+      </section>
+
+      <div className="section-rule" />
+
+      <section className="py-24 px-8 lg:px-12 max-w-[1120px] mx-auto scroll-reveal">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
+          <div>
+            <div className="inline-flex items-center gap-[10px] mb-5">
+              <span className="w-[5px] h-[1px] bg-[#A01E2E]" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A01E2E]">Get started</span>
+            </div>
+            <h2 className="mb-3 max-w-[320px] font-syne text-[clamp(24px,2.8vw,42px)] font-extrabold leading-[1.06] text-white">
+              Stop guessing.<br />Start improving.
+            </h2>
+            <p className="max-w-[280px] text-[13px] leading-[1.72] text-[#3E4A58]">
+              First session backed by a 100% satisfaction guarantee.
+            </p>
+          </div>
+          <div className="flex items-center gap-[10px] flex-shrink-0">
+            <Link to="/coaches" className="btn-primary cursor-pointer rounded-[6px] bg-[#A01E2E] px-[22px] py-[9px] text-[12.5px] font-semibold text-white">
+              Browse Coaches
+            </Link>
+            <Link to="/" className="btn-ghost cursor-pointer rounded-[6px] border border-white/[0.07] bg-white/[0.016] px-[22px] py-[9px] text-[12.5px] font-medium text-[#485160] hover:border-white/[0.13]">
+              Learn more
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-16 pt-6 border-t border-white/[0.05] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <span className="font-syne text-[12px] font-black tracking-[0.14em] text-white">ELEVATE</span>
+          <span className="text-[11px] tracking-wide text-[#1E2830]">
+            © {new Date().getFullYear()} Elevate · Not affiliated with Riot Games
+          </span>
+        </div>
+      </section>
     </div>
   );
 };

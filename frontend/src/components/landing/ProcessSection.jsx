@@ -50,7 +50,7 @@ const Bracket = ({ flip }) => (
 
 const StepRow = ({ step, index, isLast }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const isInView = useInView(ref, { once: true, margin: "-20px" });
 
   const sc = statusColor[step.status];
 
@@ -142,7 +142,7 @@ const StepRow = ({ step, index, isLast }) => {
             style={{
               fontSize: "clamp(28px, 3.5vw, 44px)",
               letterSpacing: "-0.01em",
-              opacity: step.status === "PENDING" ? 0.4 : 1,
+              opacity: step.status === "PENDING" ? 0.65 : 1,
               transition: "opacity 0.3s",
             }}
           >
@@ -151,7 +151,7 @@ const StepRow = ({ step, index, isLast }) => {
           <p
             className="text-[13px] leading-[1.85]"
             style={{
-              color: step.status === "PENDING" ? "#253040" : "#3A5060",
+              color: step.status === "PENDING" ? "#4A5A6A" : "#3A5060",
               maxWidth: 400,
             }}
           >
@@ -207,7 +207,7 @@ const StepRow = ({ step, index, isLast }) => {
 
 export const ProcessSection = ({ processRef }) => {
   const headerRef = useRef(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-60px" });
+  const headerInView = useInView(headerRef, { once: true, margin: "-20px" });
 
   return (
     <section
