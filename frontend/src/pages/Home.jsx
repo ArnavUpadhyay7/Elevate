@@ -492,141 +492,115 @@ const Home = () => {
       <div className="section-rule" />
 
       {/* ── CTA + Footer ──────────────────────────────────────────────────── */}
-      <section className="scroll-reveal scroll-reveal--animate relative z-[1] w-full overflow-hidden">
-        {/* ── Top: headline + columns ───────────────────────────────────────── */}
-        <div className="w-full px-10 sm:px-14 lg:px-20 pt-16 pb-0">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-x-16 gap-y-12 items-start">
-            {/* Left: headline + button */}
-            <div className="flex flex-col gap-8">
-              <h2 className="font-syne font-extrabold text-[clamp(40px,6vw,80px)] leading-[0.92] tracking-[-0.02em] uppercase text-white">
-                Stop guessing.
-                <br />
-                Start climbing<span className="text-[#A01E2E]">.</span>
-              </h2>
-              <div>
-                <Link
-                  to="/coaches"
-                  className="inline-flex items-center gap-2.5 rounded-[7px] bg-[#A01E2E] px-6 py-[11px] text-[13px] font-semibold text-white transition-all duration-200 hover:brightness-110 hover:-translate-y-[1px]">
-                  Browse Coaches
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    aria-hidden="true">
-                    <path
-                      d="M2 6h8M7 3l3 3-3 3"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-
-            {/* Right: 4 info columns */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 lg:gap-10 pt-1">
-              <div className="flex flex-col gap-3">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#3E4A58]">
-                  Location
-                </span>
-                <p className="text-[12.5px] leading-[1.85] text-[#2A3540]">
-                  Valorant District
-                  <br />
-                  Diamond Server, NA
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#3E4A58]">
-                  Social
-                </span>
-                <ul className="flex flex-col gap-2">
-                  {[
-                    { label: "Instagram", dot: true },
-                    { label: "Twitter/X", dot: false },
-                    { label: "YouTube", dot: true },
-                    { label: "Discord", dot: false },
-                  ].map(({ label, dot }) => (
-                    <li key={label}>
-                      <a
-                        href="/"
-                        className="flex items-center gap-[7px] text-[12.5px] text-[#2A3540] hover:text-[#5A6A78] transition-colors duration-150">
-                        {dot && (
-                          <span className="block h-[4px] w-[4px] rounded-full bg-[#A01E2E] shrink-0" />
-                        )}
-                        {label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#3E4A58]">
-                  Contact
-                </span>
-                <div className="flex flex-col gap-2">
-                  <a
-                    href="mailto:hello@elevate.gg"
-                    className="text-[12.5px] text-[#2A3540] hover:text-[#5A6A78] transition-colors duration-150 leading-[1.6]">
-                    hello@elevate.gg
-                  </a>
-                  <a
-                    href="/"
-                    className="text-[12.5px] text-[#2A3540] hover:text-[#5A6A78] transition-colors duration-150">
-                    Support Center
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-3">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#3E4A58]">
-                  Helpful Links
-                </span>
-                <ul className="flex flex-col gap-2">
-                  {["Find a Coach", "How it Works", "Pricing", "About"].map(
-                    (link) => (
-                      <li key={link}>
-                        <Link
-                          to="/"
-                          className="text-[12.5px] text-[#2A3540] hover:text-[#5A6A78] transition-colors duration-150">
-                          {link}
-                        </Link>
-                      </li>
-                    ),
-                  )}
-                </ul>
-              </div>
-            </div>
+      <section className="scroll-reveal scroll-reveal--animate relative z-[1] w-full overflow-hidden bg-[#080C10] min-h-screen flex flex-col justify-between">
+        {/* ── Top: CTA headline ─────────────────────────────────────────────── */}
+        <div className="w-full px-6 sm:px-14 lg:px-20 pt-16 sm:pt-20 pb-0">
+          <h2 className="font-syne font-extrabold text-[clamp(36px,7vw,96px)] leading-[0.9] tracking-[-0.02em] uppercase text-white max-w-3xl">
+            Stop guessing.
+            <br />
+            Start climbing<span className="text-[#A01E2E]">.</span>
+          </h2>
+          <div className="mt-8 sm:mt-10">
+            <Link
+              to="/coaches"
+              className="inline-flex items-center gap-2.5 rounded-[7px] bg-[#A01E2E] px-6 py-[11px] text-[13px] font-semibold text-white transition-all duration-200 hover:brightness-110 hover:-translate-y-[1px]">
+              Browse Coaches
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                aria-hidden="true">
+                <path
+                  d="M2 6h8M7 3l3 3-3 3"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
           </div>
+        </div>
 
-          {/* ── Bottom strip ──────────────────────────────────────────────────── */}
-          <div className="border-t border-white/[0.04] mt-12 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-            <span className="text-[11px] text-[#1E2A34]">
-              © {new Date().getFullYear()} Elevate · Not affiliated with Riot
-              Games
-            </span>
-            <div className="flex items-center gap-5">
+        {/* ── Middle: footer columns ────────────────────────────────────────── */}
+        <div className="w-full px-6 sm:px-14 lg:px-20 pt-16 sm:pt-20 pb-8 sm:pb-10">
+          <div className="border-t border-white/[0.06] pt-8 sm:pt-10 grid grid-cols-2 sm:grid-cols-[1fr_auto_auto_auto] gap-x-8 sm:gap-x-16 gap-y-8 sm:gap-y-10 items-start">
+            {/* Brand blurb */}
+            <div className="col-span-2 sm:col-span-1 flex flex-col gap-3">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#A01E2E]" />
+                <span className="font-syne font-bold text-white text-sm tracking-widest uppercase">
+                  Elevate
+                </span>
+              </div>
+              <p className="text-[12px] text-white/30 leading-relaxed max-w-[200px]">
+                Elevate is the coaching platform
+                <br />
+                you've been searching for.
+              </p>
+            </div>
+
+            {/* Column: Useful */}
+            <div className="flex flex-col gap-3">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/20">
+                Useful
+              </span>
+              {["Coaches", "Pricing", "How It Works"].map((item) => (
+                <Link
+                  key={item}
+                  to="/"
+                  className="text-[12px] text-white/40 hover:text-white transition-colors duration-150">
+                  {item}
+                </Link>
+              ))}
+            </div>
+
+            {/* Column: Legal */}
+            <div className="flex flex-col gap-3">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/20">
+                Legal
+              </span>
               {["Privacy Policy", "Terms of Service", "Cookie Settings"].map(
                 (item) => (
                   <Link
                     key={item}
                     to="/"
-                    className="text-[11px] text-[#1E2A34] hover:text-[#3E4A58] transition-colors duration-150">
+                    className="text-[12px] text-white/40 hover:text-white transition-colors duration-150">
                     {item}
                   </Link>
                 ),
               )}
             </div>
+
+            {/* Column: Connect */}
+            <div className="flex flex-col gap-3">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/20">
+                Connect
+              </span>
+              {["Twitter", "Discord", "Instagram"].map((item) => (
+                <Link
+                  key={item}
+                  to="/"
+                  className="text-[12px] text-white/40 hover:text-white transition-colors duration-150">
+                  {item}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Copyright strip */}
+          <div className="mt-6 sm:mt-8">
+            <span className="text-[11px] text-white/[0.12]">
+              © {new Date().getFullYear()} Elevate · Not affiliated with Riot
+              Games
+            </span>
           </div>
         </div>
 
-        {/* ── Big brand text — subtle gray watermark ───────────────────────── */}
-        <div className="relative w-full select-none overflow-hidden -mt-[4px]">
-          <span className="block w-full text-center font-syne font-black uppercase leading-[0.85] tracking-[-0.01em] text-[clamp(60px,14.5vw,240px)] text-white/[0.04]">
+        {/* ── Big brand watermark — flush bottom ───────────────────────────── */}
+        <div className="relative w-full select-none overflow-hidden leading-none">
+          <span className="block w-full text-center font-syne font-black uppercase leading-[0.82] tracking-tight text-[13.5vw] text-white/[0.07]">
             ELEVATE
           </span>
         </div>
